@@ -7,5 +7,6 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "outDir": "../src",
+    "esModuleInterop": true,
   }
 }

@@ -19,10 +19,7 @@ Next, install the required developer dependencies:
 * `npm install -D webpack`
 * `npm install -D webpack-cli`
 * `npm install -D gl-matrix`
-
-At some point in the future you will also need:
-* `npm install -D peerjs`
-
+* `npm install peerjs`
 
 ## Building
 
