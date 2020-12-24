@@ -31,7 +31,11 @@ written to the `dist` folder.
 
 From the `dist` folder, use the Python HTTP server:
 
-`$ python -m http.server 8088`
+`python3 -m http.server 8088`
+
+or
+
+`python -m SimpleHttpServer 8088`
 
 Then you can browse to http://localhost:8088/
 
