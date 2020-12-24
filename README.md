@@ -10,12 +10,12 @@ from https://www.npmjs.com/get-npm.
 
 Next, install the required developer dependencies:
 
-`npm install peerjs`
-`npm install -D typescript`
-`npm install -D html-webpack-plugin`
-`npm install -D webpack`
-`npm install -D webpack-cli`
-`npm install -D gl-matrix`
+* `npm install peerjs`
+* `npm install -D typescript`
+* `npm install -D html-webpack-plugin`
+* `npm install -D webpack`
+* `npm install -D webpack-cli`
+* `npm install -D gl-matrix`
 
 ## Building
 
