@@ -1,4 +1,8 @@
-# chrysalis
+# Chrysalis
+
+## Clone
+
+`git clone https://github.com/mdeeds/chrysalis.git`
 
 ## Setup
 

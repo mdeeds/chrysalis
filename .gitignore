@@ -1,6 +1,7 @@
 src/*.js
 src/*.js.map
 node_modules/**
-dist/*.js
-dist/*.html
 dist/*.css
+dist/*.html
+dist/*.js
+dist/*.js.map
