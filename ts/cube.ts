@@ -2,54 +2,59 @@ import { Shape } from "./shape";
 
 export class Cube extends Shape {
 
-  constructor(gl: WebGLRenderingContext, url: string,
-    x: number, y: number, z: number) {
-    super(gl, url, x, y, z);
-    this.loadTexture(gl, url)
+  private static addXYZ(positions: number[], x: number, y: number, z: number) {
+    positions.push(x);
+    positions.push(y);
+    positions.push(z);
+  }
 
-    let positions = [];
-
+  static cubePositions(rx: number, ry: number, rz: number) {
+    const positions = [];
     // 0      1
     //   Top
     // 3      2       1      0      3
     //   Front  Right   Back   Left 
     // 5      4       7      8      5
 
-    this.addXYZ(positions, -1, 1, -1);  // 0
-    this.addXYZ(positions, 1, 1, -1);  // 1
-    this.addXYZ(positions, 1, 1, 1);  // 2
-    this.addXYZ(positions, -1, 1, -1);  // 0
-    this.addXYZ(positions, 1, 1, 1);  // 2
-    this.addXYZ(positions, -1, 1, 1);  // 3
+    Cube.addXYZ(positions, -rx, ry, -rz);  // 0
+    Cube.addXYZ(positions, rx, ry, -rz);  // 1
+    Cube.addXYZ(positions, rx, ry, rz);  // 2
+    Cube.addXYZ(positions, -rx, ry, -rz);  // 0
+    Cube.addXYZ(positions, rx, ry, rz);  // 2
+    Cube.addXYZ(positions, -rx, ry, rz);  // 3
 
-    this.addXYZ(positions, -1, 1, 1);  // 3
-    this.addXYZ(positions, 1, 1, 1);  // 2
-    this.addXYZ(positions, 1, -1, 1);  // 4
-    this.addXYZ(positions, -1, 1, 1);  // 3
-    this.addXYZ(positions, 1, -1, 1);  // 4
-    this.addXYZ(positions, -1, -1, 1);  // 5
+    Cube.addXYZ(positions, -rx, ry, rz);  // 3
+    Cube.addXYZ(positions, rx, ry, rz);  // 2
+    Cube.addXYZ(positions, rx, -ry, rz);  // 4
+    Cube.addXYZ(positions, -rx, ry, rz);  // 3
+    Cube.addXYZ(positions, rx, -ry, rz);  // 4
+    Cube.addXYZ(positions, -rx, -ry, rz);  // 5
 
-    this.addXYZ(positions, 1, 1, 1);  // 2
-    this.addXYZ(positions, 1, 1, -1);  // 1
-    this.addXYZ(positions, 1, -1, -1);  // 7
-    this.addXYZ(positions, 1, 1, 1);  // 2
-    this.addXYZ(positions, 1, -1, -1);  // 7
-    this.addXYZ(positions, 1, -1, 1);  // 4
+    Cube.addXYZ(positions, rx, ry, rz);  // 2
+    Cube.addXYZ(positions, rx, ry, -rz);  // 1
+    Cube.addXYZ(positions, rx, -ry, -rz);  // 7
+    Cube.addXYZ(positions, rx, ry, rz);  // 2
+    Cube.addXYZ(positions, rx, -ry, -rz);  // 7
+    Cube.addXYZ(positions, rx, -ry, rz);  // 4
 
-    this.addXYZ(positions, 1, 1, -1);  // 1
-    this.addXYZ(positions, -1, 1, -1);  // 0
-    this.addXYZ(positions, -1, -1, -1);  // 8
-    this.addXYZ(positions, 1, 1, -1);  // 1
-    this.addXYZ(positions, -1, -1, -1);  // 8
-    this.addXYZ(positions, 1, -1, -1);  // 7
+    Cube.addXYZ(positions, rx, ry, -rz);  // 1
+    Cube.addXYZ(positions, -rx, ry, -rz);  // 0
+    Cube.addXYZ(positions, -rx, -ry, -rz);  // 8
+    Cube.addXYZ(positions, rx, ry, -rz);  // 1
+    Cube.addXYZ(positions, -rx, -ry, -rz);  // 8
+    Cube.addXYZ(positions, rx, -ry, -rz);  // 7
 
-    this.addXYZ(positions, -1, 1, -1);  // 0
-    this.addXYZ(positions, -1, 1, 1);  // 3
-    this.addXYZ(positions, -1, -1, 1);  // 5
-    this.addXYZ(positions, -1, 1, -1);  // 0
-    this.addXYZ(positions, -1, -1, 1);  // 5
-    this.addXYZ(positions, -1, -1, -1);  // 8
+    Cube.addXYZ(positions, -rx, ry, -rz);  // 0
+    Cube.addXYZ(positions, -rx, ry, rz);  // 3
+    Cube.addXYZ(positions, -rx, -ry, rz);  // 5
+    Cube.addXYZ(positions, -rx, ry, -rz);  // 0
+    Cube.addXYZ(positions, -rx, -ry, rz);  // 5
+    Cube.addXYZ(positions, -rx, -ry, -rz);  // 8
 
+    return positions;
+  }
+
+  static textureCoordinates() {
     const textureCoordinates = [
       0.00, 0.00,  // 0
       0.25, 0.00,  // 1
@@ -87,7 +92,10 @@ export class Cube extends Shape {
       0.75, 1.00,
 
     ];
+    return textureCoordinates;
+  }
 
+  static vertexNormals() {
     const vertexNormals = [
       // Top
       0.0, 1.0, 0.0,
@@ -130,6 +138,18 @@ export class Cube extends Shape {
       -1.0, 0.0, 0.0,
     ];
 
+    return vertexNormals;
+  }
+
+  constructor(gl: WebGLRenderingContext, url: string,
+    x: number, y: number, z: number) {
+    super(gl, url, x, y, z);
+    this.loadTexture(gl, url)
+
+    const positions = Cube.cubePositions(1, 1, 1);
+    const textureCoordinates = Cube.textureCoordinates();
+    const vertexNormals = Cube.vertexNormals();
+
     this.vertexCount = positions.length / 3;
 
     this.positionBuffer = gl.createBuffer();
@@ -146,12 +166,6 @@ export class Cube extends Shape {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals),
       gl.STATIC_DRAW);
-  }
-
-  private addXYZ(positions: number[], x: number, y: number, z: number) {
-    positions.push(x);
-    positions.push(y);
-    positions.push(z);
   }
 
 }
