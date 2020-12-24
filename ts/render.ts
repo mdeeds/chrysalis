@@ -1,18 +1,14 @@
 import { ProgramInfo } from "./programInfo"
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
-import { BasicBot } from "./basicBot";
-import { Ocean } from "./ocean";
-import { Tile } from "./tile";
-import { Gem } from "./gem";
-import { Player } from "./player";
-import { Shape } from "./shape";
 import { World } from "./world";
+import { MasterControl } from "./masterControl";
 
 export class Render {
   private canvas: HTMLCanvasElement;
   private programInfo: ProgramInfo;
   private gl: WebGLRenderingContext;
   private world: World;
+  private masterControl: MasterControl;
   constructor() {
     this.canvas = document.createElement("canvas");
     this.canvas.id = "glCanvas";
@@ -49,6 +45,7 @@ export class Render {
 
     console.log(JSON.stringify(this.programInfo));
     this.world = new World("emptyWorld.json", this.gl);
+    this.masterControl = new MasterControl(this.world);
 
     this.renderLoop();
   }

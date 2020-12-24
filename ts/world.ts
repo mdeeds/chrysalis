@@ -2,24 +2,28 @@ import { BasicBot } from "./basicBot";
 import { Gem } from "./gem";
 import { Ocean } from "./ocean";
 import { Player } from "./player";
-import { Shape } from "./shape";
+import { State } from "./state";
 import { Thing } from "./thing";
 import { Tile } from "./tile";
 
 export class World {
   private gl: WebGLRenderingContext;
   private things: Thing[];
-  private playerX: number;
-  private playerZ: number;
+  private state: State;
 
   constructor(url: string, gl: WebGLRenderingContext) {
     this.gl = gl;
     this.things = [];
+    this.state = new State();
     this.load(url);
   }
 
   getPlayerCoords() {
-    return [this.playerX, 0, this.playerZ];
+    if (this.state) {
+      return [this.state.you.x, 0, this.state.you.z];
+    } else {
+      return [20, 0, 12];
+    }
   }
 
   getThings() {
@@ -43,8 +47,17 @@ export class World {
     xhr.send();
   }
 
+  getState() {
+    return this.state;
+  }
+
+  applyDelta(delta: State) {
+    this.state.apply(delta);
+  }
+
   buildFromString(data: string) {
-    const dict = JSON.parse(data);
+    const dict = JSON.parse(data) as State;
+    this.state.apply(dict);
     console.log("Loaded size: " + data.length);
     const map: any = dict.map;
     const height = map.length;
@@ -72,9 +85,7 @@ export class World {
       }
     }
     this.things.push(new BasicBot(this.gl, 2, 0));
-    this.things.push(new Player(this.gl, 20, 12));
-    this.playerX = 20;
-    this.playerZ = 12;
+    this.things.push(new Player(this.gl, this.state.you.x, this.state.you.z));
     this.things.push(new Gem(this.gl, -2, -2));
   }
 }
