@@ -14,7 +14,7 @@ export class Player extends Shape {
   static addCylinderData(
     positions: number[], textureCoords: number[], normals: number[],
     r: number) {
-    const numPoints = 4;
+    const numPoints = 16;
     const dt = (Math.PI * 2 / numPoints);
     const ds = 0.75 / numPoints;
     for (let i: number = 0; i < numPoints; ++i) {
@@ -85,7 +85,7 @@ export class Player extends Shape {
   constructor(gl: WebGLRenderingContext, x: number, z: number) {
     super(gl, "Head-1.png", x, 1.5, z);
 
-    const positions = Cube.cubePositions(0.6, 0.6, 0.6);
+    const positions = Cube.cubePositions(0.65, 0.65, 0.65);
     const vertexNormals = Cube.vertexNormals();
     const textureCoordinates = Cube.textureCoordinates();
 
