@@ -1,4 +1,5 @@
 import { BasicBot } from "./basicBot";
+import { Bubble } from "./bubble";
 import { Gem } from "./gem";
 import { Ocean } from "./ocean";
 import { Player } from "./player";
@@ -88,5 +89,7 @@ export class World {
     this.things.push(new Player(this.gl,
       this.state.you.xyz[0], this.state.you.xyz[2]));
     this.things.push(new Gem(this.gl, -2, -2));
+
+    this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
   }
 }
