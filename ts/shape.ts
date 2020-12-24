@@ -14,15 +14,21 @@ export class Shape extends Thing {
   vertexCount: number;
   startTimeSeconds: number;
 
-  constructor(gl: WebGLRenderingContext, url: string,
+  constructor(gl: WebGLRenderingContext, source: string | HTMLCanvasElement,
     x: number, y: number, z: number) {
     super();
     this.startTimeSeconds = window.performance.now() / 1000;
     this.x = x;
     this.y = y;
     this.z = z;
-    this.loadTexture(gl, url);
+    if (typeof source == "string") {
+      this.loadTexture(gl, source as string);
+    } else {
+      console.log("Binding canvas.");
+      TextureCache.buildTexture(gl, source as HTMLCanvasElement);
+    }
   }
+
 
   loadTexture(gl: WebGLRenderingContext, url: string) {
     this.texture = TextureCache.load(gl, url);
