@@ -19,8 +19,8 @@ export class World {
   }
 
   getPlayerCoords() {
-    if (this.state) {
-      return [this.state.you.x, 0, this.state.you.z];
+    if (this.state != null && this.state.you.xyz != null) {
+      return this.state.you.xyz;
     } else {
       return [20, 0, 12];
     }
@@ -85,7 +85,8 @@ export class World {
       }
     }
     this.things.push(new BasicBot(this.gl, 2, 0));
-    this.things.push(new Player(this.gl, this.state.you.x, this.state.you.z));
+    this.things.push(new Player(this.gl,
+      this.state.you.xyz[0], this.state.you.xyz[2]));
     this.things.push(new Gem(this.gl, -2, -2));
   }
 }

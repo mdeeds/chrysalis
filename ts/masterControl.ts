@@ -19,16 +19,23 @@ export class MasterControl {
 
   handleKey(ev: KeyboardEvent) {
     if (ev.type == "keydown") {
-      console.log("Keydown: " + ev.code);
       switch (ev.code) {
-        case "ArrowLeft":
+        case "ArrowLeft": {
           const delta = new State();
-          delta.you.x = 10;
+          delta.you.dxyz = [-0.2, 0.0, 0.0];
           const intention = new Intention(this.frameNumber + 15,
             delta);
-          console.log("Queued: " + JSON.stringify(intention));
           this.pendingEvents.push(intention);
           break;
+        }
+        case "ArrowRight": {
+          const delta = new State();
+          delta.you.dxyz = [0.2, 0.0, 0.0];
+          const intention = new Intention(this.frameNumber + 15,
+            delta);
+          this.pendingEvents.push(intention);
+          break;
+        }
       }
     }
   }
@@ -37,10 +44,7 @@ export class MasterControl {
     const futureStack: Intention[] = [];
     for (const i of this.pendingEvents) {
       if (i.effectiveTime <= this.frameNumber) {
-        console.log(JSON.stringify(this.world.getState()));
-        console.log("Delta: " + JSON.stringify(i.delta));
         this.world.applyDelta(i.delta);
-        console.log(JSON.stringify(this.world.getState()));
       } else {
         futureStack.push(i);
       }

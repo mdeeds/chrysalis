@@ -1,14 +1,17 @@
 
 class ThingState {
-  x: number;
-  z: number;
+  xyz: number[];
+  dxyz: number[];
+  constructor() { }
 
   apply(other: ThingState) {
-    if (other.x != null) {
-      this.x = other.x;
+    if (other.xyz != null) {
+      this.xyz = other.xyz;
     }
-    if (other.z != null) {
-      this.z = other.z;
+    if (other.dxyz != null) {
+      for (const i of this.xyz) {
+        this.xyz[i] += other.dxyz[i];
+      }
     }
   }
 }
