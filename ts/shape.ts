@@ -5,6 +5,7 @@ import { Thing } from "./thing";
 
 export class Shape extends Thing {
   x: number;
+  y: number;
   z: number;
   positionBuffer: WebGLBuffer;
   textureCoordBuffer: WebGLBuffer;
@@ -13,10 +14,12 @@ export class Shape extends Thing {
   vertexCount: number;
   startTimeSeconds: number;
 
-  constructor(gl: WebGLRenderingContext, url: string, x: number, z: number) {
+  constructor(gl: WebGLRenderingContext, url: string,
+    x: number, y: number, z: number) {
     super();
     this.startTimeSeconds = window.performance.now() / 1000;
     this.x = x;
+    this.y = y;
     this.z = z;
     this.loadTexture(gl, url);
   }
@@ -28,7 +31,7 @@ export class Shape extends Thing {
   getObjectTransform() {
     const objectTransform = GLM.mat4.create();
     GLM.mat4.translate(objectTransform, objectTransform,
-      [this.x, 1.0, this.z])
+      [this.x, this.y, this.z])
     return objectTransform;
   }
 

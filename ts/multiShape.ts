@@ -4,7 +4,7 @@ import { Shape } from "./shape";
 import { Thing } from "./thing";
 
 export class MultiShape extends Thing {
-  x: number; // TODO: move these to THing
+  x: number; // TODO: move these to Thing
   z: number;
   shapes: Shape[];
 

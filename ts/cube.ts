@@ -2,8 +2,9 @@ import { Shape } from "./shape";
 
 export class Cube extends Shape {
 
-  constructor(gl: WebGLRenderingContext, url: string, x: number, z: number) {
-    super(gl, url, x, z);
+  constructor(gl: WebGLRenderingContext, url: string,
+    x: number, y: number, z: number) {
+    super(gl, url, x, y, z);
     this.loadTexture(gl, url)
 
     let positions = [];

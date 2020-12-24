@@ -3,7 +3,7 @@ import { Cube } from "./cube";
 
 export class Player extends Cube {
   constructor(gl: WebGLRenderingContext, x: number, z: number) {
-    super(gl, "Head-1.png", x, z);
+    super(gl, "Head-1.png", x, 1.5, z);
   }
 
   getObjectTransform() {
@@ -13,7 +13,7 @@ export class Player extends Cube {
     GLM.mat4.rotate(objectTransform, objectTransform,
       rotation, [0, 1, 0]);
     GLM.mat4.translate(objectTransform, objectTransform,
-      [0, 2, 0]);
+      [0, 0, 0]);
     GLM.mat4.scale(objectTransform, objectTransform,
       [0.4, 0.4, 0.4])
     return objectTransform;
