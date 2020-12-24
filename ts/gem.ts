@@ -10,14 +10,14 @@ export class Gem extends Shape {
     let textureCoords: number[] = [];
     let normals: number[] = [];
 
-    const numFaces = 16;
+    const numFaces = 4;
     const radius = 0.8;
     const tStep = Math.PI * 2 / numFaces;
     for (let i = 0; i < numFaces; ++i) {
       let t = i * tStep;
 
       let x1 = 0;
-      let y1 = 0.5;
+      let y1 = 0.7;
       let z1 = 0;
       let x2 = Math.cos(t);
       let y2 = 0;
@@ -85,11 +85,11 @@ export class Gem extends Shape {
     const objectTransform = super.getObjectTransform();
     const elapsedSeconds = window.performance.now() / 1000
       - this.startTimeSeconds;
-    const rotation = elapsedSeconds * 6
+    const rotation = elapsedSeconds * 3;
     GLM.mat4.translate(objectTransform, objectTransform,
       [0, 1.5, 0]);
     GLM.mat4.rotate(objectTransform, objectTransform,
-      rotation, [1, 0, 0]);
+      rotation, [0, 1, 0]);
     GLM.mat4.scale(objectTransform, objectTransform,
       [0.8, 0.8, 0.8])
     return objectTransform;
