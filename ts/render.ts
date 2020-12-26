@@ -2,6 +2,7 @@ import { ProgramInfo } from "./programInfo"
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { World } from "./world";
 import { MasterControl } from "./masterControl";
+import { Thing } from "./thing";
 
 export class Render {
   private canvas: HTMLCanvasElement;

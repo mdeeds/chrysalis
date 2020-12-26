@@ -12,9 +12,9 @@ export class Ocean extends Cube {
   getObjectTransform() {
     const objectTransform = super.getObjectTransform();
     const elapsedSeconds = window.performance.now() / 1000 - this.startTimeSeconds;
-    let d = Math.sin(elapsedSeconds / this.rate) * 0.2;
+    let d = Math.sin(elapsedSeconds / this.rate) * 0.2 - 0.1;
     GLM.mat4.translate(objectTransform, objectTransform,
-      [0, -d, 0])
+      [0, d, 0])
     return objectTransform;
   }
 }
