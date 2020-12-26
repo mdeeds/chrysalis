@@ -2,6 +2,7 @@ import { BasicBot } from "./basicBot";
 import { Bubble } from "./bubble";
 import { Gem } from "./gem";
 import { Ocean } from "./ocean";
+import { PeerConnection } from "./peerConnection";
 import { Player } from "./player";
 import { State } from "./state";
 import { Thing } from "./thing";
@@ -11,12 +12,42 @@ export class World {
   private gl: WebGLRenderingContext;
   private things: Thing[];
   private state: State;
+  private personalConnection: PeerConnection;
+  private worldServer: PeerConnection;
 
-  constructor(url: string, gl: WebGLRenderingContext) {
+  constructor(worldName: string, gl: WebGLRenderingContext) {
     this.gl = gl;
     this.things = [];
     this.state = new State();
-    this.load(url);
+    this.personalConnection = new PeerConnection(null);
+    this.worldServer = null;
+    const worldServerId = `chrysalis-${worldName}-72361`;
+    this.personalConnection.sendAndPromiseResponse(worldServerId, "Hi!")
+      .then((id) => {
+        this.personalConnection.sendAndPromiseResponse(
+          worldServerId, "World, please.")
+          .then((worldData: string) => {
+            this.buildFromString(worldData);
+          })
+          .catch((reason) => {
+            console.log("Failed to get world: " + reason)
+          });
+      })
+      .catch((reason) => {
+        console.log("Failed to say hello: " + reason);
+        this.worldServer = new PeerConnection(worldServerId);
+        this.worldServer.addCallback("World, please.",
+          async () => { return await this.load("emptyWorld.json"); })
+        this.personalConnection.sendAndPromiseResponse(
+          worldServerId, "World, please.")
+          .then((worldData: string) => {
+            this.buildFromString(worldData);
+          })
+          .catch((reason) => {
+            console.log("Failed to get world: " + reason)
+          });
+      })
+    // this.load(worldName);
   }
 
   getPlayerCoords() {
@@ -31,21 +62,23 @@ export class World {
     return this.things;
   }
 
-  load(url: string) {
-    const xhr = new XMLHttpRequest();
-    const method = "GET";
-    xhr.open(method, url, true);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        var status = xhr.status;
-        if (status === 0 || (status >= 200 && status < 400)) {
-          this.buildFromString(xhr.responseText);
-        } else {
-          alert("Failed to load world.");
+  private async load(url: string) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const method = "GET";
+      xhr.open(method, url, true);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          var status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            resolve(xhr.responseText);
+          } else {
+            reject("Failed to load world.");
+          }
         }
-      }
-    };
-    xhr.send();
+      };
+      xhr.send();
+    });
   }
 
   getState() {

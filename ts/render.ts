@@ -44,7 +44,8 @@ export class Render {
     this.programInfo.normalMatrix = this.gl.getUniformLocation(shaderProgram, 'uNormalMatrix');
 
     console.log(JSON.stringify(this.programInfo));
-    this.world = new World("emptyWorld.json", this.gl);
+    // http://butterfly.ucdavis.edu/butterfly/latin
+    this.world = new World("vialis", this.gl);
     this.masterControl = new MasterControl(this.world);
 
     this.renderLoop();
