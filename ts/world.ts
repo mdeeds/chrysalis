@@ -38,7 +38,7 @@ export class World {
         console.log("Failed to say hello: " + reason);
         this.worldServer = new PeerConnection(worldServerId);
         this.worldServer.addCallback("World, please.",
-          async () => { return await this.load("emptyWorld.json"); })
+          async () => { return await this.loadFromSavedState(); })
         this.personalConnection.sendAndPromiseResponse(
           worldServerId, "World, please.")
           .then((worldData: string) => {
@@ -61,6 +61,24 @@ export class World {
 
   getThings() {
     return this.things;
+  }
+
+  private saveLoop() {
+    window.localStorage.setItem("world", JSON.stringify(this.state));
+    setTimeout(() => { this.saveLoop(); }, 2000);
+  }
+
+  private async loadFromSavedState() {
+    const worldData = window.localStorage.getItem("world");
+    if (worldData) {
+      return new Promise((resolve, reject) => {
+        console.log("Loading from local storage.");
+        resolve(worldData);
+      });
+    } else {
+      console.log("Loading from json");
+      return this.load("emptyWorld.json");
+    }
   }
 
   private async load(url: string) {
@@ -94,6 +112,8 @@ export class World {
     const dict = JSON.parse(data) as State;
     this.state.apply(dict);
     console.log("Loaded size: " + data.length);
+    console.log("Source value: " + data);
+    console.log("Loaded value: " + JSON.stringify(this.state));
     const map: any = dict.map;
     const height = map.length;
     let width = 0;
@@ -125,5 +145,7 @@ export class World {
     this.things.push(new Gem(this.gl, -2, -2));
 
     this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
+
+    this.saveLoop();
   }
 }

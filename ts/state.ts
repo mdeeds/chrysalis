@@ -27,5 +27,8 @@ export class State {
     if (other.you != null) {
       this.you.apply(other.you);
     }
+    if (other.map != null) {
+      this.map = other.map;
+    }
   }
 }
