@@ -9,7 +9,7 @@ class ThingState {
       this.xyz = other.xyz;
     }
     if (other.dxyz != null) {
-      for (const i of this.xyz) {
+      for (let i = 0; i < 3; ++i) {
         this.xyz[i] += other.dxyz[i];
       }
     }

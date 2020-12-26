@@ -30,19 +30,26 @@ export class MasterControl {
     }
   }
 
+  private intentionFromDelta(dxyz: number[]) {
+    const delta = new State();
+    delta.you.dxyz = dxyz;
+    const intention = new Intention(this.frameNumber + 15,
+      delta);
+    return intention;
+  }
+
   eventLoop(ts: number) {
     if (this.keysDown.has("ArrowLeft")) {
-      const delta = new State();
-      delta.you.dxyz = [-0.1, 0.0, 0.0];
-      const intention = new Intention(this.frameNumber + 15,
-        delta);
-      this.pendingEvents.push(intention);
-    } else if (this.keysDown.has("ArrowRight")) {
-      const delta = new State();
-      delta.you.dxyz = [0.1, 0.0, 0.0];
-      const intention = new Intention(this.frameNumber + 15,
-        delta);
-      this.pendingEvents.push(intention);
+      this.pendingEvents.push(this.intentionFromDelta([-0.25, 0, 0]));
+    }
+    if (this.keysDown.has("ArrowRight")) {
+      this.pendingEvents.push(this.intentionFromDelta([0.25, 0, 0]));
+    }
+    if (this.keysDown.has("ArrowDown")) {
+      this.pendingEvents.push(this.intentionFromDelta([0, 0, 0.25]));
+    }
+    if (this.keysDown.has("ArrowUp")) {
+      this.pendingEvents.push(this.intentionFromDelta([0, 0, -0.25]));
     }
 
     const futureStack: Intention[] = [];

@@ -144,7 +144,7 @@ export class World {
       this.state.you.xyz[0], this.state.you.xyz[2]));
     this.things.push(new Gem(this.gl, -2, -2));
 
-    this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
+    // this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
 
     this.saveLoop();
   }
