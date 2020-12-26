@@ -24,6 +24,7 @@ export class World {
     const worldServerId = `chrysalis-${worldName}-72361`;
     this.personalConnection.sendAndPromiseResponse(worldServerId, "Hi!")
       .then((id) => {
+        console.log("Thank you: " + id);
         this.personalConnection.sendAndPromiseResponse(
           worldServerId, "World, please.")
           .then((worldData: string) => {

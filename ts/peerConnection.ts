@@ -81,8 +81,10 @@ export class PeerConnection {
   waitForResponse(id: string, deadline: number,
     resolve: Function, reject: Function) {
     if (this.responses.has(id)) {
-      console.log("Resolved.");
-      resolve(this.responses.get(id));
+      const response = this.responses.get(id);
+      this.responses.delete(id);
+      console.log("I heard you, " + id);
+      resolve(response);
     } else {
       if (window.performance.now() >= deadline) {
         console.log("Deadline exceeded: " +
