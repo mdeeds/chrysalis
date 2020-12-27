@@ -15,14 +15,30 @@ export class World {
   private state: State;
   private personalConnection: PeerConnection;
   private worldServer: PeerConnection;
+  private worldName: string;
 
   constructor(worldName: string, gl: WebGLRenderingContext) {
+    this.worldName = worldName;
     this.gl = gl;
     this.things = [];
     this.state = new State();
+
+    const url = new URL(document.URL);
+    Log.info("Document URL: " + url)
+    if (url.searchParams.get('local')) {
+      this.loadFromSavedState()
+        .then((data: string) => {
+          this.buildFromString(data);
+        })
+    } else {
+      this.setStateFromInternet();
+    }
+  }
+
+  setStateFromInternet() {
     this.personalConnection = new PeerConnection(null);
     this.worldServer = null;
-    const worldServerId = `chrysalis-${worldName}-72361`;
+    const worldServerId = `chrysalis-${this.worldName}-72361`;
     this.personalConnection.sendAndPromiseResponse(worldServerId, "Hi!")
       .then((id) => {
         Log.info("Thank you: " + id);
@@ -49,7 +65,7 @@ export class World {
             Log.info("Failed to get world: " + reason)
           });
       })
-    // this.load(worldName);
+
   }
 
   getPlayerCoords() {
@@ -65,12 +81,12 @@ export class World {
   }
 
   private saveLoop() {
-    window.localStorage.setItem("world", JSON.stringify(this.state));
+    window.localStorage.setItem(`${this.worldName}-world`, JSON.stringify(this.state));
     setTimeout(() => { this.saveLoop(); }, 2000);
   }
 
   private async loadFromSavedState() {
-    const worldData = window.localStorage.getItem("world");
+    const worldData = window.localStorage.getItem(`${this.worldName}-world`);
     if (worldData) {
       return new Promise((resolve, reject) => {
         Log.info("Loading from local storage.");
@@ -113,8 +129,6 @@ export class World {
     const dict = JSON.parse(data) as State;
     this.state.apply(dict);
     Log.info("Loaded size: " + data.length);
-    Log.info("Source value: " + data);
-    Log.info("Loaded value: " + JSON.stringify(this.state));
     const map: any = dict.map;
     const height = map.length;
     let width = 0;

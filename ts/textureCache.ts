@@ -15,7 +15,6 @@ export class TextureCache {
   static bindTexture(gl: WebGLRenderingContext,
     texture: WebGLTexture,
     source: HTMLCanvasElement | HTMLImageElement) {
-    Log.info("Binding texture " + source.width + " x " + source.height);
 
     // // Initially use solid magenta.
     // gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -65,7 +64,6 @@ export class TextureCache {
 
       const image = new Image();
       image.onload = () => {
-        Log.info("Loaded image.");
         this.bindTexture(gl, texture, image);
       };
       image.src = url;
