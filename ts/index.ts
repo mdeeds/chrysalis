@@ -1,5 +1,4 @@
 import { Log } from "./log";
-import { PeerConnection } from "./peerConnection";
 import { Render } from "./render";
 
 const logs = document.createElement("div");
