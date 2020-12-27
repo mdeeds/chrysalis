@@ -2,6 +2,7 @@ import { ProgramInfo } from "./programInfo";
 import { TextureCache } from "./textureCache";
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Thing } from "./thing";
+import { Log } from "./log";
 
 export class Shape extends Thing {
   x: number;
@@ -24,7 +25,7 @@ export class Shape extends Thing {
     if (typeof source == "string") {
       this.loadTexture(gl, source as string);
     } else {
-      console.log("Binding canvas.");
+      Log.info("Binding canvas.");
       TextureCache.buildTexture(gl, source as HTMLCanvasElement);
     }
   }

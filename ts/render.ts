@@ -3,6 +3,7 @@ import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { World } from "./world";
 import { MasterControl } from "./masterControl";
 import { Thing } from "./thing";
+import { Log } from "./log";
 
 export class Render {
   private canvas: HTMLCanvasElement;
@@ -44,7 +45,7 @@ export class Render {
     this.programInfo.objectTransform = this.gl.getUniformLocation(shaderProgram, 'uObjectTransform');
     this.programInfo.normalMatrix = this.gl.getUniformLocation(shaderProgram, 'uNormalMatrix');
 
-    console.log(JSON.stringify(this.programInfo));
+    Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
     this.world = new World("vialis", this.gl);
     this.masterControl = new MasterControl(this.world);

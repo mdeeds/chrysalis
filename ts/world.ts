@@ -7,6 +7,7 @@ import { Player } from "./player";
 import { State } from "./state";
 import { Thing } from "./thing";
 import { Tile } from "./tile";
+import { Log } from "./log";
 
 export class World {
   private gl: WebGLRenderingContext;
@@ -24,18 +25,18 @@ export class World {
     const worldServerId = `chrysalis-${worldName}-72361`;
     this.personalConnection.sendAndPromiseResponse(worldServerId, "Hi!")
       .then((id) => {
-        console.log("Thank you: " + id);
+        Log.info("Thank you: " + id);
         this.personalConnection.sendAndPromiseResponse(
           worldServerId, "World, please.")
           .then((worldData: string) => {
             this.buildFromString(worldData);
           })
           .catch((reason) => {
-            console.log("Failed to get world: " + reason)
+            Log.info("Failed to get world: " + reason)
           });
       })
       .catch((reason) => {
-        console.log("Failed to say hello: " + reason);
+        Log.info("Failed to say hello: " + reason);
         this.worldServer = new PeerConnection(worldServerId);
         this.worldServer.addCallback("World, please.",
           async () => { return await this.loadFromSavedState(); })
@@ -45,7 +46,7 @@ export class World {
             this.buildFromString(worldData);
           })
           .catch((reason) => {
-            console.log("Failed to get world: " + reason)
+            Log.info("Failed to get world: " + reason)
           });
       })
     // this.load(worldName);
@@ -72,11 +73,11 @@ export class World {
     const worldData = window.localStorage.getItem("world");
     if (worldData) {
       return new Promise((resolve, reject) => {
-        console.log("Loading from local storage.");
+        Log.info("Loading from local storage.");
         resolve(worldData);
       });
     } else {
-      console.log("Loading from json");
+      Log.info("Loading from json");
       return this.load("emptyWorld.json");
     }
   }
@@ -111,9 +112,9 @@ export class World {
   buildFromString(data: string) {
     const dict = JSON.parse(data) as State;
     this.state.apply(dict);
-    console.log("Loaded size: " + data.length);
-    console.log("Source value: " + data);
-    console.log("Loaded value: " + JSON.stringify(this.state));
+    Log.info("Loaded size: " + data.length);
+    Log.info("Source value: " + data);
+    Log.info("Loaded value: " + JSON.stringify(this.state));
     const map: any = dict.map;
     const height = map.length;
     let width = 0;

@@ -1,4 +1,5 @@
 import Peer, { DataConnection } from "peerjs";
+import { Log } from "./log";
 
 export class PeerConnection {
   private peer: Peer;
@@ -17,12 +18,12 @@ export class PeerConnection {
     this.addCallback("Hi!", () => { return "Hello." });
     this.ready = false;
     this.peer.on('open', (id: string) => {
-      console.log("My id is: " + id);
+      Log.info("My id is: " + id);
       this.ready = true;
     })
     this.peer.on('connection', (conn) => {
       conn.on('data', (data) => {
-        console.log(`${conn.peer} says: ${data}`);
+        Log.info(`${conn.peer} says: ${data}`);
         this.responses.set(conn.peer, data);
         if (this.callbacks.has(data)) {
           const responseMessage = this.callbacks.get(data)();
@@ -56,7 +57,7 @@ export class PeerConnection {
   send(targetId: string, message: string) {
     const conn = this.peer.connect(targetId);
     conn.on('open', () => {
-      console.log(`to ${targetId}, ${this.peer.id} says: ${message}`);
+      Log.info(`to ${targetId}, ${this.peer.id} says: ${message}`);
       conn.send(message);
     });
   }
@@ -66,14 +67,14 @@ export class PeerConnection {
       .then(() => {
         this.conn = this.peer.connect(targetId);
         this.conn.on('open', () => {
-          console.log(`to ${targetId}, ${this.peer.id} says: ${message}`);
+          Log.info(`to ${targetId}, ${this.peer.id} says: ${message}`);
           this.responses.delete(targetId);
           this.conn.send(message);
         });
       });
     return new Promise((resolve, reject) => {
       const deadline = window.performance.now() + 5000;
-      console.log("Deadline: " + deadline.toFixed(0));
+      Log.info("Deadline: " + deadline.toFixed(0));
       this.waitForResponse(targetId, deadline, resolve, reject);
     });
   }
@@ -83,11 +84,11 @@ export class PeerConnection {
     if (this.responses.has(id)) {
       const response = this.responses.get(id);
       this.responses.delete(id);
-      console.log("I heard you, " + id);
+      Log.info("I heard you, " + id);
       resolve(response);
     } else {
       if (window.performance.now() >= deadline) {
-        console.log("Deadline exceeded: " +
+        Log.info("Deadline exceeded: " +
           (window.performance.now() - deadline));
         reject("Deadline exceeded.");
       } else {

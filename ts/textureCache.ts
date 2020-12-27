@@ -1,3 +1,5 @@
+import { Log } from "./log";
+
 export class TextureCache {
   private static cache: Map<string, WebGLTexture>
     = new Map<string, WebGLTexture>();
@@ -13,7 +15,7 @@ export class TextureCache {
   static bindTexture(gl: WebGLRenderingContext,
     texture: WebGLTexture,
     source: HTMLCanvasElement | HTMLImageElement) {
-    console.log("Binding texture " + source.width + " x " + source.height);
+    Log.info("Binding texture " + source.width + " x " + source.height);
 
     // // Initially use solid magenta.
     // gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -63,7 +65,7 @@ export class TextureCache {
 
       const image = new Image();
       image.onload = () => {
-        console.log("Loaded image.");
+        Log.info("Loaded image.");
         this.bindTexture(gl, texture, image);
       };
       image.src = url;
