@@ -1,20 +1,4 @@
-
-class ThingState {
-  xyz: number[];
-  dxyz: number[];
-  constructor() { }
-
-  apply(other: ThingState) {
-    if (other.xyz != null) {
-      this.xyz = other.xyz;
-    }
-    if (other.dxyz != null) {
-      for (let i = 0; i < 3; ++i) {
-        this.xyz[i] += other.dxyz[i];
-      }
-    }
-  }
-}
+import { ThingState } from "./thingState";
 
 export class State {
   you: ThingState;
@@ -25,10 +9,21 @@ export class State {
 
   apply(other: State) {
     if (other.you != null) {
-      this.you.apply(other.you);
+      this.applyThing(this.you, other.you);
     }
     if (other.map != null) {
       this.map = other.map;
+    }
+  }
+
+  applyThing(target: ThingState, other: ThingState) {
+    if (other.xyz != null) {
+      target.xyz = other.xyz;
+    }
+    if (other.dxyz != null) {
+      for (let i = 0; i < 3; ++i) {
+        target.xyz[i] += other.dxyz[i];
+      }
     }
   }
 }

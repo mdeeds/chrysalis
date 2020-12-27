@@ -65,18 +65,17 @@ export class World {
             Log.info("Failed to get world: " + reason)
           });
       })
-
   }
 
-  getPlayerCoords() {
+  getPlayerCoords(): Float32Array {
     if (this.state != null && this.state.you.xyz != null) {
       return this.state.you.xyz;
     } else {
-      return [20, 0, 12];
+      return new Float32Array([20, 0, 12]);
     }
   }
 
-  getThings() {
+  getThings(): Thing[] {
     return this.things;
   }
 

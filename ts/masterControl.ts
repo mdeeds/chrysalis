@@ -32,7 +32,8 @@ export class MasterControl {
 
   private intentionFromDelta(dxyz: number[]) {
     const delta = new State();
-    delta.you.dxyz = dxyz;
+    // TODO: Performance, copy element by element?
+    delta.you.dxyz = new Float32Array(dxyz);
     const intention = new Intention(this.frameNumber + 15,
       delta);
     return intention;

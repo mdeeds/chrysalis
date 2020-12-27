@@ -65,7 +65,7 @@ export class Render {
   }
 
   private setScene(gl: WebGLRenderingContext, programInfo: ProgramInfo,
-    playerCoords: number[]) {
+    playerCoords: Float32Array) {
     gl.clearColor(0.8, 0.9, 1.0, 1.0);
     gl.clearDepth(1.0);
     gl.enable(gl.DEPTH_TEST);

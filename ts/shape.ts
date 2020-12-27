@@ -3,11 +3,10 @@ import { TextureCache } from "./textureCache";
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Thing } from "./thing";
 import { Log } from "./log";
+import { State } from "./state";
+import { ThingState } from "./thingState";
 
 export class Shape extends Thing {
-  x: number;
-  y: number;
-  z: number;
   positionBuffer: WebGLBuffer;
   textureCoordBuffer: WebGLBuffer;
   normalBuffer: WebGLBuffer;
@@ -19,9 +18,9 @@ export class Shape extends Thing {
     x: number, y: number, z: number) {
     super();
     this.startTimeSeconds = window.performance.now() / 1000;
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.state = new ThingState();
+    this.state.xyz = new Float32Array([x, y, z]);
+    this.state.heading = 0;
     if (typeof source == "string") {
       this.loadTexture(gl, source as string);
     } else {
@@ -38,7 +37,9 @@ export class Shape extends Thing {
   getObjectTransform() {
     const objectTransform = GLM.mat4.create();
     GLM.mat4.translate(objectTransform, objectTransform,
-      [this.x, this.y, this.z])
+      this.state.xyz);
+    GLM.mat4.rotate(objectTransform, objectTransform,
+      this.state.heading, [0, 1, 0]);
     return objectTransform;
   }
 
