@@ -1,7 +1,9 @@
 import { Shape } from "./shape";
 
 export class Bubble extends Shape {
-  canvas: HTMLCanvasElement;
+  private gl: WebGLRenderingContext;
+  private canvas: HTMLCanvasElement;
+
   constructor(gl: WebGLRenderingContext, text: string, x: number, z: number) {
     const canvas = document.createElement("canvas");
     canvas.width = 1024;
@@ -11,10 +13,12 @@ export class Bubble extends Shape {
     ctx.clearRect(0, 0, 1024, 512);
     ctx.fillStyle = "pink";
     ctx.fillRect(100, 100, 400, 400);
-    
-    super(gl, canvas, x, 1.5, z);
-    this.canvas = canvas;
 
+    // NOTE: Animation of the canvas doesn't work...
+
+    super(gl, canvas, x, 1.5, z);
+    this.gl = gl;
+    this.canvas = canvas;
     const positions: number[] = [
       -2, 1, 0,
       2, 1, 0,
@@ -56,7 +60,6 @@ export class Bubble extends Shape {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals),
       gl.STATIC_DRAW);
-
   }
 
 }

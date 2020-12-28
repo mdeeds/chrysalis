@@ -14,7 +14,8 @@ export class Shape extends Thing {
   vertexCount: number;
   startTimeSeconds: number;
 
-  constructor(gl: WebGLRenderingContext, source: string | HTMLCanvasElement,
+  constructor(gl: WebGLRenderingContext,
+    source: string | HTMLCanvasElement | HTMLImageElement,
     x: number, y: number, z: number) {
     super();
     this.startTimeSeconds = window.performance.now() / 1000;
@@ -25,10 +26,10 @@ export class Shape extends Thing {
       this.loadTexture(gl, source as string);
     } else {
       Log.info("Binding canvas.");
-      TextureCache.buildTexture(gl, source as HTMLCanvasElement);
+      this.texture = TextureCache.buildTexture(gl,
+        source as HTMLCanvasElement | HTMLImageElement);
     }
   }
-
 
   loadTexture(gl: WebGLRenderingContext, url: string) {
     this.texture = TextureCache.load(gl, url);
