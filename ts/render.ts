@@ -159,15 +159,14 @@ export class Render {
         aVertexPosition;
       vTextureCoord = aTextureCoord;
 
-      highp vec3 ambientLight = vec3(0.4, 0.4, 0.4);
-      highp vec3 directionalLightColor = vec3(0.6, 0.6, 0.6);
-      highp vec3 directionalVector = normalize(vec3(0.0, 0.9, 0.75));
+      highp vec3 ambientLight = vec3(0.3, 0.3, 0.3);
+      highp vec3 directionalLightColor = vec3(0.7, 0.7, 0.7);
+      highp vec3 directionalVector = normalize(vec3(0.3, 0.9, 0.75));
 
-      highp vec4 transformedNormal = 
-        normalize(uNormalMatrix * vec4(aVertexNormal, 1.0));
+      highp vec3 transformedNormal = normalize(aVertexNormal);
 
       highp float directional = max(dot(
-        transformedNormal.xyz, directionalVector), 0.0);
+        transformedNormal, directionalVector), 0.0);
       vLighting = ambientLight + (directionalLightColor * directional);
     }
   `;
