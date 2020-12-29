@@ -90,8 +90,8 @@ export class Render {
     const py = playerCoords[1];
     const pz = playerCoords[2];
     GLM.mat4.lookAt(modelViewMatrix,
-      /*eye=*/[px, py + 40.0, pz + 60.0],
-      /*center=*/[px, py, pz],
+      /*eye=*/[px, py + 60.0, pz + 60.0],
+      /*center=*/[px, py + 4, pz - 2],
       /*up=*/[0.0, 1.0, 0.0]);
 
     gl.useProgram(programInfo.program);
