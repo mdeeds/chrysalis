@@ -3,5 +3,5 @@
 // I haven't confirmed if that's a thing...
 export class Perspective {
   currentHeading: number;  // Measured in degrees.
-
+  keysDown: Set<string>;
 }

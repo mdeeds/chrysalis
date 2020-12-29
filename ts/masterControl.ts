@@ -1,19 +1,18 @@
 import { Intention } from "./intention";
-import { Shape } from "./shape";
+import { Perspective } from "./perspective";
 import { State } from "./state";
 import { StateDelta } from "./stateDelta";
 import { ThingStateDelta } from "./thingStateDelta";
-import { World } from "./world";
 
 export class MasterControl {
-  world: World;
+  state: State;
   startTimeMs: number;
   frameNumber: number;
   pendingEvents: Intention[];
   private keysDown: Set<string>;
 
-  constructor(world: World) {
-    this.world = world;
+  constructor(state: State) {
+    this.state = state;
     this.frameNumber = 0;
     this.pendingEvents = [];
     this.keysDown = new Set<string>();
@@ -56,10 +55,15 @@ export class MasterControl {
       this.pendingEvents.push(this.intentionFromDelta([0, 0, -0.25]));
     }
 
+    const youPerspective = new Perspective();
+    youPerspective.keysDown = this.keysDown;
+    youPerspective.currentHeading = 1;
+    // TODO: Send this to the youComputer.
+
     const futureStack: Intention[] = [];
     for (const i of this.pendingEvents) {
       if (i.effectiveTime <= this.frameNumber) {
-        this.world.applyDelta(i.delta);
+        this.state.apply(i.delta);
       } else {
         futureStack.push(i);
       }
