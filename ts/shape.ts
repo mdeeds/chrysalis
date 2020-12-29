@@ -51,12 +51,6 @@ export class Shape extends Thing {
       false,
       objectTransform);
 
-    const normalMatrix = GLM.mat4.create();
-    GLM.mat4.invert(normalMatrix, objectTransform);
-    GLM.mat4.transpose(normalMatrix, normalMatrix);
-    gl.uniformMatrix4fv(
-      programInfo.normalMatrix, false, normalMatrix);
-
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
     gl.vertexAttribPointer(
       programInfo.vertexPosition,
