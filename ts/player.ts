@@ -1,6 +1,7 @@
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Cube } from "./cube";
 import { Shape } from "./shape";
+import { ThingState } from "./thingState";
 
 export class Player extends Shape {
   static translate(positions: number[], dx: number, dy: number, dz: number) {
@@ -82,8 +83,8 @@ export class Player extends Shape {
     }
   }
 
-  constructor(gl: WebGLRenderingContext, x: number, z: number) {
-    super(gl, "Head-1.png", x, 1.5, z);
+  constructor(gl: WebGLRenderingContext, state: ThingState) {
+    super(gl, "Head-1.png", state);
 
     const positions = Cube.cubePositions(0.65, 0.65, 0.65);
     const vertexNormals = Cube.vertexNormals();
@@ -113,7 +114,7 @@ export class Player extends Shape {
   getObjectTransform() {
     const objectTransform = super.getObjectTransform();
     GLM.mat4.translate(objectTransform, objectTransform,
-      [0, 0.5, 0]);
+      [0, 2, 0]);
     return objectTransform;
   }
 }

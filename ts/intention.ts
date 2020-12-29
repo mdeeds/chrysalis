@@ -1,9 +1,9 @@
-import { State } from "./state";
+import { StateDelta } from "./stateDelta";
 
 export class Intention {
   effectiveTime: number;
-  delta: State;
-  constructor(effectiveTime: number, delta: State) {
+  delta: StateDelta;
+  constructor(effectiveTime: number, delta: StateDelta) {
     this.effectiveTime = effectiveTime;
     this.delta = delta;
   }

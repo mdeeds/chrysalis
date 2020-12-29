@@ -1,11 +1,12 @@
 import { Shape } from "./shape";
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
+import { ThingState } from "./thingState";
 
 export class Gem extends Shape {
   vertexCount: number;
 
-  constructor(gl: WebGLRenderingContext, x: number, z: number) {
-    super(gl, "Gem-2.png", x, 1.0, z);
+  constructor(gl: WebGLRenderingContext, state: ThingState) {
+    super(gl, "Gem-2.png", state);
     let positions: number[] = [];
     let textureCoords: number[] = [];
     let normals: number[] = [];

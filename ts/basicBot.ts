@@ -1,9 +1,10 @@
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Cube } from "./cube";
+import { ThingState } from "./thingState";
 
 export class BasicBot extends Cube {
-  constructor(gl: WebGLRenderingContext, x: number, z: number) {
-    super(gl, "Basic Bot.png", x, 1.0, z);
+  constructor(gl: WebGLRenderingContext, state: ThingState) {
+    super(gl, "Basic Bot.png", state);
   }
 
   getObjectTransform() {

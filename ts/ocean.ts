@@ -1,11 +1,12 @@
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Cube } from "./cube";
+import { ThingState } from "./thingState";
 
 export class Ocean extends Cube {
   rate: number;
   x: number;
-  constructor(gl: WebGLRenderingContext, x: number, z: number) {
-    super(gl, "Ocean-1.png", x, -1, z);
+  constructor(gl: WebGLRenderingContext, state: ThingState) {
+    super(gl, "Ocean-1.png", state);
     this.rate = (3 + Math.random() * 2) / 6;
   }
 

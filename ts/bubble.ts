@@ -1,10 +1,11 @@
 import { Shape } from "./shape";
+import { ThingState } from "./thingState";
 
 export class Bubble extends Shape {
   private gl: WebGLRenderingContext;
   private canvas: HTMLCanvasElement;
 
-  constructor(gl: WebGLRenderingContext, text: string, x: number, z: number) {
+  constructor(gl: WebGLRenderingContext, text: string, state: ThingState) {
     const canvas = document.createElement("canvas");
     canvas.width = 1024;
     canvas.height = 512;
@@ -16,7 +17,7 @@ export class Bubble extends Shape {
 
     // NOTE: Animation of the canvas doesn't work...
 
-    super(gl, canvas, x, 1.5, z);
+    super(gl, canvas, state);
     this.gl = gl;
     this.canvas = canvas;
     const positions: number[] = [

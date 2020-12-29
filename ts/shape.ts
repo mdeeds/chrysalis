@@ -16,12 +16,10 @@ export class Shape extends Thing {
 
   constructor(gl: WebGLRenderingContext,
     source: string | HTMLCanvasElement | HTMLImageElement,
-    x: number, y: number, z: number) {
+    state: ThingState) {
     super();
     this.startTimeSeconds = window.performance.now() / 1000;
-    this.state = new ThingState();
-    this.state.xyz = new Float32Array([x, y, z]);
-    this.state.heading = 0;
+    this.state = state;
     if (typeof source == "string") {
       this.loadTexture(gl, source as string);
     } else {

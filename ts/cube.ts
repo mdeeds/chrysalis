@@ -1,4 +1,5 @@
 import { Shape } from "./shape";
+import { ThingState } from "./thingState";
 
 export class Cube extends Shape {
 
@@ -141,9 +142,8 @@ export class Cube extends Shape {
     return vertexNormals;
   }
 
-  constructor(gl: WebGLRenderingContext, url: string,
-    x: number, y: number, z: number) {
-    super(gl, url, x, y, z);
+  constructor(gl: WebGLRenderingContext, url: string, state: ThingState) {
+    super(gl, url, state);
     this.loadTexture(gl, url)
 
     const positions = Cube.cubePositions(1, 1, 1);

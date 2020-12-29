@@ -3,10 +3,24 @@ export class ThingState {
   xyz: Float32Array;
   heading: number;  // orientation on the X-Z plane.  Zero is Z-positive.
 
-  // TODO: Should this be a ThingStateDelta?
-  dxyz: Float32Array;
-  turn: number;  // Turn rate.  Negative is left, positive is right.
-  drive: number;  // Movement speed.  Zero is minimum (stopped), one is fastest.
-  constructor() { }
+  constructor(position: number[]) {
+    if (position != null) {
+      this.xyz = new Float32Array(position);
+    } else {
+      this.xyz = new Float32Array(3);
+    }
+    this.heading = 0.0;
+  }
+
+  mergeFrom(other: ThingState) {
+    if (other.xyz != null) {
+      this.xyz[0] = other.xyz[0];
+      this.xyz[1] = other.xyz[1];
+      this.xyz[2] = other.xyz[2];
+    }
+    if (other.heading != null) {
+      this.heading = other.heading;
+    }
+  }
 }
 

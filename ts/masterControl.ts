@@ -1,6 +1,8 @@
 import { Intention } from "./intention";
 import { Shape } from "./shape";
 import { State } from "./state";
+import { StateDelta } from "./stateDelta";
+import { ThingStateDelta } from "./thingStateDelta";
 import { World } from "./world";
 
 export class MasterControl {
@@ -31,8 +33,9 @@ export class MasterControl {
   }
 
   private intentionFromDelta(dxyz: number[]) {
-    const delta = new State();
+    const delta = new StateDelta();
     // TODO: Performance, copy element by element?
+    delta.you = new ThingStateDelta();
     delta.you.dxyz = new Float32Array(dxyz);
     const intention = new Intention(this.frameNumber + 15,
       delta);

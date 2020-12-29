@@ -8,6 +8,8 @@ import { State } from "./state";
 import { Thing } from "./thing";
 import { Tile } from "./tile";
 import { Log } from "./log";
+import { ThingState } from "./thingState";
+import { StateDelta } from "./stateDelta";
 
 export class World {
   private gl: WebGLRenderingContext;
@@ -68,7 +70,8 @@ export class World {
   }
 
   getPlayerCoords(): Float32Array {
-    if (this.state != null && this.state.you.xyz != null) {
+    if (this.state != null && this.state.you != null &&
+      this.state.you.xyz != null) {
       return this.state.you.xyz;
     } else {
       return new Float32Array([20, 0, 12]);
@@ -120,13 +123,13 @@ export class World {
     return this.state;
   }
 
-  applyDelta(delta: State) {
+  applyDelta(delta: StateDelta) {
     this.state.apply(delta);
   }
 
   buildFromString(data: string) {
     const dict = JSON.parse(data) as State;
-    this.state.apply(dict);
+    this.state.mergeFrom(dict);
     Log.info("Loaded size: " + data.length);
     const map: any = dict.map;
     const height = map.length;
@@ -146,19 +149,18 @@ export class World {
         }
         switch (c) {
           case '#':
-            this.things.push(new Tile(this.gl, x, z));
+            this.things.push(new Tile(this.gl, new ThingState([x, 0, z])));
             break;
           case '~':
-            this.things.push(new Ocean(this.gl, x, z));
+            this.things.push(new Ocean(this.gl, new ThingState([x, 0, z])));
         }
       }
     }
-    this.things.push(new BasicBot(this.gl, 2, 0));
-    this.things.push(new Player(this.gl,
-      this.state.you.xyz[0], this.state.you.xyz[2]));
-    this.things.push(new Gem(this.gl, -2, -2));
+    // this.things.push(new BasicBot(this.gl, 2, 0));
+    this.things.push(new Player(this.gl, this.state.you));
+    // this.things.push(new Gem(this.gl, -2, -2));
 
-    this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
+    // this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
 
     this.saveLoop();
   }
