@@ -1,35 +1,32 @@
 import { Log } from "./log"
 import { Perspective } from "./perspective";
 import { State } from "./state";
+import { ThingStateDelta } from "./thingStateDelta";
 
 export class Computer {
 
   private worker: Worker;
   private stateResponse: State;
   private working: boolean;
+  private code: string;
 
-  constructor() {
-    const computerFunction: Function = function (e: MessageEvent) {
-      console.log("Recieved message: " + JSON.stringify(e.data));
-      postMessage("Done.", e.origin);
-    }
-
-    // Maybe consider something like this:
-    /*
-      `
-      exports = {};
-      ${loaded js code from src directory}
-      onmessage = ${computerFunction.toString()}
-    
-      `
-    */
+  constructor(code: string) {
+    this.code = code;
     const computeSource = `
-    onmessage = ${computerFunction.toString()}
+    onmessage = function(eventMessage) {
+      const delta = {};
+      ${this.code}
+      postMessage(delta); 
+    }
     `;
+    console.log("Source: " + computeSource);
     const dataUrl = "data:text/javascript;base64," + btoa(computeSource);
     this.worker = new Worker(dataUrl);
     this.stateResponse = null;
     this.working = false;
+    this.worker.onmessage = (ev: MessageEvent) => {
+      this.stateResponse = ev.data;
+    }
   }
 
   async getDelta(perspective: Perspective) {

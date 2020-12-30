@@ -7,6 +7,6 @@ export class ProgramInfo {
   projectionMatrix: WebGLUniformLocation;
   modelViewMatrix: WebGLUniformLocation;
   objectTransform: WebGLUniformLocation;
-  constructor() {
-  }
+  eyePosition: WebGLUniformLocation;
+  constructor() { }
 }

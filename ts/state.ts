@@ -23,6 +23,15 @@ export class State {
         target.xyz[i] += other.dxyz[i];
       }
     }
+    if (other.drive > 0) {
+      const dt = (other.turn == null) ? 0 : other.turn / 10;
+      const dr = Math.max(0, Math.min(1, (other.drive) - dt));
+      const dz = Math.cos(target.heading) * dr;
+      const dx = Math.sin(target.heading) * dr;
+      target.heading += dt;
+      target.xyz[0] = target.xyz[0] + dx;
+      target.xyz[2] = target.xyz[2] + dz;
+    }
   }
 
   mergeFrom(other: State) {

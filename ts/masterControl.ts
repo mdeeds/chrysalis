@@ -1,3 +1,4 @@
+import { Cog } from "./cog";
 import { Intention } from "./intention";
 import { Perspective } from "./perspective";
 import { State } from "./state";
@@ -6,13 +7,15 @@ import { ThingStateDelta } from "./thingStateDelta";
 
 export class MasterControl {
   state: State;
+  cogs: Cog[];
   startTimeMs: number;
   frameNumber: number;
   pendingEvents: Intention[];
   private keysDown: Set<string>;
 
-  constructor(state: State) {
+  constructor(state: State, cogs: Cog[]) {
     this.state = state;
+    this.cogs = cogs;
     this.frameNumber = 0;
     this.pendingEvents = [];
     this.keysDown = new Set<string>();
@@ -58,6 +61,14 @@ export class MasterControl {
     const youPerspective = new Perspective();
     youPerspective.keysDown = this.keysDown;
     youPerspective.currentHeading = 1;
+
+    for (const cog of this.cogs) {
+      cog.computer.getDelta(youPerspective)
+        .then((delta: ThingStateDelta) => {
+          this.state.applyThing(this.state.you, delta);
+        });
+    }
+
     // TODO: Send this to the youComputer.
 
     const futureStack: Intention[] = [];

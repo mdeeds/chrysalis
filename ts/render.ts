@@ -43,11 +43,13 @@ export class Render {
     this.programInfo.projectionMatrix = this.gl.getUniformLocation(shaderProgram, 'uProjectionMatrix');
     this.programInfo.modelViewMatrix = this.gl.getUniformLocation(shaderProgram, 'uModelViewMatrix');
     this.programInfo.objectTransform = this.gl.getUniformLocation(shaderProgram, 'uObjectTransform');
+    this.programInfo.eyePosition = this.gl.getUniformLocation(shaderProgram, "uEyePosition");
 
     Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
     this.world = new World("vialis", this.gl);
-    this.masterControl = new MasterControl(this.world.getState());
+    this.masterControl = new MasterControl(
+      this.world.getState(), this.world.getCogs());
 
     this.renderLoop();
   }
@@ -76,21 +78,16 @@ export class Render {
     const zNear = 0.1;
     const zFar = 400.0;
     const projectionMatrix = GLM.mat4.create();
-
-    // note: glmatrix.js always has the first argument
-    // as the destination to receive the result.
     GLM.mat4.perspective(projectionMatrix,
-      fieldOfView,
-      aspect,
-      zNear,
-      zFar);
+      fieldOfView, aspect, zNear, zFar);
 
     const modelViewMatrix = GLM.mat4.create();
     const px = playerCoords[0];
     const py = playerCoords[1];
     const pz = playerCoords[2];
+    const eyePosition = GLM.vec3.fromValues(px, py + 60, pz + 60);
     GLM.mat4.lookAt(modelViewMatrix,
-      /*eye=*/[px, py + 60.0, pz + 60.0],
+      /*eye=*/eyePosition,
       /*center=*/[px, py + 4, pz - 2],
       /*up=*/[0.0, 1.0, 0.0]);
 
@@ -104,6 +101,7 @@ export class Render {
       programInfo.modelViewMatrix,
       false,
       modelViewMatrix);
+    gl.uniformMatrix3fv(programInfo.eyePosition, false, eyePosition);
   }
 
   private initShaderProgram(gl: WebGLRenderingContext,
@@ -146,9 +144,12 @@ export class Render {
     uniform mat4 uObjectTransform;
     uniform mat4 uModelViewMatrix;
     uniform mat4 uProjectionMatrix;
+    uniform vec3 uVertexNormal;
+    uniform vec3 uEyePosition;
 
     varying highp vec2 vTextureCoord;
     varying highp vec3 vLighting;
+    varying highp float vFog;
 
     void main(void) {
       gl_Position = uProjectionMatrix * 
@@ -156,6 +157,10 @@ export class Render {
         uObjectTransform *
         aVertexPosition;
       vTextureCoord = aTextureCoord;
+
+      highp vec3 sightVector = gl_Position.xyz - uEyePosition;
+      highp float dist2 = dot(sightVector, sightVector);
+      vFog = 0.0; // max(min(dist2 / 1600.0, 1.0), 0.0);
 
       highp vec3 ambientLight = vec3(0.3, 0.3, 0.3);
       highp vec3 directionalLightColor = vec3(0.7, 0.7, 0.7);
@@ -175,12 +180,17 @@ export class Render {
     return `
     varying highp vec2 vTextureCoord;
     varying highp vec3 vLighting;
+    varying highp float vFog;
 
     uniform sampler2D uSampler;
 
     void main(void) {
       highp vec4 texelColor = texture2D(uSampler, vTextureCoord);
-      gl_FragColor = vec4(texelColor.rgb * vLighting, texelColor.a);
+      highp vec4 pureColor = vec4(texelColor.rgb * vLighting, texelColor.a);      
+      highp vec4 fogPart = vFog * vec4(1.0, 1.0, 1.0, 1.0);
+      highp float q = 1.0 - vFog;
+      highp vec4 colorPart = q * pureColor;
+      gl_FragColor = fogPart + colorPart;
     }
     `;
   }

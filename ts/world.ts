@@ -1,19 +1,22 @@
 import { BasicBot } from "./basicBot";
 import { Bubble } from "./bubble";
+import { Cog } from "./cog";
+import { Computer } from "./computer";
 import { Gem } from "./gem";
+import { Log } from "./log";
 import { Ocean } from "./ocean";
 import { PeerConnection } from "./peerConnection";
 import { Player } from "./player";
 import { State } from "./state";
 import { Thing } from "./thing";
 import { Tile } from "./tile";
-import { Log } from "./log";
 import { ThingState } from "./thingState";
 import { StateDelta } from "./stateDelta";
 
 export class World {
   private gl: WebGLRenderingContext;
   private things: Thing[];
+  private cogs: Cog[];
   private state: State;
   private personalConnection: PeerConnection;
   private worldServer: PeerConnection;
@@ -23,6 +26,7 @@ export class World {
     this.worldName = worldName;
     this.gl = gl;
     this.things = [];
+    this.cogs = [];
     this.state = new State();
 
     const url = new URL(document.URL);
@@ -123,6 +127,10 @@ export class World {
     return this.state;
   }
 
+  getCogs() {
+    return this.cogs;
+  }
+
   applyDelta(delta: StateDelta) {
     this.state.apply(delta);
   }
@@ -156,8 +164,11 @@ export class World {
         }
       }
     }
+    const playerThing = new Player(this.gl, this.state.you);
+    const playerComputer = new Computer("delta.drive = 0.5; delta.turn = 0.8;");
+    this.cogs.push(new Cog(playerThing, playerComputer));
     // this.things.push(new BasicBot(this.gl, 2, 0));
-    this.things.push(new Player(this.gl, this.state.you));
+    this.things.push(playerThing);
     // this.things.push(new Gem(this.gl, -2, -2));
 
     // this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
