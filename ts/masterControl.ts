@@ -49,7 +49,7 @@ export class MasterControl {
     youPerspective.keysDown = this.keysDown;
     youPerspective.currentHeading = 1;
     if (this.state.you != null) {
-      youPerspective.state = this.state.you.state;
+      youPerspective.state = this.state.you.data;
     } else {
       youPerspective.state = {};
     }

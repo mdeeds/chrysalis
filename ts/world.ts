@@ -12,6 +12,7 @@ import { Thing } from "./thing";
 import { Tile } from "./tile";
 import { ThingState } from "./thingState";
 import { StateDelta } from "./stateDelta";
+import { Terminal } from "./terminal";
 
 export class World {
   private gl: WebGLRenderingContext;
@@ -21,6 +22,7 @@ export class World {
   private personalConnection: PeerConnection;
   private worldServer: PeerConnection;
   private worldName: string;
+  private terminal: Terminal;
 
   constructor(worldName: string, gl: WebGLRenderingContext) {
     this.worldName = worldName;
@@ -28,6 +30,7 @@ export class World {
     this.things = [];
     this.cogs = [];
     this.state = new State();
+    this.terminal = new Terminal();
 
     const url = new URL(document.URL);
     if (url.searchParams.get('local')) {
@@ -166,7 +169,9 @@ export class World {
     }
     const playerThing = new Player(this.gl, this.state.you);
     const playerComputer = new Computer(this.state.you.code);
-    this.cogs.push(new Cog(playerThing, playerComputer));
+    const youCog = new Cog(playerThing, playerComputer);
+    this.cogs.push(youCog);
+    this.terminal.setCog(youCog);
     // this.things.push(new BasicBot(this.gl, 2, 0));
     this.things.push(playerThing);
     // this.things.push(new Gem(this.gl, -2, -2));

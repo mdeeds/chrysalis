@@ -36,7 +36,7 @@ export class State {
       target.xyz[2] = target.xyz[2] + dz;
     }
     if (other.state != null) {
-      target.state = other.state;
+      target.data = other.state;
     }
   }
 

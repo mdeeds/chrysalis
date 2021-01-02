@@ -3,7 +3,7 @@ export class ThingState {
   xyz: Float32Array;
   heading: number;  // orientation on the X-Z plane.  Zero is Z-positive.
   code: string;
-  state: any;
+  data: any;
 
   constructor(position: number[]) {
     if (position != null) {
@@ -27,9 +27,9 @@ export class ThingState {
     if (other.code != null) {
       this.code = other.code;
     }
-    if (other.state != null) {
+    if (other.data != null) {
       // TODO: Should this merge?
-      this.state = other.state;
+      this.data = other.data;
     }
   }
 }
