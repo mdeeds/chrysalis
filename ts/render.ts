@@ -16,8 +16,6 @@ export class Render {
     this.canvas.id = "glCanvas";
     this.canvas.width = 1024 * 2;
     this.canvas.height = 768 * 2;
-    this.canvas.style.setProperty("width", "1024px");
-    this.canvas.style.setProperty("height", "768px");
     let body = document.getElementsByTagName("body")[0];
     body.appendChild(this.canvas);
   }

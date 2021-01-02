@@ -1,0 +1,20 @@
+canvas {
+  border: 0px solid black;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+}
+
+.terminal {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 25vh;
+  width: 50vh;
+  border: 2px solid orange;
+  background-color: black;
+  font-family: 'Courier New', Courier, monospace;
+}
