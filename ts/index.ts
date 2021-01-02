@@ -1,6 +1,4 @@
-import { Computer } from "./computer";
 import { Log } from "./log";
-import { Perspective } from "./perspective";
 import { Render } from "./render";
 
 const logs = document.createElement("div");

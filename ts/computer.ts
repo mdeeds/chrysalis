@@ -14,6 +14,7 @@ export class Computer {
     this.code = code;
     const computeSource = `
     onmessage = function(eventMessage) {
+      const perspective = eventMessage.data;
       const delta = {};
       ${this.code}
       postMessage(delta); 

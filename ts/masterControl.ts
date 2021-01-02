@@ -45,19 +45,6 @@ export class MasterControl {
   }
 
   eventLoop(ts: number) {
-    if (this.keysDown.has("ArrowLeft")) {
-      this.pendingEvents.push(this.intentionFromDelta([-0.25, 0, 0]));
-    }
-    if (this.keysDown.has("ArrowRight")) {
-      this.pendingEvents.push(this.intentionFromDelta([0.25, 0, 0]));
-    }
-    if (this.keysDown.has("ArrowDown")) {
-      this.pendingEvents.push(this.intentionFromDelta([0, 0, 0.25]));
-    }
-    if (this.keysDown.has("ArrowUp")) {
-      this.pendingEvents.push(this.intentionFromDelta([0, 0, -0.25]));
-    }
-
     const youPerspective = new Perspective();
     youPerspective.keysDown = this.keysDown;
     youPerspective.currentHeading = 1;

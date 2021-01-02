@@ -27,7 +27,7 @@ export class State {
       const kSpeed = 0.2;
       const radius = 0.8;
       const dr = other.drive * kSpeed * (1 - Math.abs(other.turn));
-      const dt = (dr / radius) * Math.abs(other.turn);
+      const dt = (dr / radius) * other.turn;
 
       const dz = Math.cos(target.heading) * dr;
       const dx = Math.sin(target.heading) * dr;
