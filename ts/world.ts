@@ -165,7 +165,7 @@ export class World {
       }
     }
     const playerThing = new Player(this.gl, this.state.you);
-    const playerComputer = new Computer("delta.drive = 0.5; delta.turn = 0.8;");
+    const playerComputer = new Computer(this.state.you.code);
     this.cogs.push(new Cog(playerThing, playerComputer));
     // this.things.push(new BasicBot(this.gl, 2, 0));
     this.things.push(playerThing);

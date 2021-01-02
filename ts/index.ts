@@ -11,9 +11,4 @@ Log.info("Initiating start sequence.");
 const r = new Render();
 r.main();
 
-const computer = new Computer("delta.drive = 0.5; delta.turn = 0.8;");
-
-computer.getDelta(new Perspective())
-  .then((delta) => console.log("Response: " + JSON.stringify(delta)));
-
 Log.info("Systems are active.");

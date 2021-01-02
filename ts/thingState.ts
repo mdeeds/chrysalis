@@ -2,6 +2,7 @@
 export class ThingState {
   xyz: Float32Array;
   heading: number;  // orientation on the X-Z plane.  Zero is Z-positive.
+  code: string;
 
   constructor(position: number[]) {
     if (position != null) {
@@ -10,6 +11,7 @@ export class ThingState {
       this.xyz = new Float32Array(3);
     }
     this.heading = 0.0;
+    this.code = null;
   }
 
   mergeFrom(other: ThingState) {
@@ -20,6 +22,9 @@ export class ThingState {
     }
     if (other.heading != null) {
       this.heading = other.heading;
+    }
+    if (other.code != null) {
+      this.code = other.code;
     }
   }
 }
