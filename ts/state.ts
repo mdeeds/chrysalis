@@ -35,6 +35,9 @@ export class State {
       target.xyz[0] = target.xyz[0] + dx;
       target.xyz[2] = target.xyz[2] + dz;
     }
+    if (other.state != null) {
+      target.state = other.state;
+    }
   }
 
   mergeFrom(other: State) {

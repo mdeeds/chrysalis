@@ -48,6 +48,11 @@ export class MasterControl {
     const youPerspective = new Perspective();
     youPerspective.keysDown = this.keysDown;
     youPerspective.currentHeading = 1;
+    if (this.state.you != null) {
+      youPerspective.state = this.state.you.state;
+    } else {
+      youPerspective.state = {};
+    }
 
     for (const cog of this.cogs) {
       cog.computer.getDelta(youPerspective)
