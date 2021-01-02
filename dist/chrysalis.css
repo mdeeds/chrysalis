@@ -15,6 +15,9 @@ canvas {
   height: 25vh;
   width: 50vh;
   border: 2px solid orange;
+  padding: 10px;
   background-color: black;
+  color: orange;
   font-family: 'Courier New', Courier, monospace;
+  border-radius: 10px;
 }
