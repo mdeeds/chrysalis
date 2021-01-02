@@ -20,6 +20,6 @@
       0,
       12
     ],
-    "code": "delta.drive = 0.5; delta.turn = 0.8;"
+    "code": "delta.drive = 0.4; delta.turn = 0.8;"
   }
 }

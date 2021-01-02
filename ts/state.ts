@@ -23,9 +23,12 @@ export class State {
         target.xyz[i] += other.dxyz[i];
       }
     }
-    if (other.drive > 0) {
-      const dt = (other.turn == null) ? 0 : other.turn / 10;
-      const dr = Math.max(0, Math.min(1, (other.drive) - dt));
+    if (other.drive > 0 && other.turn != null) {
+      const kSpeed = 0.01;
+      const radius = 0.8;
+      const dr = kSpeed * (1 - Math.abs(other.turn));
+      const dt = (kSpeed / radius) * Math.abs(other.turn);
+
       const dz = Math.cos(target.heading) * dr;
       const dx = Math.sin(target.heading) * dr;
       target.heading += dt;
