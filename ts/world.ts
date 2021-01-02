@@ -30,7 +30,6 @@ export class World {
     this.state = new State();
 
     const url = new URL(document.URL);
-    Log.info("Document URL: " + url)
     if (url.searchParams.get('local')) {
       this.loadFromSavedState()
         .then((data: string) => {
@@ -93,7 +92,8 @@ export class World {
 
   private async loadFromSavedState() {
     const worldData = window.localStorage.getItem(`${this.worldName}-world`);
-    if (worldData) {
+    const url = new URL(document.URL);
+    if (worldData && !url.searchParams.get('reset')) {
       return new Promise((resolve, reject) => {
         Log.info("Loading from local storage.");
         resolve(worldData);
