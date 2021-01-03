@@ -4,6 +4,7 @@ export class Log {
 
   static setTargetElement(target: HTMLDivElement) {
     Log.target = target;
+    target.classList.add("log");
   }
 
   static info(message: string) {

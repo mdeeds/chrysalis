@@ -1,3 +1,8 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+  color: orange;
+}
+
 canvas {
   border: 0px solid black;
   width: 100vw;
@@ -8,7 +13,14 @@ canvas {
   z-index: -100;
 }
 
+.log {
+  background-color: #0008;
+  width: 60vw;
+  padding: 10px;
+}
+
 .terminal {
+  z-index: 10;
   position: absolute;
   right: 0;
   top: 0;
@@ -20,4 +32,15 @@ canvas {
   color: orange;
   font-family: 'Courier New', Courier, monospace;
   border-radius: 10px;
+}
+
+.toolbar {
+  position: absolute;
+  right: 0;
+  top: calc(25vh + 24px);
+  padding: 5px;
+}
+
+img {
+  image-rendering: pixelated;
 }
