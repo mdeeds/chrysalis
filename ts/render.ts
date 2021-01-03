@@ -12,6 +12,9 @@ export class Render {
   private world: World;
   private masterControl: MasterControl;
   constructor() {
+    for (let h of document.getElementsByTagName('h1')) {
+      h.remove();
+    }
     this.canvas = document.createElement("canvas");
     this.canvas.id = "glCanvas";
     this.canvas.width = 1024 * 2;

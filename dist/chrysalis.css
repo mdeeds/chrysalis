@@ -1,6 +1,7 @@
 body {
   font-family: 'Courier New', Courier, monospace;
   color: orange;
+  background-color: black;
 }
 
 canvas {
@@ -11,6 +12,14 @@ canvas {
   top: 0;
   left: 0;
   z-index: -100;
+}
+
+.login {
+  background-color: black;
+  color: orange;
+  padding: 5px;
+  border: solid 1px orange;
+  border-radius: 3px;
 }
 
 .log {
