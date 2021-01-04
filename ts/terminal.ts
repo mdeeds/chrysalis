@@ -40,7 +40,7 @@ export class Terminal {
 
   private getSource() {
     const newContent = this.div.innerText.trim();
-    const cleanContent = newContent.replace(/[^\x10-\x7e]/g, " ");
+    const cleanContent = newContent.replace(/[^\n\x20-\x7e]/g, " ");
     return cleanContent;
   }
 
