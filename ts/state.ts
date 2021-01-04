@@ -119,7 +119,7 @@ export class State {
           scan.pop();
         }
         this.everything.appendFromRange(new BoundingBox(x, z, 0.5), scan);
-        if (scan.length == 0) {
+        if (scan.length === 0) {
           const ocean = new Ocean(this.gl, new ThingState([x, 0, z]));
           this.everything.insert(x, z, ocean);
         }

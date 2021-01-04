@@ -54,7 +54,7 @@ export class Computer {
   }
 
   waitForResponse(resolve: Function, reject: Function) {
-    if (this.stateResponse != null) {
+    if (this.stateResponse !== null) {
       const result = this.stateResponse as ThingStateDelta;
       this.stateResponse = null;
       this.working = false;

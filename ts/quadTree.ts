@@ -83,7 +83,7 @@ export class QuadTree<T> {
     if (!query.intersects(this.boundary)) {
       return;
     }
-    if (this.children == null) {
+    if (this.children === null) {
       for (let entry of this.entries) {
         if (query.containsPoint(entry.x, entry.y)) {
           output.push(entry.value);
@@ -100,7 +100,7 @@ export class QuadTree<T> {
     if (!this.boundary.containsPoint(entry.x, entry.y)) {
       return false;
     }
-    if (this.children == null) {
+    if (this.children === null) {
       this.entries.push(entry);
       if (this.entries.length > QuadTree.kMaxCapacity) {
         this.subdivide();

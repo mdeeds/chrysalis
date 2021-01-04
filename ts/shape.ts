@@ -20,7 +20,7 @@ export class Shape extends Thing {
     super();
     this.startTimeSeconds = window.performance.now() / 1000;
     this.state = state;
-    if (typeof source == "string") {
+    if (typeof source === "string") {
       this.loadTexture(gl, source as string);
     } else {
       Log.info("Binding canvas.");

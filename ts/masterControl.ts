@@ -31,9 +31,9 @@ export class MasterControl {
   }
 
   handleKey(ev: KeyboardEvent) {
-    if (ev.type == "keydown") {
+    if (ev.type === "keydown") {
       this.keysDown.add(ev.code);
-    } else if (ev.type == "keyup") {
+    } else if (ev.type === "keyup") {
       this.keysDown.delete(ev.code);
     }
   }
