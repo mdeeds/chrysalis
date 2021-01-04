@@ -24,6 +24,8 @@ export class World {
   private personalConnection: PeerConnection;
   private worldServer: PeerConnection;
   private terminal: Terminal;
+  private saveButton: HTMLAnchorElement;
+
 
   constructor(worldName: string, gl: WebGLRenderingContext, username: string) {
     this.worldName = worldName;
@@ -43,6 +45,14 @@ export class World {
     } else {
       this.setStateFromInternet();
     }
+
+    this.saveButton = document.createElement('a');
+    this.saveButton.innerText = "Download";
+    // this.saveButton.download = "vialis.json";
+    const saveDiv = document.createElement('div');
+    saveDiv.appendChild(this.saveButton);
+    saveDiv.classList.add("download");
+    document.getElementsByTagName('body')[0].appendChild(saveDiv);
   }
 
   setStateFromInternet() {
@@ -91,9 +101,13 @@ export class World {
   }
 
   private saveLoop() {
+    const serializedState = JSON.stringify(this.state);
     Log.info(`Saving. ${this.things.length} things`);
-    window.localStorage.setItem(`${this.worldName}-world`, JSON.stringify(this.state));
+    window.localStorage.setItem(`${this.worldName}-world`, serializedState);
     setTimeout(() => { this.saveLoop(); }, 2000);
+    const dataUrl = "data:text/javascript;base64," + btoa(serializedState);
+    this.saveButton.href = dataUrl;
+
   }
 
   private async loadFromSavedState() {
