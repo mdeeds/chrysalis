@@ -90,6 +90,7 @@ export class State {
 
     dict.tiles = [];
     dict.radius = this.radius;
+    dict.library = this.library.toObject();
 
     for (const t of this.everything.allEntries()) {
       if (t instanceof Tile) {

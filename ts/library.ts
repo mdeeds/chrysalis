@@ -11,6 +11,14 @@ export class Library {
     }
   }
 
+  toObject() {
+    const result: any = {};
+    for (const libraryName of this.books.keys()) {
+      result[libraryName] = this.books.get(libraryName);
+    }
+    return result;
+  }
+
   getCode(libraryName: string) {
     if (this.books.has(libraryName)) {
       return this.books.get(libraryName);
