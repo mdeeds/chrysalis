@@ -34,39 +34,23 @@ export class MasterControl {
     }
   }
 
-  private intentionFromDelta(dxyz: number[]) {
-    const delta = new StateDelta();
-    // TODO: Performance, copy element by element?
-    delta.you = new ThingStateDelta();
-    delta.you.dxyz = new Float32Array(dxyz);
-    const intention = new Intention(this.frameNumber + 15,
-      delta);
-    return intention;
-  }
-
   eventLoop(ts: number) {
-    const youPerspective = new Perspective();
-    youPerspective.keysDown = this.keysDown;
-    youPerspective.currentHeading = 1;
-    if (this.state.you != null) {
-      youPerspective.state = this.state.you.data;
-    } else {
-      youPerspective.state = {};
-    }
-
+    const targetFrame = this.frameNumber + 15;
     for (const cog of this.cogs) {
-      cog.computer.getDelta(youPerspective)
+      const cogPerspective = new Perspective();
+      cogPerspective.keysDown = this.keysDown;
+      cogPerspective.currentHeading = cog.thing.state.heading;
+      cog.computer.getDelta(cogPerspective)
         .then((delta: ThingStateDelta) => {
-          this.state.applyThing(this.state.you, delta);
+          const intention = new Intention(targetFrame, delta, cog);
+          this.state.applyThing(cog.thing.state, delta);
         });
     }
-
-    // TODO: Send this to the youComputer.
 
     const futureStack: Intention[] = [];
     for (const i of this.pendingEvents) {
       if (i.effectiveTime <= this.frameNumber) {
-        this.state.apply(i.delta);
+        this.state.applyThing(i.cog.thing.state, i.delta);
       } else {
         futureStack.push(i);
       }

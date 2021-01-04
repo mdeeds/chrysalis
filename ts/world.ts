@@ -15,18 +15,20 @@ import { StateDelta } from "./stateDelta";
 import { Terminal } from "./terminal";
 
 export class World {
+  private worldName: string;
   private gl: WebGLRenderingContext;
+  private username: string;
   private things: Thing[];
   private cogs: Cog[];
   private state: State;
   private personalConnection: PeerConnection;
   private worldServer: PeerConnection;
-  private worldName: string;
   private terminal: Terminal;
 
-  constructor(worldName: string, gl: WebGLRenderingContext) {
+  constructor(worldName: string, gl: WebGLRenderingContext, username: string) {
     this.worldName = worldName;
     this.gl = gl;
+    this.username = username;
     this.things = [];
     this.cogs = [];
     this.state = new State();
@@ -76,9 +78,9 @@ export class World {
   }
 
   getPlayerCoords(): Float32Array {
-    if (this.state != null && this.state.you != null &&
-      this.state.you.xyz != null) {
-      return this.state.you.xyz;
+    const playerState = this.state.players.get(this.username);
+    if (playerState != null) {
+      return playerState.xyz;
     } else {
       return new Float32Array([20, 0, 12]);
     }
@@ -89,6 +91,7 @@ export class World {
   }
 
   private saveLoop() {
+    Log.info(`Saving. ${this.things.length} things`);
     window.localStorage.setItem(`${this.worldName}-world`, JSON.stringify(this.state));
     setTimeout(() => { this.saveLoop(); }, 2000);
   }
@@ -139,9 +142,14 @@ export class World {
   }
 
   buildFromString(data: string) {
-    const dict = JSON.parse(data) as State;
-    this.state.mergeFrom(dict);
-    Log.info("Loaded size: " + data.length);
+    const dict: any = JSON.parse(data);
+    this.state.mergeFromObject(dict);
+    if (!this.state.players.has(this.username)) {
+      Log.info(`${this.username} is new to this world.`);
+    } else {
+      Log.info(`Welcome back, ${this.username}.`);
+    }
+    Log.info("Loaded size: " + data.length.toLocaleString());
     const map: any = dict.map;
     const height = map.length;
     let width = 0;
@@ -167,13 +175,22 @@ export class World {
         }
       }
     }
-    const playerThing = new Player(this.gl, this.state.you);
-    const playerComputer = new Computer(this.state.you.code);
-    const youCog = new Cog(playerThing, playerComputer);
-    this.cogs.push(youCog);
-    this.terminal.setCog(youCog);
+
+    for (const name of this.state.players.keys()) {
+      Log.info(`Materializing ${name}.`);
+      const playerState = this.state.players.get(name);
+      const playerThing = new Player(this.gl, playerState);
+      const playerComputer = new Computer(playerState.code);
+      const youCog = new Cog(playerThing, playerComputer);
+      this.cogs.push(youCog);
+      this.terminal.setCog(youCog);
+      this.things.push(playerThing);
+    }
+    if (!this.state.players.has(this.username)) {
+      Log.error(`${this.username} is not here.`);
+    }
+
     // this.things.push(new BasicBot(this.gl, 2, 0));
-    this.things.push(playerThing);
     // this.things.push(new Gem(this.gl, -2, -2));
 
     // this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));

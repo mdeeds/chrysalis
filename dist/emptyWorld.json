@@ -23,12 +23,14 @@
     "~~~~~~~~~~~~#~~~~~~~",
     "~~~~~~~~~~~~#~~~~~~~"
   ],
-  "you": {
-    "xyz": [
-      25,
-      0,
-      28
-    ],
-    "code": "delta.drive = 0.5; if (perspective.keysDown.has('ArrowRight')) { delta.turn = -0.8; } else { delta.turn = 0.8 }"
+  "players": {
+    "xlat": {
+      "xyz": [
+        25,
+        0,
+        28
+      ],
+      "code": "delta.drive = 0.5; if (perspective.keysDown.has('ArrowRight')) { delta.turn = -0.8; } else { delta.turn = 0.8 }"
+    }
   }
 }

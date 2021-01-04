@@ -23,7 +23,7 @@ export class Render {
     body.appendChild(this.canvas);
   }
 
-  main() {
+  main(username: string) {
     this.gl = this.canvas.getContext("webgl");
     if (this.gl === null) {
       alert("Your browser doesn't support WebGL");
@@ -48,7 +48,7 @@ export class Render {
 
     Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
-    this.world = new World("vialis", this.gl);
+    this.world = new World("vialis", this.gl, username);
     this.masterControl = new MasterControl(
       this.world.getState(), this.world.getCogs());
 

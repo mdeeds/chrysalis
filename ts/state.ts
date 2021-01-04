@@ -1,19 +1,24 @@
+import { Log } from "./log";
 import { StateDelta } from "./stateDelta";
 import { ThingState } from "./thingState";
 import { ThingStateDelta } from "./thingStateDelta";
 
 export class State {
-  you: ThingState;
+  players: Map<string, ThingState>;
   map: string[];
   constructor() {
+    this.players = new Map<string, ThingState>();
   }
 
   apply(other: StateDelta) {
-    if (other.you != null) {
-      if (this.you == null) {
-        this.you = new ThingState([0, 0, 0]);
+    if (other.players != null) {
+      for (let name of other.players.keys()) {
+        if (!this.players.has(name)) {
+          Log.info("Orphaned ThingStateDelta for " + name);
+          this.players[name] = new ThingState([0, 0, 0]);
+        }
+        this.applyThing(this.players[name], other.players[name]);
       }
-      this.applyThing(this.you, other.you);
     }
   }
 
@@ -40,15 +45,18 @@ export class State {
     }
   }
 
-  mergeFrom(other: State) {
+  mergeFromObject(other: any) {
     if (other.map != null) {
       this.map = other.map;
-    }
-    if (other.you != null) {
-      if (this.you == null) {
-        this.you = new ThingState([0, 0, 0]);
+      if (other.players != null) {
+        for (let name of Object.keys(other.players)) {
+          Log.info(`Loading ${name} player info`);
+          if (!this.players.has(name)) {
+            this.players.set(name, new ThingState([0, 0, 0]));
+          }
+          this.players.get(name).mergeFrom(other.players[name]);
+        }
       }
-      this.you.mergeFrom(other.you);
     }
   }
 }

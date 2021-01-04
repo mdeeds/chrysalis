@@ -1,7 +1,7 @@
 import { ThingStateDelta } from "./thingStateDelta";
 
 export class StateDelta {
-  you: ThingStateDelta;
+  players: Map<string, ThingStateDelta>;
   constructor() {
   }
 }

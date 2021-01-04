@@ -1,21 +1,23 @@
 import { Log } from "./log"
 import { Perspective } from "./perspective";
-import { State } from "./state";
 import { ThingStateDelta } from "./thingStateDelta";
 
 export class Computer {
 
   private worker: Worker;
-  private stateResponse: State;
+  private stateResponse: ThingStateDelta;
   private working: boolean;
   private code: string;
 
   constructor(code: string) {
     this.code = code;
     const computeSource = `
+    var perspective;
+    var delta;
+    // TODO: Libraries go here.
     onmessage = function(eventMessage) {
-      const perspective = eventMessage.data;
-      const delta = {};
+      perspective = eventMessage.data;
+      delta = {};
       ${this.code}
       postMessage(delta); 
     }
@@ -45,7 +47,7 @@ export class Computer {
 
   waitForResponse(resolve: Function, reject: Function) {
     if (this.stateResponse != null) {
-      const result = this.stateResponse;
+      const result = this.stateResponse as ThingStateDelta;
       this.stateResponse = null;
       this.working = false;
       resolve(result);

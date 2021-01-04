@@ -28,6 +28,11 @@ canvas {
   padding: 10px;
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+}
+
 .terminal {
   z-index: 10;
   position: absolute;

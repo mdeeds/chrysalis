@@ -1,15 +1,14 @@
 export class Log {
   private static target: HTMLDivElement;
   private static messages: HTMLDivElement[] = [];
+  private static lastMessage = "";
 
   static setTargetElement(target: HTMLDivElement) {
     Log.target = target;
     target.classList.add("log");
   }
 
-  static info(message: string) {
-    const div = document.createElement("div");
-    div.innerText = message;
+  private static addToLog(div: HTMLDivElement) {
     Log.messages.push(div);
     Log.target.appendChild(div);
     if (Log.messages.length > 10) {
@@ -17,4 +16,22 @@ export class Log {
       Log.messages.splice(0, 1);
     }
   }
+
+  static info(message: string) {
+    if (message === this.lastMessage) { return; }
+    this.lastMessage = message;
+    const div = document.createElement("div");
+    div.innerText = message;
+    Log.addToLog(div);
+  }
+
+  static error(message: string) {
+    if (message === this.lastMessage) { return; }
+    this.lastMessage = message;
+    const div = document.createElement("div");
+    div.classList.add("error");
+    div.innerText = message;
+    Log.addToLog(div);
+  }
+
 }

@@ -4,5 +4,5 @@
 export class Perspective {
   currentHeading: number;  // Measured in degrees.
   keysDown: Set<string>;
-  state: any;
+  data: any;
 }

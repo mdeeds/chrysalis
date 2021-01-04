@@ -11,7 +11,7 @@ const url = new URL(document.URL);
 const login = url.searchParams.get('login');
 if (login) {
   const r = new Render();
-  r.main();
+  r.main(login);
   Log.info("Systems are active.");
 } else {
   Log.info("Unrecognized user.");
