@@ -36,6 +36,10 @@ export class BoundingBox {
     }
     return false;
   }
+  toString() {
+    const r = this.radius;
+    return `[${this.x - r}..${this.x + r}, ${this.y - r}..${this.y + r}]`
+  }
 }
 
 class QuadEntry<T> {
@@ -121,9 +125,10 @@ export class QuadTree<T> {
           pushed = true;
           break;
         }
-        if (!pushed) {
-          Log.error("Failed to subdivide.");
-        }
+      }
+      if (!pushed) {
+        Log.error(`Failed to subdivide: ${entry.x}, ${entry.y}`);
+        Log.error(`Box: ${this.boundary.toString()}`)
       }
     }
     this.entries = null;

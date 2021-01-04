@@ -61,7 +61,7 @@ export class Render {
     this.setScene(this.gl, this.programInfo,
       playerCoords);
     for (const thing of this.world.getThings(
-      new BoundingBox(playerCoords[0], playerCoords[2], 26))) {
+      new BoundingBox(playerCoords[0], playerCoords[2] - 5, 26))) {
       thing.render(this.gl, this.programInfo);
     }
 

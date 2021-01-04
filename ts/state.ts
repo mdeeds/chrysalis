@@ -15,7 +15,7 @@ export class State {
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl;
     this.players = new Map<string, ThingState>();
-    this.everything = new QuadTree(new BoundingBox(0, 0, 1000));
+    this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
   }
 
   apply(other: StateDelta) {
