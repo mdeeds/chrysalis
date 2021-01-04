@@ -42,11 +42,11 @@ export class State {
       const turn = Math.max(-1.0, Math.min(1.0, other.turn));
       const kSpeed = 0.2;
       const radius = 0.8;
-      const dr = drive * kSpeed * (1 - Math.abs(other.turn));
-      const dt = (dr / radius) * other.turn;
+      const dr = drive * kSpeed * (1 - Math.abs(turn));
+      const dt = (drive * kSpeed / radius) * turn;
 
       const dz = Math.cos(target.heading) * dr;
-      const dx = Math.sin(target.heading) * dr;
+      const dx = -Math.sin(target.heading) * dr;
       target.heading += dt;
       target.heading = target.heading % (Math.PI * 2);
       target.xyz[0] = target.xyz[0] + dx;

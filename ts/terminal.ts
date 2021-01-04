@@ -16,7 +16,10 @@ export class Terminal {
 
     const toolbar = document.createElement('div');
     toolbar.classList.add("toolbar");
-    this.uploadButton = document.createElement('img')
+
+    const libraryButton = document.createElement('img');
+
+    this.uploadButton = document.createElement('img');
     this.uploadButton.src = "Upload.gif";
     this.uploadButton.alt = "Upload";
     this.uploadButton.width = 64;
@@ -39,7 +42,7 @@ export class Terminal {
   }
 
   private getSource() {
-    const newContent = this.div.innerText.trim();
+    const newContent = this.div.innerText;
     const cleanContent = newContent.replace(/[^\n\x20-\x7e]/g, " ");
     return cleanContent;
   }

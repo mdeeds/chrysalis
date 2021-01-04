@@ -38,7 +38,7 @@ export class Shape extends Thing {
     GLM.mat4.translate(objectTransform, objectTransform,
       this.state.xyz);
     GLM.mat4.rotate(objectTransform, objectTransform,
-      this.state.heading, [0, 1, 0]);
+      this.state.heading, [0, -1, 0]);
     return objectTransform;
   }
 

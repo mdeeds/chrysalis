@@ -54,6 +54,7 @@ canvas {
   color: orange;
   font-family: 'Courier New', Courier, monospace;
   border-radius: 10px;
+  overflow: scroll;
 }
 
 .toolbar {
