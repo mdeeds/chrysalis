@@ -104,7 +104,8 @@ export class Render {
       programInfo.modelViewMatrix,
       false,
       modelViewMatrix);
-    gl.uniformMatrix3fv(programInfo.eyePosition, false, eyePosition);
+    gl.uniformMatrix3fv(programInfo.eyePosition, false,
+      GLM.vec3.fromValues(px, py, pz));
   }
 
   private initShaderProgram(gl: WebGLRenderingContext,
@@ -161,9 +162,10 @@ export class Render {
         aVertexPosition;
       vTextureCoord = aTextureCoord;
 
-      highp vec3 sightVector = gl_Position.xyz - uEyePosition;
-      highp float dist2 = dot(sightVector, sightVector);
-      vFog = 0.0; // max(min(dist2 / 1600.0, 1.0), 0.0);
+      highp vec4 physicalPosition = uObjectTransform * aVertexPosition;
+      highp float dist = uEyePosition.z - physicalPosition.z;
+      // vFog = max(min(dist / 20.0, 1.0), 0.0);
+      vFog = 0.0;
 
       highp vec3 ambientLight = vec3(0.3, 0.3, 0.3);
       highp vec3 directionalLightColor = vec3(0.7, 0.7, 0.7);
