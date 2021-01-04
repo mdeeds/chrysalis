@@ -73,6 +73,12 @@ export class QuadTree<T> {
     return this.insertEntry(new QuadEntry(x, y, value));
   }
 
+  allEntries(): T[] {
+    const result: T[] = [];
+    this.appendFromRange(this.boundary, result);
+    return result;
+  }
+
   appendFromRange(query: BoundingBox, output: T[]) {
     if (!query.intersects(this.boundary)) {
       return;

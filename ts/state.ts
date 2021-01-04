@@ -10,12 +10,13 @@ import { Tile } from "./tile";
 export class State {
   players: Map<string, ThingState>;
   everything: QuadTree<Thing>;
-  map: string[];
   gl: WebGLRenderingContext;
+  radius: number;
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl;
     this.players = new Map<string, ThingState>();
     this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
+    this.radius = 0;
   }
 
   apply(other: StateDelta) {
@@ -54,16 +55,13 @@ export class State {
   }
 
   private mergeFromObject(other: any) {
-    if (other.map != null) {
-      this.map = other.map;
-      if (other.players != null) {
-        for (let name of Object.keys(other.players)) {
-          Log.info(`Loading ${name} player info`);
-          if (!this.players.has(name)) {
-            this.players.set(name, new ThingState([0, 0, 0]));
-          }
-          this.players.get(name).mergeFrom(other.players[name]);
+    if (other.players != null) {
+      for (let name of Object.keys(other.players)) {
+        Log.info(`Loading ${name} player info`);
+        if (!this.players.has(name)) {
+          this.players.set(name, new ThingState([0, 0, 0]));
         }
+        this.players.get(name).mergeFrom(other.players[name]);
       }
     }
   }
@@ -75,7 +73,23 @@ export class State {
   }
 
   serialize() {
-    return "TODO";
+    const dict: any = {};
+
+    dict.tiles = [];
+    dict.radius = this.radius;
+
+    for (const t of this.everything.allEntries()) {
+      if (t instanceof Tile) {
+        dict.tiles.push([t.state.xyz[0], t.state.xyz[2]]);
+      }
+    }
+
+    dict.players = {};
+    for (const playerName of this.players.keys()) {
+      dict.players[playerName] = this.players.get(playerName);
+    }
+
+    return JSON.stringify(dict);
   }
 
   deserialize(data: string) {
@@ -83,32 +97,30 @@ export class State {
     this.mergeFromObject(dict);
     Log.info("Loaded size: " + data.length.toLocaleString());
     const map: any = dict.map;
-    const height = map.length;
-    let width = 0;
-    for (let l of map) {
-      width = Math.max(width, l.length);
+    this.radius = dict.radius;
+
+    for (const tilePosition of dict.tiles) {
+      const x: number = tilePosition[0];
+      const z: number = tilePosition[1];
+      const tile = new Tile(this.gl,
+        new ThingState([x, 0, z]));
+      this.everything.insert(x, z, tile);
     }
 
-    for (let j = 0; j < height; ++j) {
-      const l = map[j];
-      const z = j * 2.0;
-      for (let i = 0; i < width; ++i) {
-        const x = i * 2.0;
-        let c = '~';
-        if (i < l.length) {
-          c = l[i];
+    const scan: Thing[] = [];
+    for (let j = -this.radius; j < this.radius; j += 2) {
+      const z = j;
+      for (let i = -this.radius; i < this.radius; i += 2) {
+        const x = i;
+        while (scan.length > 0) {
+          scan.pop();
         }
-        switch (c) {
-          case '#':
-            const tile = new Tile(this.gl, new ThingState([x, 0, z]));
-            this.everything.insert(x, z, tile);
-            break;
-          case '~':
-            const ocean = new Ocean(this.gl, new ThingState([x, 0, z]));
-            this.everything.insert(x, z, ocean);
+        this.everything.appendFromRange(new BoundingBox(x, z, 0.5), scan);
+        if (scan.length == 0) {
+          const ocean = new Ocean(this.gl, new ThingState([x, 0, z]));
+          this.everything.insert(x, z, ocean);
         }
       }
     }
-
   }
 }
