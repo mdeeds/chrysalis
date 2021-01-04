@@ -3,6 +3,7 @@ export class ThingState {
   xyz: Float32Array;
   heading: number;  // orientation on the X-Z plane.  Zero is Z-positive.
   code: string;
+  libraryCode: string;
   data: any;
 
   constructor(position: number[]) {

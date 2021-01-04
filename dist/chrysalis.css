@@ -55,6 +55,7 @@ canvas {
   font-family: 'Courier New', Courier, monospace;
   border-radius: 10px;
   overflow: scroll;
+  white-space: pre;
 }
 
 .toolbar {
@@ -66,4 +67,8 @@ canvas {
 
 img {
   image-rendering: pixelated;
+}
+
+img.deactivated {
+  filter: grayscale(100%);
 }

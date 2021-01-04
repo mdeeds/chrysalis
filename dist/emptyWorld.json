@@ -26,6 +26,7 @@
         "2": 2.2973997592926025
       },
       "heading": 0.07911731042388828,
+      "libraryCode": "",
       "code": "let desiredAngle = 0;\nlet dx = 0;\nlet dy = 0;\nif (perspective.keysDown.has('ArrowUp')) {\n  delta.drive = 1.0;\n  dy = -1\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  delta.drive = 1.0;\n  dy = 1\n}\n\nif (perspective.keysDown.has('ArrowRight')) {\n  delta.drive = 1.0;\n  dx = -1\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nif (dx != 0 || dy != 0) {\n  desiredAngle = Math.atan2(dx, dy);\n}\n\ndelta.turn = desiredAngle - perspective.currentHeading;\n\n\nif (delta.turn > Math.PI) {\n  delta.turn -= 2 * Math.PI;\n}\nif (delta.turn < -Math.PI) {\n  delta.turn += 2 * Math.PI;\n}"
     }
   }

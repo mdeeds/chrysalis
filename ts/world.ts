@@ -165,7 +165,8 @@ export class World {
       Log.info(`Materializing ${name}.`);
       const playerState = this.state.players.get(name);
       const playerThing = new Player(this.gl, playerState);
-      const playerComputer = new Computer(playerState.code);
+      const playerComputer =
+        new Computer(playerState.code, playerState.libraryCode);
       const youCog = new Cog(playerThing, playerComputer);
       this.cogs.push(youCog);
       this.terminal.setCog(youCog);

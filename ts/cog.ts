@@ -15,8 +15,8 @@ export class Cog {
     return delta;
   }
 
-  upload(code: string) {
+  upload(code: string, libraryCode: string) {
     this.thing.state.code = code;
-    this.computer.upload(code);
+    this.computer.upload(code, libraryCode);
   }
 }

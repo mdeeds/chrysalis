@@ -7,6 +7,8 @@ export class Terminal {
   lastContent: string;
   uploadButton: HTMLImageElement;
   dirty: boolean;
+  programCode: string;
+  libraryCode: string;
   constructor() {
     const body = document.getElementsByTagName("body")[0];
     this.div = document.createElement('div');
@@ -18,6 +20,24 @@ export class Terminal {
     toolbar.classList.add("toolbar");
 
     const libraryButton = document.createElement('img');
+    libraryButton.src = "Library.gif";
+    libraryButton.width = 64;
+    toolbar.appendChild(libraryButton);
+
+    const playerButton = document.createElement('img');
+    playerButton.src = "PlayerCode.gif";
+    playerButton.width = 64;
+    playerButton.classList.add("deactivated");
+    toolbar.appendChild(playerButton);
+
+    const robotButton = document.createElement('img');
+    robotButton.src = "RobotCode.gif";
+    robotButton.width = 64;
+    toolbar.appendChild(robotButton);
+
+    const sp = document.createElement('span');
+    sp.innerText = ' ';
+    toolbar.appendChild(sp);
 
     this.uploadButton = document.createElement('img');
     this.uploadButton.src = "Upload.gif";
@@ -56,19 +76,19 @@ export class Terminal {
   private maintainUploadState() {
     const newContent = this.getSource();
     if (this.lastContent === newContent && this.dirty) {
-      this.uploadButton.src = "Deactivated Upload.gif";
+      this.uploadButton.classList.add("deactivated");
       this.dirty = false;
     }
     if (this.lastContent !== newContent && !this.dirty) {
       this.dirty = true;
-      this.uploadButton.src = "Upload.gif";
+      this.uploadButton.classList.remove("deactivated");
     }
     setTimeout(() => this.maintainUploadState(), 100);
   }
 
   upload() {
     const newCode = this.getSource();
-    this.cog.upload(newCode);
+    this.cog.upload(newCode, this.libraryCode);
     this.lastContent = newCode;
   }
 
