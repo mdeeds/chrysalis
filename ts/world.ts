@@ -157,13 +157,19 @@ export class World {
     this.state.deserialize(data);
     if (!this.state.players.has(this.username)) {
       Log.info(`${this.username} is new to this world.`);
+      const playerState = this.state.players.get("_prototype");
+      this.state.players.set(this.username, playerState);
     } else {
       Log.info(`Welcome back, ${this.username}.`);
     }
 
-    for (const name of this.state.players.keys()) {
-      Log.info(`Materializing ${name}.`);
-      const playerState = this.state.players.get(name);
+    // TODO: We need to do something similar to this when a new player logs in.
+
+    if (!this.state.players.has(this.username)) {
+      Log.error(`${this.username} is not here.`);
+    } else {
+      Log.info(`Materializing ${this.username}.`);
+      const playerState = this.state.players.get(this.username);
       const playerThing = new Player(this.gl, playerState);
       const playerComputer =
         new Computer(playerState.code, playerState.libraryCode);
@@ -172,9 +178,6 @@ export class World {
       this.terminal.setCog(youCog);
       this.state.everything.insert(
         playerState.xyz[0], playerState.xyz[2], playerThing);
-    }
-    if (!this.state.players.has(this.username)) {
-      Log.error(`${this.username} is not here.`);
     }
 
     // this.things.push(new BasicBot(this.gl, 2, 0));

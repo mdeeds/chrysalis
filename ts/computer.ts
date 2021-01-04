@@ -7,15 +7,14 @@ export class Computer {
   private worker: Worker;
   private stateResponse: ThingStateDelta;
   private working: boolean;
-  private code: string;
-  private libraryCode: string;
 
   constructor(code: string, libraryCode: string) {
     this.startWorker(code, libraryCode);
   }
 
   private startWorker(code: string, libraryCode: string) {
-    this.code = code;
+    code = code;
+    libraryCode = libraryCode;
     const computeSource = `
     var perspective;
     var delta;
@@ -23,10 +22,11 @@ export class Computer {
     onmessage = function(eventMessage) {
       perspective = eventMessage.data;
       delta = { turn: 0.0 };
-      ${this.code}
+      ${code}
       postMessage(delta); 
     }
     `;
+    console.log(computeSource);
     const dataUrl = "data:text/javascript;base64," + btoa(computeSource);
     this.worker = new Worker(dataUrl);
     this.stateResponse = null;
@@ -35,8 +35,8 @@ export class Computer {
       this.stateResponse = ev.data;
     }
     this.worker.onerror = (ev: ErrorEvent) => {
-      Log.error(ev.message);
-      Log.error(`line ${ev.lineno - 2}`);
+      Log.error(`line ${ev.lineno - 2}: ${ev.message}`);
+      this.worker.terminate();
     }
   }
 

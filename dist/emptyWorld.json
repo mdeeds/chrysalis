@@ -21,13 +21,23 @@
   "players": {
     "xlat": {
       "xyz": {
-        "0": -0.29739969968795776,
+        "0": -0.297399640083313,
         "1": 0,
-        "2": 2.2973997592926025
+        "2": -0.297399640083313
       },
-      "heading": 0.07911731042388828,
-      "libraryCode": "",
-      "code": "let desiredAngle = 0;\nlet dx = 0;\nlet dy = 0;\nif (perspective.keysDown.has('ArrowUp')) {\n  delta.drive = 1.0;\n  dy = -1\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  delta.drive = 1.0;\n  dy = 1\n}\n\nif (perspective.keysDown.has('ArrowRight')) {\n  delta.drive = 1.0;\n  dx = -1\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nif (dx != 0 || dy != 0) {\n  desiredAngle = Math.atan2(dx, dy);\n}\n\ndelta.turn = desiredAngle - perspective.currentHeading;\n\n\nif (delta.turn > Math.PI) {\n  delta.turn -= 2 * Math.PI;\n}\nif (delta.turn < -Math.PI) {\n  delta.turn += 2 * Math.PI;\n}"
+      "heading": 3.141592279568985,
+      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "libraryCode": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n\n\n"
+    },
+    "_prototype": {
+      "xyz": {
+        "0": 0,
+        "1": 0,
+        "2": 0
+      },
+      "heading": 0,
+      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "libraryCode": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n\n\n"
     }
   }
 }

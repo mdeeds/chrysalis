@@ -17,6 +17,7 @@ export class Cog {
 
   upload(code: string, libraryCode: string) {
     this.thing.state.code = code;
+    this.thing.state.libraryCode = libraryCode;
     this.computer.upload(code, libraryCode);
   }
 }
