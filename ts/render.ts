@@ -4,6 +4,7 @@ import { World } from "./world";
 import { MasterControl } from "./masterControl";
 import { Thing } from "./thing";
 import { Log } from "./log";
+import { BoundingBox } from "./quadTree";
 
 export class Render {
   private canvas: HTMLCanvasElement;
@@ -59,7 +60,8 @@ export class Render {
     const playerCoords = this.world.getPlayerCoords();
     this.setScene(this.gl, this.programInfo,
       playerCoords);
-    for (const thing of this.world.getThings()) {
+    for (const thing of this.world.getThings(
+      new BoundingBox(playerCoords[0], playerCoords[2], 26))) {
       thing.render(this.gl, this.programInfo);
     }
 

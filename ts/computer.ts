@@ -34,6 +34,10 @@ export class Computer {
     this.worker.onmessage = (ev: MessageEvent) => {
       this.stateResponse = ev.data;
     }
+    this.worker.onerror = (ev: ErrorEvent) => {
+      Log.error(ev.message);
+      Log.error(`line ${ev.lineno}`);
+    }
   }
 
   async getDelta(perspective: Perspective) {

@@ -1,3 +1,5 @@
+import { Log } from "./log";
+
 export class BoundingBox {
   x: number;
   y: number;
@@ -56,6 +58,7 @@ export class QuadTree<T> {
   constructor(boundary: BoundingBox) {
     this.boundary = boundary;
     this.children = null;
+    this.entries = [];
   }
 
   insert(x: number, y: number, value: T) {
@@ -77,11 +80,6 @@ export class QuadTree<T> {
         child.appendFromRange(query, output);
       }
     }
-    for (let child of this.children) {
-      if (child.entries.length > QuadTree.kMaxCapacity) {
-        child.subdivide();
-      }
-    }
   }
 
   private insertEntry(entry: QuadEntry<T>) {
@@ -90,15 +88,15 @@ export class QuadTree<T> {
     }
     if (this.children == null) {
       this.entries.push(entry);
+      if (this.entries.length > QuadTree.kMaxCapacity) {
+        this.subdivide();
+      }
     } else {
       for (const child of this.children) {
         if (child.insertEntry(entry)) {
           break;
         }
       }
-    }
-    if (this.entries.length > QuadTree.kMaxCapacity) {
-      this.subdivide();
     }
     return true;
   }
@@ -109,20 +107,25 @@ export class QuadTree<T> {
     for (let dx of [-1, 1]) {
       for (let dy of [-1, 1]) {
         const childBB = new BoundingBox(
-          bb.x + dx * bb.radius,
-          bb.y + dy * bb.radius,
+          bb.x + dx * (bb.radius / 2),
+          bb.y + dy * (bb.radius / 2),
           bb.radius / 2.0);
         const child = new QuadTree<T>(childBB);
         this.children.push(child);
       }
     }
     for (const entry of this.entries) {
+      let pushed = false;
       for (let child of this.children) {
         if (child.insertEntry(entry)) {
+          pushed = true;
           break;
+        }
+        if (!pushed) {
+          Log.error("Failed to subdivide.");
         }
       }
     }
-    this.entries = [];
+    this.entries = null;
   }
 }

@@ -1,13 +1,21 @@
 import { Log } from "./log";
+import { Ocean } from "./ocean";
+import { BoundingBox, QuadTree } from "./quadTree";
 import { StateDelta } from "./stateDelta";
+import { Thing } from "./thing";
 import { ThingState } from "./thingState";
 import { ThingStateDelta } from "./thingStateDelta";
+import { Tile } from "./tile";
 
 export class State {
   players: Map<string, ThingState>;
+  everything: QuadTree<Thing>;
   map: string[];
-  constructor() {
+  gl: WebGLRenderingContext;
+  constructor(gl: WebGLRenderingContext) {
+    this.gl = gl;
     this.players = new Map<string, ThingState>();
+    this.everything = new QuadTree(new BoundingBox(0, 0, 1000));
   }
 
   apply(other: StateDelta) {
@@ -45,7 +53,7 @@ export class State {
     }
   }
 
-  mergeFromObject(other: any) {
+  private mergeFromObject(other: any) {
     if (other.map != null) {
       this.map = other.map;
       if (other.players != null) {
@@ -58,5 +66,49 @@ export class State {
         }
       }
     }
+  }
+
+  getThings(bb: BoundingBox) {
+    const result: Thing[] = [];
+    this.everything.appendFromRange(bb, result);
+    return result;
+  }
+
+  serialize() {
+    return "TODO";
+  }
+
+  deserialize(data: string) {
+    const dict: any = JSON.parse(data);
+    this.mergeFromObject(dict);
+    Log.info("Loaded size: " + data.length.toLocaleString());
+    const map: any = dict.map;
+    const height = map.length;
+    let width = 0;
+    for (let l of map) {
+      width = Math.max(width, l.length);
+    }
+
+    for (let j = 0; j < height; ++j) {
+      const l = map[j];
+      const z = j * 2.0;
+      for (let i = 0; i < width; ++i) {
+        const x = i * 2.0;
+        let c = '~';
+        if (i < l.length) {
+          c = l[i];
+        }
+        switch (c) {
+          case '#':
+            const tile = new Tile(this.gl, new ThingState([x, 0, z]));
+            this.everything.insert(x, z, tile);
+            break;
+          case '~':
+            const ocean = new Ocean(this.gl, new ThingState([x, 0, z]));
+            this.everything.insert(x, z, ocean);
+        }
+      }
+    }
+
   }
 }

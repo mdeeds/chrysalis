@@ -13,12 +13,12 @@ import { Tile } from "./tile";
 import { ThingState } from "./thingState";
 import { StateDelta } from "./stateDelta";
 import { Terminal } from "./terminal";
+import { BoundingBox } from "./quadTree";
 
 export class World {
   private worldName: string;
   private gl: WebGLRenderingContext;
   private username: string;
-  private things: Thing[];
   private cogs: Cog[];
   private state: State;
   private personalConnection: PeerConnection;
@@ -31,9 +31,8 @@ export class World {
     this.worldName = worldName;
     this.gl = gl;
     this.username = username;
-    this.things = [];
     this.cogs = [];
-    this.state = new State();
+    this.state = new State(gl);
     this.terminal = new Terminal();
 
     const url = new URL(document.URL);
@@ -96,13 +95,12 @@ export class World {
     }
   }
 
-  getThings(): Thing[] {
-    return this.things;
+  getThings(bb: BoundingBox): Thing[] {
+    return this.state.getThings(bb);
   }
 
   private saveLoop() {
-    const serializedState = JSON.stringify(this.state);
-    Log.info(`Saving. ${this.things.length} things`);
+    const serializedState = this.state.serialize();
     window.localStorage.setItem(`${this.worldName}-world`, serializedState);
     setTimeout(() => { this.saveLoop(); }, 2000);
     const dataUrl = "data:text/javascript;base64," + btoa(serializedState);
@@ -156,38 +154,11 @@ export class World {
   }
 
   buildFromString(data: string) {
-    const dict: any = JSON.parse(data);
-    this.state.mergeFromObject(dict);
+    this.state.deserialize(data);
     if (!this.state.players.has(this.username)) {
       Log.info(`${this.username} is new to this world.`);
     } else {
       Log.info(`Welcome back, ${this.username}.`);
-    }
-    Log.info("Loaded size: " + data.length.toLocaleString());
-    const map: any = dict.map;
-    const height = map.length;
-    let width = 0;
-    for (let l of map) {
-      width = Math.max(width, l.length);
-    }
-
-    for (let j = 0; j < height; ++j) {
-      const l = map[j];
-      const z = j * 2.0;
-      for (let i = 0; i < width; ++i) {
-        const x = i * 2.0;
-        let c = '~';
-        if (i < l.length) {
-          c = l[i];
-        }
-        switch (c) {
-          case '#':
-            this.things.push(new Tile(this.gl, new ThingState([x, 0, z])));
-            break;
-          case '~':
-            this.things.push(new Ocean(this.gl, new ThingState([x, 0, z])));
-        }
-      }
     }
 
     for (const name of this.state.players.keys()) {
@@ -198,7 +169,8 @@ export class World {
       const youCog = new Cog(playerThing, playerComputer);
       this.cogs.push(youCog);
       this.terminal.setCog(youCog);
-      this.things.push(playerThing);
+      this.state.everything.insert(
+        playerState.xyz[0], playerState.xyz[2], playerThing);
     }
     if (!this.state.players.has(this.username)) {
       Log.error(`${this.username} is not here.`);
