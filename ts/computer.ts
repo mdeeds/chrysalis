@@ -60,7 +60,7 @@ export class Computer {
       this.working = false;
       resolve(result);
     } else {
-      setTimeout(() => this.waitForResponse(resolve, reject), 1);
+      setTimeout(() => this.waitForResponse(resolve, reject), 10);
     }
   }
 
