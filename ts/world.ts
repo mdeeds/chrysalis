@@ -163,6 +163,10 @@ export class World {
       Log.info(`Welcome back, ${this.username}.`);
     }
 
+    Log.info(`Loaded ${this.state.library.size()} libraries.`);
+    for (const libName of this.state.library.libraryNames()) {
+      Log.info(`Library: ${libName}`);
+    }
     // TODO: We need to do something similar to this when a new player logs in.
 
     if (!this.state.players.has(this.username)) {
@@ -172,7 +176,8 @@ export class World {
       const playerState = this.state.players.get(this.username);
       const playerThing = new Player(this.gl, playerState);
       const playerComputer =
-        new Computer(playerState.code, playerState.libraryCode);
+        new Computer(playerState.code,
+          playerState.libraryList, this.state.library);
       const youCog = new Cog(playerThing, playerComputer);
       this.cogs.push(youCog);
       this.terminal.setCog(youCog);

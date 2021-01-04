@@ -3,7 +3,7 @@ export class ThingState {
   xyz: Float32Array;
   heading: number;  // orientation on the X-Z plane.  Zero is Z-positive.
   code: string;
-  libraryCode: string;
+  libraryList: string;
   data: any;
 
   constructor(position: number[]) {
@@ -14,7 +14,7 @@ export class ThingState {
     }
     this.heading = 0.0;
     this.code = null;
-    this.libraryCode = null;
+    this.libraryList = null;
   }
 
   mergeFrom(other: ThingState) {
@@ -29,8 +29,8 @@ export class ThingState {
     if (other.code != null) {
       this.code = other.code;
     }
-    if (other.libraryCode != null) {
-      this.libraryCode = other.libraryCode;
+    if (other.libraryList != null) {
+      this.libraryList = other.libraryList;
     }
     if (other.data != null) {
       // TODO: Should this merge?

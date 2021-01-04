@@ -26,7 +26,7 @@ export class Render {
 
   main(username: string) {
     this.gl = this.canvas.getContext("webgl");
-    if (this.gl === null) {
+    if (this.gl == null) {
       alert("Your browser doesn't support WebGL");
       return;
     }

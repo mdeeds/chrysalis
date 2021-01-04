@@ -1,3 +1,4 @@
+import { Library } from "./library";
 import { Log } from "./log";
 import { Ocean } from "./ocean";
 import { BoundingBox, QuadTree } from "./quadTree";
@@ -8,14 +9,17 @@ import { ThingStateDelta } from "./thingStateDelta";
 import { Tile } from "./tile";
 
 export class State {
+  radius: number;
   players: Map<string, ThingState>;
   everything: QuadTree<Thing>;
+  library: Library;
+
   gl: WebGLRenderingContext;
-  radius: number;
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl;
     this.players = new Map<string, ThingState>();
     this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
+    this.library = new Library();
     this.radius = 0;
   }
 
@@ -66,6 +70,12 @@ export class State {
         }
         this.players.get(name).mergeFrom(other.players[name]);
       }
+    }
+    if (other.library != null) {
+      Log.info(`Libraries exist.`);
+      this.library.mergeFromObject(other.library);
+    } else {
+      Log.info(`No libraries in this world.`);
     }
   }
 

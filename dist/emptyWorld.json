@@ -19,7 +19,7 @@
   ],
   "radius": 64,
   "players": {
-    "xlat": {
+    "profx": {
       "xyz": {
         "0": -0.297399640083313,
         "1": 0,
@@ -27,7 +27,7 @@
       },
       "heading": 3.141592279568985,
       "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
-      "libraryCode": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n\n\n"
+      "libraryList": "turn admin"
     },
     "_prototype": {
       "xyz": {
@@ -37,7 +37,11 @@
       },
       "heading": 0,
       "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
-      "libraryCode": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n\n\n"
+      "libraryList": "turn"
     }
+  },
+  "library": {
+    "turn": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n",
+    "admin": "admin = function(action) { if (delta.state == null) { delta.state = {}; } delta.state.adminAction = action; }"
   }
 }

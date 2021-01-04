@@ -96,7 +96,7 @@ export class Terminal {
   setCog(cog: Cog) {
     this.cog = cog;
     this.programCode = new CodeHolder(cog.thing.state.code);
-    this.libraryCode = new CodeHolder(cog.thing.state.libraryCode);
+    this.libraryCode = new CodeHolder(cog.thing.state.libraryList);
     this.currentCode = this.programCode;
 
     this.div.innerText = this.currentCode.code;

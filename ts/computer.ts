@@ -1,3 +1,4 @@
+import { Library } from "./library";
 import { Log } from "./log"
 import { Perspective } from "./perspective";
 import { ThingStateDelta } from "./thingStateDelta";
@@ -7,14 +8,19 @@ export class Computer {
   private worker: Worker;
   private stateResponse: ThingStateDelta;
   private working: boolean;
+  private library: Library;
 
-  constructor(code: string, libraryCode: string) {
-    this.startWorker(code, libraryCode);
+  constructor(code: string, libraryList: string, library: Library) {
+    this.library = library;
+    this.startWorker(code, libraryList);
   }
 
-  private startWorker(code: string, libraryCode: string) {
-    code = code;
-    libraryCode = libraryCode;
+  private startWorker(code: string, libraryList: string) {
+    let libraryCode = "";
+    for (const libraryName of libraryList.split(/[ ,\n\r]+/)) {
+      libraryCode += this.library.getCode(libraryName);
+      libraryCode += "\n";
+    }
     const computeSource = `
     var perspective;
     var delta;
