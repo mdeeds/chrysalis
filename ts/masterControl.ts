@@ -38,8 +38,24 @@ export class MasterControl {
     }
   }
 
+  handleAdminAction(actor: Thing, action: string) {
+    let targetX: number;
+    let targetZ: number;
+    [targetX, targetZ] = actor.state.inFrontXZ();
+    Log.info(`Administrator: ${action} @ ${targetX},${targetZ}`);
+    const things: Thing[] = [];
+    this.state.everything.appendFromRange(
+      new BoundingBox(targetX, targetZ, 1.0), things);
+    if (things.length == 0) {
+      Log.info('Missed.');
+      return;
+    } else {
+      Log.info(`There are ${things.length} things here.`);
+    }
+  }
+
   eventLoop(ts: number) {
-    const targetFrame = this.frameNumber + 15;
+    const targetFrame = this.frameNumber + 5;
     for (const cog of this.cogs) {
       const cogPerspective = new Perspective();
       cogPerspective.keysDown = this.keysDown;
@@ -47,13 +63,16 @@ export class MasterControl {
       cog.computer.getDelta(cogPerspective)
         .then((delta: ThingStateDelta) => {
           const intention = new Intention(targetFrame, delta, cog);
-          this.state.applyThing(cog.thing.state, delta);
+          this.pendingEvents.push(intention);
         });
     }
 
     const futureStack: Intention[] = [];
     for (const i of this.pendingEvents) {
       if (i.effectiveTime <= this.frameNumber) {
+        if (i.delta.state != null && i.delta.state.adminAction != null) {
+          this.handleAdminAction(i.cog.thing, i.delta.state.adminAction);
+        }
         this.state.applyThing(i.cog.thing.state, i.delta);
       } else {
         futureStack.push(i);

@@ -37,5 +37,11 @@ export class ThingState {
       this.data = other.data;
     }
   }
+
+  inFrontXZ(): number[] {
+    const x = this.xyz[0] - Math.sin(this.heading) * 2.0;
+    const z = this.xyz[2] + Math.cos(this.heading) * 2.0;
+    return [x, z];
+  }
 }
 
