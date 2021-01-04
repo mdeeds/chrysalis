@@ -26,6 +26,7 @@ export class Terminal {
     this.div = document.createElement('div');
     this.div.classList.add("terminal");
     this.div.contentEditable = "true";
+    this.div.spellcheck = false;
     body.appendChild(this.div);
 
     const toolbar = document.createElement('div');

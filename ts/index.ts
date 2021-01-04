@@ -25,6 +25,7 @@ if (login) {
   const loginBox = document.createElement('span');
   loginBox.classList.add("login");
   loginBox.contentEditable = "true";
+  loginBox.spellcheck = false;
   loginBox.innerText = "";
   loginBox.tabIndex = 1;
   body.appendChild(loginBox);
