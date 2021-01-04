@@ -85,6 +85,8 @@ export class Player extends Shape {
 
   constructor(gl: WebGLRenderingContext, state: ThingState) {
     super(gl, "Girl.png", state);
+    this.lightness = 1.0;
+    this.radius = 0.6;
 
     const positions = Cube.cubePositions(0.65, 0.65, 0.65);
     const vertexNormals = Cube.vertexNormals();

@@ -65,6 +65,10 @@ export class QuadTree<T> {
     this.entries = [];
   }
 
+  getBoundary() {
+    return this.boundary;
+  }
+
   insert(x: number, y: number, value: T) {
     return this.insertEntry(new QuadEntry(x, y, value));
   }
