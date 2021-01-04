@@ -10,6 +10,10 @@ export class Computer {
   private code: string;
 
   constructor(code: string) {
+    this.startWorker(code);
+  }
+
+  private startWorker(code: string) {
     this.code = code;
     const computeSource = `
     var perspective;
@@ -54,5 +58,10 @@ export class Computer {
     } else {
       setTimeout(() => this.waitForResponse(resolve, reject), 1);
     }
+  }
+
+  upload(code: string) {
+    this.worker.terminate();
+    this.startWorker(code);
   }
 }

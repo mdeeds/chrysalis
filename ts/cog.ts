@@ -14,4 +14,9 @@ export class Cog {
     const delta = await this.computer.getDelta(perspective);
     return delta;
   }
+
+  upload(code: string) {
+    this.thing.state.code = code;
+    this.computer.upload(code);
+  }
 }
