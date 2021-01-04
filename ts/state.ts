@@ -38,14 +38,17 @@ export class State {
       }
     }
     if (other.drive > 0 && other.turn != null) {
+      const drive = Math.max(0.0, Math.min(1.0, other.drive));
+      const turn = Math.max(-1.0, Math.min(1.0, other.turn));
       const kSpeed = 0.2;
       const radius = 0.8;
-      const dr = other.drive * kSpeed * (1 - Math.abs(other.turn));
+      const dr = drive * kSpeed * (1 - Math.abs(other.turn));
       const dt = (dr / radius) * other.turn;
 
       const dz = Math.cos(target.heading) * dr;
       const dx = Math.sin(target.heading) * dr;
       target.heading += dt;
+      target.heading = target.heading % (Math.PI * 2);
       target.xyz[0] = target.xyz[0] + dx;
       target.xyz[2] = target.xyz[2] + dz;
     }

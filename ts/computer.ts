@@ -21,7 +21,7 @@ export class Computer {
     // TODO: Libraries go here.
     onmessage = function(eventMessage) {
       perspective = eventMessage.data;
-      delta = {};
+      delta = { turn: 0.0 };
       ${this.code}
       postMessage(delta); 
     }
@@ -36,7 +36,7 @@ export class Computer {
     }
     this.worker.onerror = (ev: ErrorEvent) => {
       Log.error(ev.message);
-      Log.error(`line ${ev.lineno}`);
+      Log.error(`line ${ev.lineno - 2}`);
     }
   }
 
