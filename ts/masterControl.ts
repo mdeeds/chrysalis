@@ -1,4 +1,7 @@
+import { BasicBot } from "./basicBot";
+import { Beacon } from "./beacon";
 import { Cog } from "./cog";
+import { Computer } from "./computer";
 import { Intention } from "./intention";
 import { Log } from "./log";
 import { Ocean } from "./ocean";
@@ -7,6 +10,7 @@ import { BoundingBox } from "./quadTree";
 import { State } from "./state";
 import { StateDelta } from "./stateDelta";
 import { Thing } from "./thing";
+import { ThingState } from "./thingState";
 import { ThingStateDelta } from "./thingStateDelta";
 import { Tile } from "./tile";
 
@@ -62,6 +66,38 @@ export class MasterControl {
           }
         }
       }
+      if (action === "setBeacon") {
+        let hasBeacon: boolean = false;
+        for (const thing of things) {
+          if (thing instanceof Beacon) {
+            hasBeacon = true;
+            break;
+          }
+        }
+        if (!hasBeacon) {
+          const state: ThingState = new ThingState([targetX, 0, targetZ]);
+          const beacon: Beacon = new Beacon(this.gl, state);
+          this.state.everything.insert(beacon.state.xyz[0], beacon.state.xyz[2], beacon);
+        }
+      }
+      if (action === "setRobot") {
+        let hasRobot: boolean = false;
+        for (const thing of things) {
+          if (thing instanceof BasicBot) {
+            hasRobot = true;
+            break;
+          }
+        }
+        if (!hasRobot) {
+          const state: ThingState = new ThingState([targetX, 0, targetZ]);
+          const robot = new BasicBot(this.gl, state);
+          this.state.everything.insert(robot.state.xyz[0], robot.state.xyz[2], robot);
+          const computer = new Computer("delta = {turn: 1.0, drive: 0.05}",
+            "", this.state.library);
+          const cog = new Cog(robot, computer);
+          this.cogs.push(cog);
+        }
+      }
     }
   }
 
@@ -103,6 +139,8 @@ export class MasterControl {
       const otherThings: Thing[] = [];
       this.state.everything.appendFromRange(
         new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
+
+      const deltaStorage = new Map<ThingState, Float32Array>();
       for (const other of otherThings) {
         if (other instanceof Tile) {
           continue;
@@ -119,14 +157,24 @@ export class MasterControl {
         if (r2 < hit2) {
           const p = t.lightness / (t.lightness + other.lightness);
           const r = Math.sqrt(r2);
-          const distanceToMove = p * Math.sqrt(hit2) - r;
+          const distanceToMove = p * (Math.sqrt(hit2) - r);
           const ndx = dx / r;
           const ndz = dz / r;
           const mx = ndx * distanceToMove;
           const mz = ndz * distanceToMove;
-          t.state.xyz[0] = t.state.xyz[0] + mx;
-          t.state.xyz[2] = t.state.xyz[2] + mz;
+          if (!deltaStorage.has(t.state)) {
+            deltaStorage.set(t.state, new Float32Array(3));
+          }
+          const arr = deltaStorage.get(t.state);
+          arr[0] = arr[0] + mx;
+          arr[2] = arr[2] + mz;
         }
+      }
+      for (const state of deltaStorage.keys()) {
+        const arr = deltaStorage.get(state);
+        Log.info(`Delta: ${arr}`);
+        state.xyz[0] += arr[0];
+        state.xyz[2] += arr[2];
       }
     }
 

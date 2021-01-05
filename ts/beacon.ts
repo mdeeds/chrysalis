@@ -1,18 +1,21 @@
+import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Geometry } from "./geometry";
 import { Shape } from "./shape";
 import { ThingState } from "./thingState";
 
-export class Cube extends Shape {
+export class Beacon extends Shape {
+  constructor(gl: WebGLRenderingContext, state: ThingState) {
+    super(gl, "Beacon.gif", state);
+    this.radius = 0.4;
 
-  constructor(gl: WebGLRenderingContext, url: string, state: ThingState) {
-    super(gl, url, state);
-    this.loadTexture(gl, url)
-
-    const positions = [];
-    const textureCoordinates = [];
+    const positions = []
     const vertexNormals = [];
+    const textureCoordinates = [];
+
     Geometry.addCubeData(positions, textureCoordinates, vertexNormals,
-      1, 1, 1);
+      0.4, 0.6, 0.4);
+    Geometry.translate(positions, 0, 1.8, 0);
+    Geometry.addCylinderData(positions, textureCoordinates, vertexNormals, 0.2);
 
     this.vertexCount = positions.length / 3;
 
@@ -32,4 +35,10 @@ export class Cube extends Shape {
       gl.STATIC_DRAW);
   }
 
+  getObjectTransform() {
+    const objectTransform = super.getObjectTransform();
+    GLM.mat4.translate(objectTransform, objectTransform,
+      [0, 2, 0]);
+    return objectTransform;
+  }
 }
