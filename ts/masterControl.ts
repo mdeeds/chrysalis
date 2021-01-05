@@ -172,7 +172,6 @@ export class MasterControl {
       }
       for (const state of deltaStorage.keys()) {
         const arr = deltaStorage.get(state);
-        Log.info(`Delta: ${arr}`);
         state.xyz[0] += arr[0];
         state.xyz[2] += arr[2];
       }
