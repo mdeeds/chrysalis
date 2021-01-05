@@ -58,11 +58,15 @@ export class QuadTree<T> {
   private boundary: BoundingBox;
   private children: QuadTree<T>[];
   private entries: QuadEntry<T>[];
+  private entryLocation: Map<T, QuadEntry<T>>;
 
-  constructor(boundary: BoundingBox) {
+  constructor(boundary: BoundingBox, internal: boolean = false) {
     this.boundary = boundary;
     this.children = null;
     this.entries = [];
+    if (!internal) {
+      this.entryLocation = new Map<T, QuadEntry<T>>();
+    }
   }
 
   getBoundary() {
@@ -70,7 +74,18 @@ export class QuadTree<T> {
   }
 
   insert(x: number, y: number, value: T) {
-    return this.insertEntry(new QuadEntry(x, y, value));
+    const quadEntry = new QuadEntry(x, y, value);
+    this.entryLocation.set(value, quadEntry);
+    return this.insertEntry(quadEntry);
+  }
+
+  remove(value: T) {
+    const entry = this.entryLocation.get(value);
+    if (!entry) {
+      Log.error("Failed to find entry.")
+    } else {
+      this.removeEntry(entry);
+    }
   }
 
   allEntries(): T[] {
@@ -108,6 +123,30 @@ export class QuadTree<T> {
     } else {
       for (const child of this.children) {
         if (child.insertEntry(entry)) {
+          break;
+        }
+      }
+    }
+    return true;
+  }
+
+  private removeEntry(entry: QuadEntry<T>) {
+    if (!this.boundary.containsPoint(entry.x, entry.y)) {
+      return false;
+    }
+    if (this.children === null) {
+      const newEntries: QuadEntry<T>[] = [];
+      for (const e of this.entries) {
+        if (e.value === entry.value) {
+          // Removed
+        } else {
+          newEntries.push(e);
+        }
+      }
+      this.entries = newEntries;
+    } else {
+      for (const child of this.children) {
+        if (child.removeEntry(entry)) {
           break;
         }
       }

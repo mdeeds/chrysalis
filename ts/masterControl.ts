@@ -1,6 +1,7 @@
 import { Cog } from "./cog";
 import { Intention } from "./intention";
 import { Log } from "./log";
+import { Ocean } from "./ocean";
 import { Perspective } from "./perspective";
 import { BoundingBox } from "./quadTree";
 import { State } from "./state";
@@ -16,8 +17,10 @@ export class MasterControl {
   frameNumber: number;
   pendingEvents: Intention[];
   private keysDown: Set<string>;
+  private gl: WebGLRenderingContext;
 
-  constructor(state: State, cogs: Cog[]) {
+  constructor(gl: WebGLRenderingContext, state: State, cogs: Cog[]) {
+    this.gl = gl;
     this.state = state;
     this.cogs = cogs;
     this.frameNumber = 0;
@@ -42,15 +45,23 @@ export class MasterControl {
     let targetX: number;
     let targetZ: number;
     [targetX, targetZ] = actor.state.inFrontXZ();
-    Log.info(`Administrator: ${action} @ ${targetX},${targetZ}`);
     const things: Thing[] = [];
     this.state.everything.appendFromRange(
-      new BoundingBox(targetX, targetZ, 1.0), things);
+      new BoundingBox(targetX, targetZ, 0.99), things);
     if (things.length == 0) {
       Log.info('Missed.');
       return;
     } else {
-      Log.info(`There are ${things.length} things here.`);
+      if (action === "setTile") {
+        for (const thing of things) {
+          if (thing instanceof Ocean) {
+            this.state.everything.remove(thing);
+            const tile: Tile = new Tile(this.gl, thing.state);
+            this.state.everything.insert(tile.state.xyz[0], tile.state.xyz[2], tile);
+            break;
+          }
+        }
+      }
     }
   }
 
@@ -72,6 +83,7 @@ export class MasterControl {
       if (i.effectiveTime <= this.frameNumber) {
         if (i.delta.state != null && i.delta.state.adminAction != null) {
           this.handleAdminAction(i.cog.thing, i.delta.state.adminAction);
+          i.delta.state.adminAction = null;
         }
         this.state.applyThing(i.cog.thing.state, i.delta);
       } else {

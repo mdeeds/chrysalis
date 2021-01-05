@@ -50,7 +50,7 @@ export class Render {
     Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
     this.world = new World("vialis", this.gl, username);
-    this.masterControl = new MasterControl(
+    this.masterControl = new MasterControl(this.gl,
       this.world.getState(), this.world.getCogs());
 
     this.renderLoop();

@@ -1,6 +1,62 @@
 {
   "tiles": [
     [
+      -2,
+      6
+    ],
+    [
+      -2,
+      8
+    ],
+    [
+      -2,
+      8
+    ],
+    [
+      -2,
+      8
+    ],
+    [
+      -2,
+      10
+    ],
+    [
+      -2,
+      12
+    ],
+    [
+      -2,
+      14
+    ],
+    [
+      -2,
+      16
+    ],
+    [
+      -2,
+      18
+    ],
+    [
+      -2,
+      22
+    ],
+    [
+      -2,
+      20
+    ],
+    [
+      2,
+      -2
+    ],
+    [
+      2,
+      -2
+    ],
+    [
+      2,
+      -2
+    ],
+    [
       0,
       0
     ],
@@ -15,19 +71,282 @@
     [
       2,
       2
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      6,
+      6
+    ],
+    [
+      8,
+      6
+    ],
+    [
+      10,
+      6
+    ],
+    [
+      10,
+      8
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      10,
+      12
+    ],
+    [
+      10,
+      14
+    ],
+    [
+      2,
+      22
+    ],
+    [
+      0,
+      22
+    ],
+    [
+      0,
+      20
+    ],
+    [
+      6,
+      22
+    ],
+    [
+      4,
+      22
+    ],
+    [
+      2,
+      28
+    ],
+    [
+      2,
+      30
+    ],
+    [
+      6,
+      24
+    ],
+    [
+      6,
+      26
+    ],
+    [
+      4,
+      26
+    ],
+    [
+      6,
+      28
+    ],
+    [
+      6,
+      30
+    ],
+    [
+      4,
+      28
+    ],
+    [
+      4,
+      30
+    ],
+    [
+      10,
+      16
+    ],
+    [
+      10,
+      18
+    ],
+    [
+      10,
+      20
+    ],
+    [
+      8,
+      20
+    ],
+    [
+      8,
+      22
+    ],
+    [
+      8,
+      28
+    ],
+    [
+      8,
+      30
+    ],
+    [
+      10,
+      30
+    ],
+    [
+      10,
+      28
+    ],
+    [
+      12,
+      30
+    ],
+    [
+      12,
+      28
+    ],
+    [
+      14,
+      28
+    ],
+    [
+      30,
+      14
+    ],
+    [
+      22,
+      22
+    ],
+    [
+      18,
+      26
+    ],
+    [
+      16,
+      28
+    ],
+    [
+      18,
+      28
+    ],
+    [
+      20,
+      26
+    ],
+    [
+      20,
+      24
+    ],
+    [
+      22,
+      24
+    ],
+    [
+      26,
+      18
+    ],
+    [
+      24,
+      22
+    ],
+    [
+      24,
+      20
+    ],
+    [
+      26,
+      20
+    ],
+    [
+      28,
+      18
+    ],
+    [
+      28,
+      16
+    ],
+    [
+      30,
+      16
+    ],
+    [
+      8,
+      32
     ]
   ],
   "radius": 64,
+  "library": {
+    "turn": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n",
+    "admin": "admin = function(action) { if (delta.state == null) { delta.state = {}; } delta.state.adminAction = action; }"
+  },
   "players": {
     "profx": {
       "xyz": {
-        "0": -0.297399640083313,
+        "0": 25.094938278198242,
         "1": 0,
-        "2": -0.297399640083313
+        "2": 19.822315216064453
       },
-      "heading": 3.141592279568985,
-      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
-      "libraryList": "turn admin"
+      "heading": -5.693611510562135,
+      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\nsetTurn();\n\nif (perspective.keysDown.has('KeyT')) {\n  admin(\"setTile\");\n}\n\n",
+      "libraryList": "turn admin",
+      "data": {
+        "adminAction": null
+      }
     },
     "_prototype": {
       "xyz": {
@@ -39,9 +358,5 @@
       "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
       "libraryList": "turn"
     }
-  },
-  "library": {
-    "turn": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n",
-    "admin": "admin = function(action) { if (delta.state == null) { delta.state = {}; } delta.state.adminAction = action; }"
   }
 }
