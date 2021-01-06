@@ -56,6 +56,12 @@ canvas {
   border-radius: 10px;
   overflow: scroll;
   white-space: pre;
+  word-wrap: break-word;
+  line-break: normal;
+}
+
+.hidden {
+  display: none;
 }
 
 .toolbar {

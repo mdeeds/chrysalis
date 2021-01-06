@@ -3,28 +3,40 @@ import { TextureCache } from "./textureCache";
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Thing } from "./thing";
 import { Log } from "./log";
-import { State } from "./state";
 import { ThingState } from "./thingState";
 
 export class Shape extends Thing {
   positionBuffer: WebGLBuffer;
   textureCoordBuffer: WebGLBuffer;
   normalBuffer: WebGLBuffer;
-  texture: WebGLTexture;
-  vertexCount: number;
   startTimeSeconds: number;
+  vertexCount: number;
+
+  private texture: WebGLTexture;
+  private textureImage: string;
+  private gl: WebGLRenderingContext;
 
   constructor(gl: WebGLRenderingContext,
     source: string | HTMLCanvasElement | HTMLImageElement,
     state: ThingState) {
     super();
+    this.gl = gl;
     this.startTimeSeconds = window.performance.now() / 1000;
     this.state = state;
+    this.setTextureImage(source);
+  }
+
+  getTextureImage() {
+    return this.textureImage;
+  }
+
+  setTextureImage(source: string | HTMLCanvasElement | HTMLImageElement) {
     if (typeof source === "string") {
-      this.loadTexture(gl, source as string);
+      this.loadTexture(this.gl, source as string);
+      this.textureImage = source;
     } else {
       Log.info("Binding canvas.");
-      this.texture = TextureCache.buildTexture(gl,
+      this.texture = TextureCache.buildTexture(this.gl,
         source as HTMLCanvasElement | HTMLImageElement);
     }
   }

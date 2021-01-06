@@ -1,69 +1,95 @@
 import { Cog } from "./cog";
 import { Log } from "./log";
+import { Shape } from "./shape";
 
 class CodeHolder {
-  code: string;
-  constructor(code: string) {
-    this.code = code;
+  private static allHolders: CodeHolder[] = [];
+
+  static activateHolder(holder: CodeHolder) {
+    for (const h of CodeHolder.allHolders) {
+      if (h === holder) {
+        h.activate();
+      } else {
+        h.deactivate();
+      }
+    }
   }
-}
 
-export class Terminal {
-  div: HTMLDivElement;
-  cog: Cog;
-  lastContent: string;
-  uploadButton: HTMLImageElement;
-  dirty: boolean;
-  programCode: CodeHolder;
-  libraryCode: CodeHolder;
-  currentCode: CodeHolder;
-  constructor() {
-    this.programCode = new CodeHolder("");
-    this.libraryCode = new CodeHolder("");
-    this.currentCode = this.programCode;
+  private div: HTMLDivElement;
+  private img: HTMLImageElement;
+  constructor(code: string, container: HTMLElement, img: HTMLImageElement) {
+    this.img = img;
+    this.img.width = 64;
+    this.img.onclick = (ev: MouseEvent) => {
+      CodeHolder.activateHolder(this);
+    };
 
-    const body = document.getElementsByTagName("body")[0];
     this.div = document.createElement('div');
     this.div.classList.add("terminal");
     this.div.contentEditable = "true";
     this.div.spellcheck = false;
-    body.appendChild(this.div);
+    this.div.innerText = code;
+    container.appendChild(this.div);
+
+    CodeHolder.allHolders.push(this);
+    CodeHolder.activateHolder(this);
+  }
+
+  setCode(code: string) {
+    this.div.innerText = code;
+  }
+
+  getCode() {
+    const newContent = this.div.innerText;
+    const cleanContent = newContent.replace(/[^\n\x20-\x7e]/g, " ");
+    return cleanContent;
+  }
+
+  private activate() {
+    this.div.classList.remove("hidden");
+    this.img.classList.remove("deactivated");
+  }
+
+  private deactivate() {
+    this.div.classList.add("hidden");
+    this.img.classList.add("deactivated");
+  }
+}
+
+export class Terminal {
+  cog: Cog;
+  lastContent: string;
+  uploadButton: HTMLImageElement;
+  dirty: boolean;
+  imageCode: CodeHolder;
+  programCode: CodeHolder;
+  libraryCode: CodeHolder;
+  constructor() {
+    const body = document.getElementsByTagName("body")[0];
 
     const toolbar = document.createElement('div');
     toolbar.classList.add("toolbar");
 
+    const cameraButton = document.createElement('img');
+    cameraButton.src = "Camera.png";
+    toolbar.appendChild(cameraButton);
+    this.imageCode = new CodeHolder("", body, cameraButton);
+
     const libraryButton = document.createElement('img');
     libraryButton.src = "Library.gif";
-    libraryButton.width = 64;
-    libraryButton.onclick = (ev: MouseEvent) => {
-      playerButton.classList.remove("deactivated");
-      libraryButton.classList.add("deactivated");
-      this.currentCode = this.libraryCode;
-      this.div.innerText = this.currentCode.code;
-    };
     toolbar.appendChild(libraryButton);
+    this.libraryCode = new CodeHolder("", body, libraryButton);
 
     const playerButton = document.createElement('img');
     playerButton.src = "PlayerCode.gif";
-    playerButton.width = 64;
-    playerButton.classList.add("deactivated");
-    playerButton.onclick = (ev: MouseEvent) => {
-      libraryButton.classList.remove("deactivated");
-      playerButton.classList.add("deactivated");
-      this.currentCode = this.programCode;
-      this.div.innerText = this.currentCode.code;
-    };
     toolbar.appendChild(playerButton);
+    this.programCode = new CodeHolder("", body, playerButton);
 
-    const robotButton = document.createElement('img');
-    robotButton.src = "RobotCode.gif";
-    robotButton.classList.add("deactivated");
-    robotButton.width = 64;
-    toolbar.appendChild(robotButton);
-
-    const sp = document.createElement('span');
-    sp.innerText = ' ';
-    toolbar.appendChild(sp);
+    {
+      const sp = document.createElement('span');
+      sp.innerText = ' ';
+      toolbar.appendChild(sp);
+    }
 
     this.uploadButton = document.createElement('img');
     this.uploadButton.src = "Upload.gif";
@@ -72,57 +98,31 @@ export class Terminal {
     this.uploadButton.addEventListener("click", (ev) => {
       this.upload();
     });
+    toolbar.appendChild(this.uploadButton);
     this.dirty = true;
 
-    const undoButton = document.createElement('img');
-    undoButton.src = "Undo.gif"
-    undoButton.alt = "Undo";
-    undoButton.width = 64;
-
-    toolbar.appendChild(undoButton);
-    toolbar.appendChild(this.uploadButton);
-
     body.appendChild(toolbar);
-
-    this.maintainUploadState();
-  }
-
-  private getSource() {
-    const newContent = this.div.innerText;
-    const cleanContent = newContent.replace(/[^\n\x20-\x7e]/g, " ");
-    return cleanContent;
   }
 
   setCog(cog: Cog) {
     this.cog = cog;
-    this.programCode = new CodeHolder(cog.thing.state.code);
-    this.libraryCode = new CodeHolder(cog.thing.state.libraryList);
-    this.currentCode = this.programCode;
-
-    this.div.innerText = this.currentCode.code;
-    this.lastContent = this.getSource();
-  }
-
-  private maintainUploadState() {
-    const newContent = this.getSource();
-    if (this.lastContent === newContent && this.dirty) {
-      this.uploadButton.classList.add("deactivated");
-      this.dirty = false;
+    this.programCode.setCode(cog.thing.state.code);
+    this.libraryCode.setCode(cog.thing.state.libraryList);
+    this.imageCode.setCode("");
+    if (cog.thing instanceof Shape) {
+      const textureImage = cog.thing.getTextureImage();
+      if (textureImage) {
+        this.imageCode.setCode(textureImage);
+      }
     }
-    if (this.lastContent !== newContent && !this.dirty) {
-      this.dirty = true;
-      this.uploadButton.classList.remove("deactivated");
-    }
-    if (this.lastContent !== newContent) {
-      this.currentCode.code = newContent;
-    }
-    setTimeout(() => this.maintainUploadState(), 100);
   }
 
   upload() {
-    const newCode = this.getSource();
-    this.cog.upload(this.programCode.code, this.libraryCode.code);
-    this.lastContent = newCode;
+    const imageCode = this.imageCode.getCode();
+    if (imageCode && this.cog.thing instanceof Shape) {
+      this.cog.thing.setTextureImage(imageCode);
+    }
+    this.cog.upload(this.programCode.getCode(), this.libraryCode.getCode());
   }
 
 
