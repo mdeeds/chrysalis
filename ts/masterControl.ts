@@ -115,6 +115,7 @@ export class MasterControl {
     }
 
     const futureStack: Intention[] = [];
+    const deltaStorage = new Map<Thing, Float32Array>();
     for (const i of this.pendingEvents) {
       if (i.effectiveTime <= this.frameNumber) {
         if (i.delta.state != null && i.delta.state.adminAction != null) {
@@ -122,6 +123,10 @@ export class MasterControl {
           i.delta.state.adminAction = null;
         }
         this.state.applyThing(i.cog.thing.state, i.delta);
+        if (!deltaStorage.has(i.cog.thing)) {
+          // Register the fact that it has moved.
+          deltaStorage.set(i.cog.thing, new Float32Array(3));
+        }
       } else {
         futureStack.push(i);
       }
@@ -140,7 +145,6 @@ export class MasterControl {
       this.state.everything.appendFromRange(
         new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
 
-      const deltaStorage = new Map<ThingState, Float32Array>();
       for (const other of otherThings) {
         if (other instanceof Tile) {
           continue;
@@ -162,19 +166,23 @@ export class MasterControl {
           const ndz = dz / r;
           const mx = ndx * distanceToMove;
           const mz = ndz * distanceToMove;
-          if (!deltaStorage.has(t.state)) {
-            deltaStorage.set(t.state, new Float32Array(3));
+          if (mx !== 0 || mz !== 0) {
+            if (!deltaStorage.has(t)) {
+              deltaStorage.set(t, new Float32Array(3));
+            }
+            const arr = deltaStorage.get(t);
+            arr[0] = arr[0] + mx;
+            arr[2] = arr[2] + mz;
           }
-          const arr = deltaStorage.get(t.state);
-          arr[0] = arr[0] + mx;
-          arr[2] = arr[2] + mz;
         }
       }
-      for (const state of deltaStorage.keys()) {
-        const arr = deltaStorage.get(state);
-        state.xyz[0] += arr[0];
-        state.xyz[2] += arr[2];
-      }
+    }
+    for (const thing of deltaStorage.keys()) {
+      const state = thing.state;
+      const arr = deltaStorage.get(thing);
+      state.xyz[0] += arr[0];
+      state.xyz[2] += arr[2];
+      this.state.everything.move(state.xyz[0], state.xyz[2], thing);
     }
 
     this.frameNumber++;
