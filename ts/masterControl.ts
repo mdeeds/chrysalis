@@ -2,6 +2,7 @@ import { BasicBot } from "./basicBot";
 import { Beacon } from "./beacon";
 import { Cog } from "./cog";
 import { Computer } from "./computer";
+import { Ground } from "./ground";
 import { Intention } from "./intention";
 import { Log } from "./log";
 import { Ocean } from "./ocean";
@@ -96,6 +97,13 @@ export class MasterControl {
             "", this.state.library);
           const cog = new Cog(robot, computer);
           this.cogs.push(cog);
+        }
+      }
+      if (action === "clear") {
+        for (const thing of things) {
+          if (!(thing instanceof Ground)) {
+            this.state.everything.remove(thing);
+          }
         }
       }
     }

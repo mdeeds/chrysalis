@@ -1,8 +1,8 @@
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
-import { Cube } from "./cube";
+import { Ground } from "./ground";
 import { ThingState } from "./thingState";
 
-export class Ocean extends Cube {
+export class Ocean extends Ground {
   rate: number;
   x: number;
   constructor(gl: WebGLRenderingContext, state: ThingState) {

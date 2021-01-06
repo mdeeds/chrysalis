@@ -173,12 +173,16 @@
       20
     ],
     [
+      4,
+      22
+    ],
+    [
       6,
       22
     ],
     [
-      4,
-      22
+      6,
+      20
     ],
     [
       2,
@@ -187,6 +191,10 @@
     [
       2,
       30
+    ],
+    [
+      4,
+      26
     ],
     [
       6,
@@ -198,22 +206,18 @@
     ],
     [
       4,
-      26
-    ],
-    [
-      6,
       28
     ],
     [
-      6,
+      4,
       30
     ],
     [
-      4,
+      6,
       28
     ],
     [
-      4,
+      6,
       30
     ],
     [
@@ -246,11 +250,11 @@
     ],
     [
       10,
-      30
+      28
     ],
     [
       10,
-      28
+      30
     ],
     [
       12,
@@ -327,6 +331,10 @@
     [
       8,
       32
+    ],
+    [
+      32,
+      16
     ]
   ],
   "radius": 64,
@@ -337,12 +345,12 @@
   "players": {
     "profx": {
       "xyz": {
-        "0": 25.094938278198242,
+        "0": 8.542457580566406,
         "1": 0,
-        "2": 19.822315216064453
+        "2": 31.071094512939453
       },
-      "heading": -5.693611510562135,
-      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\nsetTurn();\n\nif (perspective.keysDown.has('KeyT')) {\n  admin(\"setTile\");\n}\n\n",
+      "heading": -1.6465734641020688,
+      "code": "if (perspective.keysDown.has('ArrowRight')) {\n  delta.turn = 0.5;\n  delta.drive = 1.0;\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  delta.turn = -0.5;\n  delta.drive = 1.0;\n}\nif (perspective.keysDown.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 2;  \n}\n\nif (perspective.keysDown.has('KeyT')) {\n  admin(\"setTile\");\n}\n\n\nif (perspective.keysDown.has('KeyR')) {\n  admin(\"setRobot\");\n}\n\nif (perspective.keysDown.has('KeyX')) {\n  admin(\"clear\");\n}\n\n\nif (perspective.keysDown.has('KeyB')) {\n  admin(\"setBeacon\");\n}\n\n",
       "libraryList": "turn admin",
       "data": {
         "adminAction": null
@@ -350,11 +358,11 @@
     },
     "_prototype": {
       "xyz": {
-        "0": 0,
+        "0": -1.1025911569595337,
         "1": 0,
-        "2": 0
+        "2": 6.218584060668945
       },
-      "heading": 0,
+      "heading": 1.6042951579869158,
       "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
       "libraryList": "turn"
     }
