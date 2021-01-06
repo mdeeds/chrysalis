@@ -4,6 +4,7 @@ export class ThingState {
   heading: number;  // orientation on the X-Z plane.  Zero is Z-positive.
   code: string;
   libraryList: string;
+  imageSource: string;
   data: any;
 
   constructor(position: number[]) {
@@ -31,6 +32,9 @@ export class ThingState {
     }
     if (other.libraryList != null) {
       this.libraryList = other.libraryList;
+    }
+    if (other.imageSource != null) {
+      this.imageSource = other.imageSource;
     }
     if (other.data != null) {
       // TODO: Should this merge?

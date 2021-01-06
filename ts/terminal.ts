@@ -121,6 +121,7 @@ export class Terminal {
     const imageCode = this.imageCode.getCode();
     if (imageCode && this.cog.thing instanceof Shape) {
       this.cog.thing.setTextureImage(imageCode);
+      this.cog.thing.state.imageSource = imageCode;
     }
     this.cog.upload(this.programCode.getCode(), this.libraryCode.getCode());
   }
