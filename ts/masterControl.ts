@@ -61,8 +61,19 @@ export class MasterControl {
         for (const thing of things) {
           if (thing instanceof Ocean) {
             this.state.everything.remove(thing);
-            const tile: Tile = new Tile(this.gl, thing.state);
+            const tile = new Tile(this.gl, thing.state);
             this.state.everything.insert(tile.state.xyz[0], tile.state.xyz[2], tile);
+            break;
+          }
+        }
+      }
+      if (action === "setOcean") {
+        Log.info("Ocean.");
+        for (const thing of things) {
+          if (thing instanceof Tile) {
+            this.state.everything.remove(thing);
+            const ocean = new Ocean(this.gl, thing.state);
+            this.state.everything.insert(ocean.state.xyz[0], ocean.state.xyz[2], ocean);
             break;
           }
         }
