@@ -37,12 +37,38 @@ class CodeHolder {
 
   setCode(code: string) {
     this.div.innerText = code;
+    // this.format();
   }
 
   getCode() {
     const newContent = this.div.innerText;
     const cleanContent = newContent.replace(/[^\n\x20-\x7e]/g, " ");
     return cleanContent;
+  }
+
+  private format() {
+    let code: string = this.getCode();
+    code = code.replace(/\{\s*/g, "{\n");
+    code = code.replace(/\;\s+/g, ";\n");
+    code = code.replace(/\n\s+/g, "\n");
+    const reOpen = /[\(\{\[]/;
+    const reClose = /[\)\}\]]/;
+
+    let newCode = "";
+    let indentation = "";
+    for (const ch of code) {
+      newCode += ch;
+      if (ch.match(reOpen)) {
+        indentation += " ";
+      }
+      if (ch.match(reClose)) {
+        indentation = indentation.substr(0, indentation.length - 1);
+      }
+      if (ch == "\n") {
+        newCode += indentation;
+      }
+    }
+    this.div.innerText = newCode;
   }
 
   private activate() {
