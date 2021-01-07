@@ -3,6 +3,7 @@ import { Beacon } from "./beacon";
 import { Cog } from "./cog";
 import { Computer } from "./computer";
 import { Ground } from "./ground";
+import { Hazard } from "./hazard";
 import { Intention } from "./intention";
 import { Log } from "./log";
 import { Ocean } from "./ocean";
@@ -46,6 +47,20 @@ export class MasterControl {
     }
   }
 
+  private setGround(
+    selector: (thing: Thing) => boolean,
+    factory: (state: ThingState) => Ground, things: Thing[]) {
+    for (const thing of things) {
+      if (thing instanceof Ground && !selector(thing)) {
+        this.state.everything.remove(thing);
+        const newGround = factory(thing.state);
+        this.state.everything.insert(
+          newGround.state.xyz[0], newGround.state.xyz[2], newGround);
+        break;
+      }
+    }
+  }
+
   handleAdminAction(actor: Thing, action: string) {
     let targetX: number;
     let targetZ: number;
@@ -58,26 +73,24 @@ export class MasterControl {
       return;
     } else {
       if (action === "setTile") {
-        for (const thing of things) {
-          if (thing instanceof Ocean) {
-            this.state.everything.remove(thing);
-            const tile = new Tile(this.gl, thing.state);
-            this.state.everything.insert(tile.state.xyz[0], tile.state.xyz[2], tile);
-            break;
-          }
-        }
+        this.setGround(
+          (thing: Thing) => { return thing instanceof Tile; },
+          (state: ThingState) => { return new Tile(this.gl, state); },
+          things);
       }
       if (action === "setOcean") {
-        Log.info("Ocean.");
-        for (const thing of things) {
-          if (thing instanceof Tile) {
-            this.state.everything.remove(thing);
-            const ocean = new Ocean(this.gl, thing.state);
-            this.state.everything.insert(ocean.state.xyz[0], ocean.state.xyz[2], ocean);
-            break;
-          }
-        }
+        this.setGround(
+          (thing: Thing) => { return thing instanceof Ocean; },
+          (state: ThingState) => { return new Ocean(this.gl, state); },
+          things);
       }
+      if (action === "setHazard") {
+        this.setGround(
+          (thing: Thing) => { return thing instanceof Hazard; },
+          (state: ThingState) => { return new Hazard(this.gl, state); },
+          things);
+      }
+
       if (action === "setBeacon") {
         let hasBeacon: boolean = false;
         for (const thing of things) {
@@ -165,7 +178,8 @@ export class MasterControl {
         new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
 
       for (const other of otherThings) {
-        if (other instanceof Tile) {
+        if (other instanceof Tile ||
+          (t instanceof BasicBot && !(other instanceof Ocean))) {
           continue;
         }
         const dx = t.state.xyz[0] - other.state.xyz[0];
