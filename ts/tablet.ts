@@ -3,19 +3,26 @@ import { Geometry } from "./geometry";
 import { Shape } from "./shape";
 import { ThingState } from "./thingState";
 
-export class Beacon extends Shape {
-  constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Beacon.png", state);
-    this.radius = 0.4;
+export class Tablet extends Shape {
+  constructor(gl: WebGLRenderingContext, type: string, state: ThingState) {
+    let source = "tabletNote.png";
+    if (type == "lib") {
+      source = "tabletLib.png";
+    } else if (type === "api") {
+      source = "tabletApi.png";
+    }
+    super(gl, source, state);
+    this.lightness = 0.0;
+    this.radius = 0.8;
 
-    const positions = []
+    const positions = [];
     const vertexNormals = [];
     const textureCoordinates = [];
 
     Geometry.addCubeData(positions, textureCoordinates, vertexNormals,
-      0.4, 0.6, 0.4);
-    Geometry.translate(positions, 0, 1.8, 0);
-    Geometry.addCylinderData(positions, textureCoordinates, vertexNormals, 0.2);
+      0.8, 0.8, 0.15);
+    Geometry.translate(positions, 0, 0.5, 0);
+    Geometry.addCylinderData(positions, textureCoordinates, vertexNormals, 0.1);
 
     this.vertexCount = positions.length / 3;
 
@@ -34,7 +41,6 @@ export class Beacon extends Shape {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals),
       gl.STATIC_DRAW);
   }
-
   getObjectTransform() {
     const objectTransform = super.getObjectTransform();
     GLM.mat4.translate(objectTransform, objectTransform,

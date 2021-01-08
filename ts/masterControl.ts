@@ -11,6 +11,7 @@ import { Perspective } from "./perspective";
 import { BoundingBox } from "./quadTree";
 import { State } from "./state";
 import { StateDelta } from "./stateDelta";
+import { Tablet } from "./tablet";
 import { Thing } from "./thing";
 import { ThingState } from "./thingState";
 import { ThingStateDelta } from "./thingStateDelta";
@@ -59,6 +60,18 @@ export class MasterControl {
     }
   }
 
+  private setItem(selector: (thing: Thing) => boolean,
+    factory: () => Thing, things: Thing[]) {
+    for (const thing of things) {
+      if (selector(thing)) {
+        return;
+      }
+    }
+    const newThing = factory();
+    this.state.everything.insert(
+      newThing.state.xyz[0], newThing.state.xyz[2], newThing);
+  }
+
   handleAdminAction(actor: Thing, action: string) {
     let targetX: number;
     let targetZ: number;
@@ -88,21 +101,35 @@ export class MasterControl {
           (state: ThingState) => { return new Hazard(this.gl, state); },
           things);
       }
-
       if (action === "setBeacon") {
-        let hasBeacon: boolean = false;
-        for (const thing of things) {
-          if (thing instanceof Beacon) {
-            hasBeacon = true;
-            break;
-          }
-        }
-        if (!hasBeacon) {
-          const state: ThingState = new ThingState([targetX, 0, targetZ]);
-          const beacon: Beacon = new Beacon(this.gl, state);
-          this.state.everything.insert(beacon.state.xyz[0], beacon.state.xyz[2], beacon);
-        }
+        this.setItem((thing: Thing) => { return thing instanceof Beacon; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            return new Beacon(this.gl, state);
+          }, things);
       }
+      if (action === "setApi") {
+        this.setItem((thing: Thing) => { return thing instanceof Beacon; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            return new Tablet(this.gl, "api", state);
+          }, things);
+      }
+      if (action === "setNote") {
+        this.setItem((thing: Thing) => { return thing instanceof Beacon; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            return new Tablet(this.gl, "note", state);
+          }, things);
+      }
+      if (action === "setLib") {
+        this.setItem((thing: Thing) => { return thing instanceof Beacon; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            return new Tablet(this.gl, "lib", state);
+          }, things);
+      }
+
       if (action === "setRobot") {
         let hasRobot: boolean = false;
         for (const thing of things) {
