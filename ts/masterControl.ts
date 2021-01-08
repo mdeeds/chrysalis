@@ -25,26 +25,24 @@ export class MasterControl {
   private keysDown: Set<string>;
   private gl: WebGLRenderingContext;
 
-  constructor(gl: WebGLRenderingContext, state: State, cogs: Cog[]) {
+  constructor(gl: WebGLRenderingContext, state: State, cogs: Cog[],
+    keyFocusElement: HTMLElement) {
     this.gl = gl;
     this.state = state;
     this.cogs = cogs;
     this.frameNumber = 0;
     this.pendingEvents = [];
     this.keysDown = new Set<string>();
-    document.addEventListener("keydown",
-      (ev) => { this.handleKey(ev); });
-    document.addEventListener("keyup",
-      (ev) => { this.handleKey(ev); });
+    keyFocusElement.addEventListener("keydown",
+      (ev) => { this.keysDown.add(ev.code); });
+    keyFocusElement.addEventListener("keyup",
+      (ev) => { this.keysDown.delete(ev.code); });
+    keyFocusElement.addEventListener("focusout",
+      (ev) => {
+        this.keysDown.clear();
+        Log.info("Lost focus.");
+      })
     requestAnimationFrame((ts) => { this.eventLoop(ts); });
-  }
-
-  handleKey(ev: KeyboardEvent) {
-    if (ev.type === "keydown") {
-      this.keysDown.add(ev.code);
-    } else if (ev.type === "keyup") {
-      this.keysDown.delete(ev.code);
-    }
   }
 
   private setGround(

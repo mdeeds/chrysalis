@@ -12,6 +12,7 @@ export class Render {
   private gl: WebGLRenderingContext;
   private world: World;
   private masterControl: MasterControl;
+  private focusContainer: HTMLElement;
   constructor() {
     for (let h of document.getElementsByTagName('h1')) {
       h.remove();
@@ -21,7 +22,10 @@ export class Render {
     this.canvas.width = 1024 * 2;
     this.canvas.height = 768 * 2;
     let body = document.getElementsByTagName("body")[0];
-    body.appendChild(this.canvas);
+    this.focusContainer = document.createElement('div');
+    this.focusContainer.appendChild(this.canvas);
+    this.focusContainer.tabIndex = 1;
+    body.appendChild(this.focusContainer);
   }
 
   main(username: string) {
@@ -51,7 +55,7 @@ export class Render {
     // http://butterfly.ucdavis.edu/butterfly/latin
     this.world = new World("vialis", this.gl, username);
     this.masterControl = new MasterControl(this.gl,
-      this.world.getState(), this.world.getCogs());
+      this.world.getState(), this.world.getCogs(), this.focusContainer);
 
     this.renderLoop();
   }
