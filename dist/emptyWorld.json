@@ -1878,6 +1878,6 @@
       "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
       "libraryList": "turn",
       "imageSource": "Empty Player.png"
-    },
+    }
   }
 }
