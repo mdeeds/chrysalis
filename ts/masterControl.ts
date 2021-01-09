@@ -217,8 +217,13 @@ export class MasterControl {
         new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
 
       for (const other of otherThings) {
-        if (other instanceof Tile ||
-          (t instanceof BasicBot && !(other instanceof Ocean))) {
+        if (other === t) {
+          continue;
+        }
+        if (other instanceof Tile) {
+          continue;
+        }
+        if (t instanceof BasicBot && other instanceof Hazard) {
           continue;
         }
         const dx = t.state.xyz[0] - other.state.xyz[0];
