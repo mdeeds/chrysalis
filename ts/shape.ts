@@ -26,6 +26,24 @@ export class Shape extends Thing {
     this.setTextureImage(source);
   }
 
+  createBuffers(gl: WebGLRenderingContext, positions, textureCoordinates, vertexNormals) {
+    this.vertexCount = positions.length / 3;
+    this.positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER,
+      new Float32Array(positions), gl.STATIC_DRAW);
+
+    this.textureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.textureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER,
+      new Float32Array(textureCoordinates), gl.STATIC_DRAW);
+
+    this.normalBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals),
+      gl.STATIC_DRAW);
+  }
+
   getTextureImage() {
     return this.textureImage;
   }

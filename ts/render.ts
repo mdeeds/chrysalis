@@ -26,6 +26,7 @@ export class Render {
     this.focusContainer.appendChild(this.canvas);
     this.focusContainer.tabIndex = 1;
     body.appendChild(this.focusContainer);
+    this.focusContainer.focus();
   }
 
   main(username: string) {

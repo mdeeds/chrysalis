@@ -2,6 +2,8 @@ import { BasicBot } from "./basicBot";
 import { Beacon } from "./beacon";
 import { Cog } from "./cog";
 import { Computer } from "./computer";
+import { Gopher } from "./gopher";
+import { GopherHole } from "./gopherHole";
 import { Ground } from "./ground";
 import { Hazard } from "./hazard";
 import { Intention } from "./intention";
@@ -109,24 +111,36 @@ export class MasterControl {
           }, things);
       }
       if (action === "setApi") {
-        this.setItem((thing: Thing) => { return thing instanceof Beacon; },
+        this.setItem((thing: Thing) => { return thing instanceof Tablet; },
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
             return new Tablet(this.gl, "api", state);
           }, things);
       }
       if (action === "setNote") {
-        this.setItem((thing: Thing) => { return thing instanceof Beacon; },
+        this.setItem((thing: Thing) => { return thing instanceof Tablet; },
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
             return new Tablet(this.gl, "note", state);
           }, things);
       }
       if (action === "setLib") {
-        this.setItem((thing: Thing) => { return thing instanceof Beacon; },
+        this.setItem((thing: Thing) => { return thing instanceof Tablet; },
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
             return new Tablet(this.gl, "lib", state);
+          }, things);
+      }
+      if (action === "setGopher") {
+        this.setItem((thing: Thing) => { return thing instanceof Gopher; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            return new Gopher(this.gl, state);
+          }, things);
+        this.setItem((thing: Thing) => { return thing instanceof GopherHole; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            return new GopherHole(this.gl, state);
           }, things);
       }
 
