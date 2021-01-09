@@ -1,9 +1,12 @@
+import { Hazard } from "./hazard";
 import { Library } from "./library";
 import { Log } from "./log";
 import { Ocean } from "./ocean";
+import { Player } from "./player";
 import { BoundingBox, QuadTree } from "./quadTree";
 import { StateDelta } from "./stateDelta";
 import { Thing } from "./thing";
+import { ThingCodec } from "./thingCodec";
 import { ThingState } from "./thingState";
 import { ThingStateDelta } from "./thingStateDelta";
 import { Tile } from "./tile";
@@ -89,12 +92,18 @@ export class State {
     const dict: any = {};
 
     dict.tiles = [];
+    dict.hazards = [];
+    dict.things = [];
     dict.radius = this.radius;
     dict.library = this.library.toObject();
 
     for (const t of this.everything.allEntries()) {
       if (t instanceof Tile) {
         dict.tiles.push([t.state.xyz[0], t.state.xyz[2]]);
+      } else if (t instanceof Hazard) {
+        dict.hazards.push([t.state.xyz[0], t.state.xyz[2]]);
+        // } else if (!(t instanceof Player)) {
+        //   dict.things.push(ThingCodec.encode(t));
       }
     }
 
@@ -116,10 +125,23 @@ export class State {
     for (const tilePosition of dict.tiles) {
       const x: number = tilePosition[0];
       const z: number = tilePosition[1];
-      const tile = new Tile(this.gl,
-        new ThingState([x, 0, z]));
+      const tile = new Tile(this.gl, new ThingState([x, 0, z]));
       this.everything.insert(x, z, tile);
     }
+
+    for (const hazardPosition of dict.hazards) {
+      const x: number = hazardPosition[0];
+      const z: number = hazardPosition[1];
+      const hazard = new Hazard(this.gl, new ThingState([x, 0, z]));
+      this.everything.insert(x, z, hazard);
+    }
+
+    // if (dict.things) {
+    //   for (const encoded of dict.things) {
+    //     const thing: Thing = ThingCodec.decode(this.gl, encoded);
+    //     this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
+    //   }
+    // }
 
     const scan: Thing[] = [];
     for (let j = -this.radius; j < this.radius; j += 2) {
