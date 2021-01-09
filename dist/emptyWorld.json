@@ -730,18 +730,6 @@
     ],
     [
       2,
-      -2
-    ],
-    [
-      2,
-      -2
-    ],
-    [
-      2,
-      -2
-    ],
-    [
-      2,
       -4
     ],
     [
@@ -1309,10 +1297,6 @@
       4
     ],
     [
-      30,
-      14
-    ],
-    [
       22,
       22
     ],
@@ -1509,10 +1493,6 @@
       8
     ],
     [
-      36,
-      14
-    ],
-    [
       38,
       14
     ],
@@ -1541,16 +1521,16 @@
       6
     ],
     [
-      42,
-      8
-    ],
-    [
       40,
       8
     ],
     [
       40,
       10
+    ],
+    [
+      42,
+      8
     ],
     [
       42,
@@ -1593,11 +1573,11 @@
       18
     ],
     [
-      34,
+      38,
       16
     ],
     [
-      36,
+      40,
       16
     ],
     [
@@ -1849,6 +1829,25 @@
       60
     ]
   ],
+  "hazards": [
+    [
+      34,
+      14
+    ],
+    [
+      36,
+      14
+    ],
+    [
+      34,
+      16
+    ],
+    [
+      36,
+      16
+    ]
+  ],
+  "things": [],
   "radius": 128,
   "library": {
     "turn": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n",
@@ -1857,12 +1856,12 @@
   "players": {
     "profx": {
       "xyz": {
-        "0": 24.052827835083008,
+        "0": 28.13510513305664,
         "1": 0,
-        "2": 20.79334831237793
+        "2": 17.574867248535156
       },
-      "heading": -2.215164470767448,
-      "code": "if (perspective.keysDown.has('ArrowRight')) {\n  delta.turn = 0.5;\n  delta.drive = 1.0;\n} if (perspective.keysDown.has('ArrowLeft')) {\n  delta.turn = -0.5;\n  delta.drive = 1.0;\n} if (perspective.keysDown.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 2;\n} if (perspective.keysDown.has('KeyT')) {\n  admin(\"setTile\");\n} if (perspective.keysDown.has('KeyR')) {\n  admin(\"setRobot\");\n} if (perspective.keysDown.has('KeyX')) {\n  admin(\"clear\");\n} if (perspective.keysDown.has('KeyB')) {\n  admin(\"setBeacon\");\n}",
+      "heading": 1.8279824574366899,
+      "code": "if (perspective.keysDown.has('ArrowRight')) {  delta.turn = 0.5;  delta.drive = 1.0;} if (perspective.keysDown.has('ArrowLeft')) {  delta.turn = -0.5;  delta.drive = 1.0;} if (perspective.keysDown.has('ArrowUp')) {  delta.drive = 1.0;  delta.turn /= 2;} if (perspective.keysDown.has('KeyT')) {  admin(\"setTile\");} if (perspective.keysDown.has('KeyR')) {  admin(\"setRobot\");} if (perspective.keysDown.has('KeyX')) {  admin(\"clear\");}if (perspective.keysDown.has('KeyB')) {  admin(\"setBeacon\");}if (perspective.keysDown.has('KeyN')) {  admin(\"setNote\");}if (perspective.keysDown.has('KeyA')) {  admin(\"setApi\");}if (perspective.keysDown.has('KeyL')) {  admin(\"setLib\");}if (perspective.keysDown.has('KeyG')) {  admin(\"setGopher\");}if (perspective.keysDown.has('KeyO')) {  admin(\"setOcean\");}if (perspective.keysDown.has('KeyH')) {  admin(\"setHazard\");}",
       "libraryList": "turn admin",
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
@@ -1876,18 +1875,9 @@
         "2": 0
       },
       "heading": 0,
-      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
-      "libraryList": "turn"
+      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "libraryList": "turn",
+      "imageSource": "Empty Player.png"
     },
-    "matt": {
-      "xyz": {
-        "0": -1.728445291519165,
-        "1": 0,
-        "2": 18.789710998535156
-      },
-      "heading": -1.5587476347620129e-7,
-      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
-      "libraryList": "turn"
-    }
   }
 }
