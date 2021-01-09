@@ -7,16 +7,23 @@ import { ThingState } from "./thingState";
 export class ThingCodec {
   static encode(thing: Thing) {
     const result: any = {};
-    result.typeName = thing.constructor.name;
+    if (thing instanceof Gopher) {
+      result.typeName = "Gopher";
+    } else if (thing instanceof GopherHole) {
+      result.typeName = "GopherHole";
+    } else {
+      Log.error(`Missing encoding ${thing.constructor.name}`);
+      return null;
+    }
     result.state = thing.state;
     return result;
   }
 
-  static decode(gl: WebGLRenderingContext, dict: any): Thing{
+  static decode(gl: WebGLRenderingContext, dict: any): Thing {
     switch (dict.typeName) {
       case "Gopher":
         return new Gopher(gl, dict.state as ThingState);
-      case "GohperHole":
+      case "GopherHole":
         return new GopherHole(gl, dict.state as ThingState);
     }
     Log.error(`Cannot decode type: ${dict.typeName}`);

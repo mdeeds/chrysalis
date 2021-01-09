@@ -98,12 +98,17 @@ export class State {
     dict.library = this.library.toObject();
 
     for (const t of this.everything.allEntries()) {
-      if (t instanceof Tile) {
+      if (t instanceof Ocean) {
+        continue;
+      } else if (t instanceof Tile) {
         dict.tiles.push([t.state.xyz[0], t.state.xyz[2]]);
       } else if (t instanceof Hazard) {
         dict.hazards.push([t.state.xyz[0], t.state.xyz[2]]);
-        // } else if (!(t instanceof Player)) {
-        //   dict.things.push(ThingCodec.encode(t));
+      } else if (!(t instanceof Player)) {
+        const encoded: any = ThingCodec.encode(t);
+        if (encoded !== null) {
+          dict.things.push(encoded);
+        }
       }
     }
 
@@ -129,19 +134,21 @@ export class State {
       this.everything.insert(x, z, tile);
     }
 
-    for (const hazardPosition of dict.hazards) {
-      const x: number = hazardPosition[0];
-      const z: number = hazardPosition[1];
-      const hazard = new Hazard(this.gl, new ThingState([x, 0, z]));
-      this.everything.insert(x, z, hazard);
+    if (dict.hazards) {
+      for (const hazardPosition of dict.hazards) {
+        const x: number = hazardPosition[0];
+        const z: number = hazardPosition[1];
+        const hazard = new Hazard(this.gl, new ThingState([x, 0, z]));
+        this.everything.insert(x, z, hazard);
+      }
     }
 
-    // if (dict.things) {
-    //   for (const encoded of dict.things) {
-    //     const thing: Thing = ThingCodec.decode(this.gl, encoded);
-    //     this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
-    //   }
-    // }
+    if (dict.things) {
+      for (const encoded of dict.things) {
+        const thing: Thing = ThingCodec.decode(this.gl, encoded);
+        this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
+      }
+    }
 
     const scan: Thing[] = [];
     for (let j = -this.radius; j < this.radius; j += 2) {
