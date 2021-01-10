@@ -175,6 +175,58 @@ export class MasterControl {
     }
   }
 
+  updateMiddleObject(oldThing: Thing, newThing: Thing, x: number, z: number) {
+    if (oldThing === null) {
+      return newThing;
+    }
+    const oldDx = oldThing.state.xyz[0] - x;
+    const oldDz = oldThing.state.xyz[2] - z;
+    const oldR2 = oldDx * oldDx + oldDz * oldDz;
+    const newDx = newThing.state.xyz[0] - x;
+    const newDz = newThing.state.xyz[2] - z;
+    const newR2 = newDx * newDx + newDz * newDz;
+    if (newR2 < oldR2) {
+      return newThing;
+    } else {
+      return oldThing;
+    }
+  }
+
+  actOnThing(actor: Thing, other: Thing) {
+    Log.info("Act on thing. TODO");
+  }
+
+  raiseRobot(actor: Thing, tile: Tile) {
+    Log.info("Raising robot.");
+  }
+
+  handleAction(actor: Thing) {
+    let targetX: number;
+    let targetZ: number;
+    [targetX, targetZ] = actor.state.inFrontXZ();
+    const things: Thing[] = [];
+    this.state.everything.appendFromRange(
+      new BoundingBox(targetX, targetZ, 0.99), things);
+    let frontTile: Tile = null;
+    let middleObject: Thing = null;
+    for (const t of things) {
+      if (t instanceof Tile) {
+        frontTile = t;
+      }
+      if (!(t instanceof Ground)) {
+        middleObject = this.updateMiddleObject(middleObject, t,
+          actor.state.xyz[0], actor.state.xyz[2]);
+      }
+    }
+    if (middleObject != null) {
+      this.actOnThing(actor, middleObject);
+      return;
+    }
+    if (frontTile != null) {
+      this.raiseRobot(actor, frontTile);
+    }
+  }
+
   eventLoop(ts: number) {
     const targetFrame = this.frameNumber + 5;
     for (const cog of this.cogs) {
@@ -195,6 +247,9 @@ export class MasterControl {
         if (i.delta.state != null && i.delta.state.adminAction != null) {
           this.handleAdminAction(i.cog.thing, i.delta.state.adminAction);
           i.delta.state.adminAction = null;
+        }
+        if (i.delta.state != null && i.delta.state.action != null) {
+          this.handleAction(i.cog.thing);
         }
         this.state.applyThing(i.cog.thing.state, i.delta);
         if (!deltaStorage.has(i.cog.thing)) {
