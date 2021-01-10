@@ -4,12 +4,14 @@ import { Shape } from "./shape";
 import { ThingState } from "./thingState";
 
 export class Tablet extends Shape {
-  constructor(gl: WebGLRenderingContext, type: string, state: ThingState) {
+  constructor(gl: WebGLRenderingContext, state: ThingState) {
     let source = "tabletNote.png";
-    if (type == "lib") {
-      source = "tabletLib.png";
-    } else if (type === "api") {
-      source = "tabletApi.png";
+    if (state.data && state.data.type) {
+      switch (state.data.type) {
+        case "lib": source = "tabletLib.png"; break;
+        case "api": source = "tabletApi.png"; break;
+        case "note": source = "tabletNote.png"; break;
+      }
     }
     super(gl, source, state);
     this.lightness = 0.0;

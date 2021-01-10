@@ -114,21 +114,24 @@ export class MasterControl {
         this.setItem((thing: Thing) => { return thing instanceof Tablet; },
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
-            return new Tablet(this.gl, "api", state);
+            state.data = { type: "api" };
+            return new Tablet(this.gl, state);
           }, things);
       }
       if (action === "setNote") {
         this.setItem((thing: Thing) => { return thing instanceof Tablet; },
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
-            return new Tablet(this.gl, "note", state);
+            state.data = { type: "note" };
+            return new Tablet(this.gl, state);
           }, things);
       }
       if (action === "setLib") {
         this.setItem((thing: Thing) => { return thing instanceof Tablet; },
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
-            return new Tablet(this.gl, "lib", state);
+            state.data = { type: "lib" };
+            return new Tablet(this.gl, state);
           }, things);
       }
       if (action === "setGopher") {
