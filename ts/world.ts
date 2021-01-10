@@ -25,15 +25,18 @@ export class World {
   private worldServer: PeerConnection;
   private terminal: Terminal;
   private saveButton: HTMLAnchorElement;
+  private gameFocusElement: HTMLElement;
 
-
-  constructor(worldName: string, gl: WebGLRenderingContext, username: string) {
+  constructor(worldName: string,
+    gl: WebGLRenderingContext, username: string,
+    gameFocusElement: HTMLElement) {
     this.worldName = worldName;
     this.gl = gl;
     this.username = username;
     this.cogs = [];
     this.state = new State(gl);
-    this.terminal = new Terminal();
+    this.gameFocusElement = gameFocusElement;
+    this.terminal = new Terminal(gameFocusElement);
 
     const url = new URL(document.URL);
     if (url.searchParams.get('local')) {
@@ -181,6 +184,7 @@ export class World {
       const youCog = new Cog(playerThing, playerComputer);
       this.cogs.push(youCog);
       this.terminal.setCog(youCog);
+      this.gameFocusElement.focus();
       this.state.everything.insert(
         playerState.xyz[0], playerState.xyz[2], playerThing);
     }

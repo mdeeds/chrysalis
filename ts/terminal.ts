@@ -74,6 +74,7 @@ class CodeHolder {
   private activate() {
     this.div.classList.remove("hidden");
     this.img.classList.remove("deactivated");
+    this.div.focus();
   }
 
   private deactivate() {
@@ -83,14 +84,16 @@ class CodeHolder {
 }
 
 export class Terminal {
-  cog: Cog;
-  lastContent: string;
-  uploadButton: HTMLImageElement;
-  dirty: boolean;
-  imageCode: CodeHolder;
-  programCode: CodeHolder;
-  libraryCode: CodeHolder;
-  constructor() {
+  private cog: Cog;
+  private lastContent: string;
+  private uploadButton: HTMLImageElement;
+  private dirty: boolean;
+  private imageCode: CodeHolder;
+  private programCode: CodeHolder;
+  private libraryCode: CodeHolder;
+  private otherFocusElement: HTMLElement;
+  constructor(otherFocusElement: HTMLElement) {
+    this.otherFocusElement = otherFocusElement;
     const body = document.getElementsByTagName("body")[0];
 
     const toolbar = document.createElement('div');
@@ -141,6 +144,7 @@ export class Terminal {
         this.imageCode.setCode(textureImage);
       }
     }
+    CodeHolder.activateHolder(this.programCode);
   }
 
   upload() {
@@ -150,6 +154,7 @@ export class Terminal {
       this.cog.thing.state.imageSource = imageCode;
     }
     this.cog.upload(this.programCode.getCode(), this.libraryCode.getCode());
+    this.otherFocusElement.focus();
   }
 
 
