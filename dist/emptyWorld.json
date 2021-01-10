@@ -1801,12 +1801,73 @@
   ],
   "things": [
     {
+      "typeName": "Tablet",
+      "state": {
+        "xyz": {
+          "0": 25.026151657104492,
+          "1": 0,
+          "2": 15.84135627746582
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "data": {
+          "type": "api"
+        }
+      }
+    },
+    {
+      "typeName": "Tablet",
+      "state": {
+        "xyz": {
+          "0": 27.779890060424805,
+          "1": 0,
+          "2": 14.831393241882324
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "data": {
+          "type": "lib"
+        }
+      }
+    },
+    {
+      "typeName": "Beacon",
+      "state": {
+        "xyz": {
+          "0": 23.44468116760254,
+          "1": 0,
+          "2": 18.25873565673828
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null
+      }
+    },
+    {
+      "typeName": "Tablet",
+      "state": {
+        "xyz": {
+          "0": 28.933687210083008,
+          "1": 0,
+          "2": 16.84659767150879
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "data": {
+          "type": "note"
+        }
+      }
+    },
+    {
       "typeName": "Gopher",
       "state": {
         "xyz": {
-          "0": 2.6135222911834717,
+          "0": 2.380267858505249,
           "1": 0,
-          "2": 33.51837921142578
+          "2": 34.15846633911133
         },
         "heading": 0,
         "code": null,
@@ -1817,11 +1878,24 @@
       "typeName": "GopherHole",
       "state": {
         "xyz": {
-          "0": 2.6135222911834717,
+          "0": 2.380267858505249,
           "1": 0,
-          "2": 33.51837921142578
+          "2": 34.15846633911133
         },
         "heading": 0,
+        "code": null,
+        "libraryList": null
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "xyz": {
+          "0": 33.28923034667969,
+          "1": 0,
+          "2": 15.852254867553711
+        },
+        "heading": 2.6362938564093903,
         "code": null,
         "libraryList": null
       }
@@ -1835,12 +1909,12 @@
   "players": {
     "profx": {
       "xyz": {
-        "0": 7.246225833892822,
+        "0": 7.279265880584717,
         "1": 0,
-        "2": 34.44464874267578
+        "2": 29.912586212158203
       },
-      "heading": 0.7322971502571036,
-      "code": "if (perspective.keysDown.has('ArrowRight')) {  delta.turn = 0.5;  delta.drive = 1.0;} if (perspective.keysDown.has('ArrowLeft')) {  delta.turn = -0.5;  delta.drive = 1.0;} if (perspective.keysDown.has('ArrowUp')) {  delta.drive = 1.0;  delta.turn /= 2;} if (perspective.keysDown.has('KeyT')) {  admin(\"setTile\");} if (perspective.keysDown.has('KeyR')) {  admin(\"setRobot\");} if (perspective.keysDown.has('KeyX')) {  admin(\"clear\");}if (perspective.keysDown.has('KeyB')) {  admin(\"setBeacon\");}if (perspective.keysDown.has('KeyN')) {  admin(\"setNote\");}if (perspective.keysDown.has('KeyA')) {  admin(\"setApi\");}if (perspective.keysDown.has('KeyL')) {  admin(\"setLib\");}if (perspective.keysDown.has('KeyG')) {  admin(\"setGopher\");}if (perspective.keysDown.has('KeyO')) {  admin(\"setOcean\");}if (perspective.keysDown.has('KeyH')) {  admin(\"setHazard\");}",
+      "heading": 4.769353071795862,
+      "code": "let keys = perspective.keysDown;\n\nif (keys.has('ArrowRight')) {\n  delta.turn = 0.5; delta.drive = 1.0;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -0.5; delta.drive = 1.0;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0; delta.turn /= 2;\n}\nif (keys.has('KeyT')) { admin(\"setTile\"); }\nif (keys.has('KeyR')) { admin(\"setRobot\"); }\nif (keys.has('KeyX')) { admin(\"clear\"); }\nif (keys.has('KeyB')) { admin(\"setBeacon\"); }\nif (keys.has('KeyN')) { admin(\"setNote\"); }\nif (keys.has('KeyA')) { admin(\"setApi\"); }\nif (keys.has('KeyL')) { admin(\"setLib\"); }\nif (keys.has('KeyG')) { admin(\"setGopher\"); }\nif (keys.has('KeyO')) { admin(\"setOcean\"); }\nif (keys.has('KeyH')) { admin(\"setHazard\"); }\nif (keys.has('Space')) { delta.state = { action: 1 }; }\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}",
       "libraryList": "turn admin",
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
