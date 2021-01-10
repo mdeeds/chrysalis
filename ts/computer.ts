@@ -6,7 +6,6 @@ import { ThingStateDelta } from "./thingStateDelta";
 export class Computer {
 
   private worker: Worker;
-  private stateResponse: ThingStateDelta;
   private working: boolean;
   private library: Library;
 
@@ -35,15 +34,12 @@ export class Computer {
     console.log(computeSource);
     const dataUrl = "data:text/javascript;base64," + btoa(computeSource);
     this.worker = new Worker(dataUrl);
-    this.stateResponse = null;
     this.working = false;
-    this.worker.onmessage = (ev: MessageEvent) => {
-      this.stateResponse = ev.data;
-    }
     this.worker.onerror = (ev: ErrorEvent) => {
       Log.error(`line ${ev.lineno - 2}: ${ev.message}`);
       this.worker.terminate();
     }
+    this.clearResponseHandler();
   }
 
   async getDelta(perspective: Perspective) {
@@ -54,19 +50,16 @@ export class Computer {
     } else {
       this.worker.postMessage(perspective);
       return new Promise((resolve, reject) => {
-        this.waitForResponse(resolve, reject);
+        this.worker.onmessage = (ev: MessageEvent) => {
+          resolve(ev.data);
+        }
       });
     }
   }
 
-  waitForResponse(resolve: Function, reject: Function) {
-    if (this.stateResponse !== null) {
-      const result = this.stateResponse as ThingStateDelta;
-      this.stateResponse = null;
-      this.working = false;
-      resolve(result);
-    } else {
-      setTimeout(() => this.waitForResponse(resolve, reject), 10);
+  clearResponseHandler() {
+    this.worker.onmessage = (ev: MessageEvent) => {
+      Log.error("No one is listening.");
     }
   }
 
