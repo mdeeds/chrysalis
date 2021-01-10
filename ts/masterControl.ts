@@ -2,6 +2,7 @@ import { BasicBot } from "./basicBot";
 import { Beacon } from "./beacon";
 import { Cog } from "./cog";
 import { Computer } from "./computer";
+import { Flower } from "./flower";
 import { Gopher } from "./gopher";
 import { GopherHole } from "./gopherHole";
 import { Ground } from "./ground";
@@ -108,6 +109,14 @@ export class MasterControl {
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
             return new Beacon(this.gl, state);
+          }, things);
+      }
+      if (action === "setFlower") {
+        this.setItem((thing: Thing) => { return thing instanceof Flower; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            state.data = { position: 1.0 };
+            return new Flower(this.gl, state);
           }, things);
       }
       if (action === "setApi") {

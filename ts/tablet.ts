@@ -24,7 +24,7 @@ export class Tablet extends Shape {
     Geometry.addCubeData(positions, textureCoordinates, vertexNormals,
       0.8, 0.8, 0.15);
     Geometry.translate(positions, 0, 0.5, 0);
-    Geometry.addCylinderData(positions, textureCoordinates, vertexNormals, 0.1);
+    Geometry.addTubeData(positions, textureCoordinates, vertexNormals, 0.1);
 
     this.vertexCount = positions.length / 3;
 

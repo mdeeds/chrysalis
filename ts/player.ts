@@ -26,7 +26,7 @@ export class Player extends Shape {
     Geometry.addCubeData(positions, textureCoordinates, vertexNormals,
       0.65, 0.65, 0.65);
     Geometry.translate(positions, 0, 1.3, 0);
-    Geometry.addCylinderData(positions, textureCoordinates, vertexNormals, 0.6);
+    Geometry.addTubeData(positions, textureCoordinates, vertexNormals, 0.6);
 
     this.createBuffers(gl, positions, textureCoordinates, vertexNormals);
    }

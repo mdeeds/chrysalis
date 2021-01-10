@@ -7,7 +7,7 @@ export class Geometry {
     }
   }
 
-  static addCylinderData(
+  static addTubeData(
     positions: number[], textureCoords: number[], normals: number[],
     r: number) {
     const numPoints = 16;
@@ -45,6 +45,41 @@ export class Geometry {
       normals.push(x1, 0, z1);
       normals.push(x2, 0, z2);
     }
+  }
+  static addDiscData(positions: number[], textureCoords: number[], normals: number[],
+    r: number) {
+    const numPoints = 16;
+    const dt = (Math.PI * 2 / numPoints);
+    const ds = 1.0 / numPoints;
+    for (let i: number = 0; i < numPoints; ++i) {
+      let t = i * dt - Math.PI / 2;
+      const x1 = Math.cos(t) * r;
+      const z1 = Math.sin(t) * r;
+      const x2 = Math.cos(t + dt) * r;
+      const z2 = Math.sin(t + dt) * r;
+
+      positions.push(0, 1.0, 0);
+      positions.push(x1, 1.0, z1);
+      positions.push(x2, 1.0, z2);
+
+      const s1 = 0.125 + Math.cos(t) * 0.125;
+      const t1 = 0.125 + Math.sin(t) * 0.125;
+      const s2 = 0.125 + Math.cos(t + dt) * 0.125;
+      const t2 = 0.125 + Math.sin(t + dt) * 0.125;
+      textureCoords.push(0.125, 0.125);
+      textureCoords.push(s1, t1);
+      textureCoords.push(s2, t2);
+
+      normals.push(0, 1, 0);
+      normals.push(0, 1, 0);
+      normals.push(0, 1, 0);
+    }
+  }
+
+  static addCylinderData(positions: number[], textureCoords: number[], normals: number[],
+    r: number) {
+    Geometry.addTubeData(positions, textureCoords, normals, r);
+    Geometry.addDiscData(positions, textureCoords, normals, r);
   }
 
   static addCubeData(positions: number[], textureCoords: number[], normals: number[],
@@ -166,6 +201,52 @@ export class Geometry {
       -1.0, 0.0, 0.0,
       -1.0, 0.0, 0.0,
       -1.0, 0.0, 0.0);
+  }
+
+  static addGemData(positions: number[], normals: number[], textureCoords: number[]) {
+    const numFaces = 4;
+    const radius = 0.8;
+    const tStep = Math.PI * 2 / numFaces;
+    for (let i = 0; i < numFaces; ++i) {
+      let t = i * tStep;
+
+      let x1 = 0;
+      let y1 = 0.7;
+      let z1 = 0;
+      let x2 = Math.cos(t);
+      let y2 = 0;
+      let z2 = Math.sin(t);
+      let x3 = Math.cos(t + tStep);
+      let y3 = 0;
+      let z3 = Math.sin(t + tStep);
+
+      // Top = 1
+      positions.push(x1 * radius, y1, z1 * radius);
+      normals.push((x2 + x3) / 4, 0, (z2 + z3) / 4);
+      textureCoords.push(0.25, 0.5);
+      // 3
+      positions.push(x3 * radius, y3, z3 * radius);
+      normals.push(x3, y3, z3);
+      textureCoords.push(0.25 + x3 * 0.25, 0.5 + z3 * 0.5);
+      // 2
+      positions.push(x2 * radius, y2, z2 * radius);
+      normals.push(x2, y2, z2);
+      textureCoords.push(0.25 + x2 * 0.25, 0.5 + z2 * 0.5);
+
+      y1 = -y1;
+      // Top = 1
+      positions.push(x1 * radius, y1, z1 * radius);
+      normals.push((x2 + x3) / 4, 0, (z2 + z3) / 4);
+      textureCoords.push(0.75, 0.5);
+      // 3
+      positions.push(x3 * radius, y3, z3 * radius);
+      normals.push(x3, y3, z3);
+      textureCoords.push(0.75 + x3 * 0.25, 0.5 + z3 * 0.5);
+      // 2
+      positions.push(x2 * radius, y2, z2 * radius);
+      normals.push(x2, y2, z2);
+      textureCoords.push(0.75 + x2 * 0.25, 0.5 + z2 * 0.5);
+    }
   }
 
 
