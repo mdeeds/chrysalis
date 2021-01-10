@@ -1,6 +1,7 @@
 import { Cog } from "./cog";
 import { Log } from "./log";
 import { Shape } from "./shape";
+import beautify from "js-beautify";
 
 class CodeHolder {
   private static allHolders: CodeHolder[] = [];
@@ -37,7 +38,6 @@ class CodeHolder {
 
   setCode(code: string) {
     this.div.innerText = code;
-    // this.format();
   }
 
   getCode() {
@@ -46,29 +46,27 @@ class CodeHolder {
     return cleanContent;
   }
 
-  private format() {
-    let code: string = this.getCode();
-    code = code.replace(/\{\s*/g, "{\n");
-    code = code.replace(/\;\s+/g, ";\n");
-    code = code.replace(/\n\s+/g, "\n");
-    const reOpen = /[\(\{\[]/;
-    const reClose = /[\)\}\]]/;
-
-    let newCode = "";
-    let indentation = "";
-    for (const ch of code) {
-      newCode += ch;
-      if (ch.match(reOpen)) {
-        indentation += " ";
-      }
-      if (ch.match(reClose)) {
-        indentation = indentation.substr(0, indentation.length - 1);
-      }
-      if (ch == "\n") {
-        newCode += indentation;
-      }
-    }
-    this.div.innerText = newCode;
+  format() {
+    let code = this.getCode();
+    code = beautify(code, {
+      "indent_size": 2,
+      "indent_char": " ",
+      "max_preserve_newlines": 1,
+      "preserve_newlines": true,
+      "keep_array_indentation": false,
+      "break_chained_methods": false,
+      "brace_style": "collapse",
+      "space_before_conditional": true,
+      "unescape_strings": false,
+      "jslint_happy": false,
+      "end_with_newline": false,
+      "wrap_line_length": 0,
+      "comma_first": false,
+      "e4x": false,
+      "indent_empty_lines": false
+    });
+    Log.info("Formatting...");
+    this.setCode(code);
   }
 
   private activate() {
@@ -153,9 +151,10 @@ export class Terminal {
       this.cog.thing.setTextureImage(imageCode);
       this.cog.thing.state.imageSource = imageCode;
     }
+    Log.info("Uploading.");
+    this.programCode.format();
+    this.libraryCode.format();
     this.cog.upload(this.programCode.getCode(), this.libraryCode.getCode());
     this.otherFocusElement.focus();
   }
-
-
 }
