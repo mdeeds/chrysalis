@@ -15,6 +15,9 @@ export class Shape extends Thing {
   private texture: WebGLTexture;
   private textureImage: string;
   private gl: WebGLRenderingContext;
+  private liftedBy: Shape;
+  private lifting: Shape;
+  private liftTime: number;
 
   constructor(gl: WebGLRenderingContext,
     source: string | HTMLCanvasElement | HTMLImageElement,
@@ -24,6 +27,8 @@ export class Shape extends Thing {
     this.startTimeSeconds = window.performance.now() / 1000;
     this.state = state;
     this.setTextureImage(source);
+    this.liftedBy = null;
+    this.lifting = null;
   }
 
   createBuffers(gl: WebGLRenderingContext, positions, textureCoordinates, vertexNormals) {
@@ -64,9 +69,14 @@ export class Shape extends Thing {
   }
 
   getObjectTransform() {
-    const objectTransform = GLM.mat4.create();
-    GLM.mat4.translate(objectTransform, objectTransform,
-      this.state.xyz);
+    let objectTransform = GLM.mat4.create();
+    if (this.liftedBy === null) {
+      GLM.mat4.translate(objectTransform, objectTransform,
+        this.state.xyz);
+    } else {
+      objectTransform = this.liftedBy.getObjectTransform();
+      GLM.mat4.translate(objectTransform, objectTransform, [0, 2, 0]);
+    }
     GLM.mat4.rotate(objectTransform, objectTransform,
       this.state.heading, [0, -1, 0]);
     return objectTransform;
@@ -125,6 +135,40 @@ export class Shape extends Thing {
       const offset = 0;
       gl.drawArrays(gl.TRIANGLES, offset, vertexCount);
     }
+  }
+
+  isLifted(): boolean {
+    return this.liftedBy !== null;
+  }
+
+  isLifting(): boolean {
+    return this.lifting !== null;
+  }
+
+  trackWithLifter() {
+    this.state.xyz[0] = this.liftedBy.state.xyz[0];
+    this.state.xyz[2] = this.liftedBy.state.xyz[2];
+  }
+
+  lift(other: Shape) {
+    if (window.performance.now() < this.liftTime + 500) {
+      return;
+    }
+    this.liftTime = window.performance.now();
+    other.liftedBy = this;
+    this.lifting = other;
+  }
+
+  drop() {
+    if (window.performance.now() < this.liftTime + 500) {
+      return;
+    }
+    this.liftTime = window.performance.now();
+    const other: Shape = this.lifting;
+    other.liftedBy = null;
+    this.lifting = null;
+    other.state.xyz[0] = this.state.xyz[0] - Math.sin(this.state.heading) * 0.1;
+    other.state.xyz[2] = this.state.xyz[2] + Math.cos(this.state.heading) * 0.1;
   }
 
 }

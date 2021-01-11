@@ -12,6 +12,7 @@ import { Log } from "./log";
 import { Ocean } from "./ocean";
 import { Perspective } from "./perspective";
 import { BoundingBox } from "./quadTree";
+import { Shape } from "./shape";
 import { State } from "./state";
 import { StateDelta } from "./stateDelta";
 import { Tablet } from "./tablet";
@@ -204,7 +205,10 @@ export class MasterControl {
   }
 
   actOnThing(actor: Thing, other: Thing) {
-    Log.info("Act on thing. TODO");
+    // Log.info("Act on thing. TODO");
+    if (actor instanceof Shape && other instanceof Shape) {
+      actor.lift(other);
+    }
   }
 
   raiseRobot(actor: Thing, tile: Tile) {
@@ -212,6 +216,10 @@ export class MasterControl {
   }
 
   handleAction(actor: Thing) {
+    if (actor instanceof Shape && actor.isLifting()) {
+      actor.drop();
+      return;
+    }
     let targetX: number;
     let targetZ: number;
     [targetX, targetZ] = actor.state.inFrontXZ();
@@ -281,6 +289,10 @@ export class MasterControl {
       if (t.lightness === 0) {
         continue;
       }
+      if (t instanceof Shape && t.isLifted()) {
+        t.trackWithLifter();
+        continue;
+      }
       const otherThings: Thing[] = [];
       this.state.everything.appendFromRange(
         new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
@@ -293,6 +305,9 @@ export class MasterControl {
           continue;
         }
         if (t instanceof BasicBot && other instanceof Hazard) {
+          continue;
+        }
+        if (other instanceof Shape && other.isLifted()) {
           continue;
         }
         const dx = t.state.xyz[0] - other.state.xyz[0];
