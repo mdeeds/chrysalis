@@ -1,3 +1,5 @@
+import { Cog } from "./cog";
+import { Computer } from "./computer";
 import { Hazard } from "./hazard";
 import { Library } from "./library";
 import { Log } from "./log";
@@ -13,9 +15,9 @@ import { Tile } from "./tile";
 
 export class State {
   radius: number;
-  players: Map<string, ThingState>;
-  everything: QuadTree<Thing>;
-  library: Library;
+  readonly players: Map<string, ThingState>;
+  readonly everything: QuadTree<Thing>;
+  readonly library: Library;
 
   gl: WebGLRenderingContext;
   constructor(gl: WebGLRenderingContext) {

@@ -14,6 +14,7 @@ import { ThingState } from "./thingState";
 import { StateDelta } from "./stateDelta";
 import { Terminal } from "./terminal";
 import { BoundingBox } from "./quadTree";
+import { Library } from "./library";
 
 export class World {
   private worldName: string;
@@ -26,6 +27,7 @@ export class World {
   private terminal: Terminal;
   private saveButton: HTMLAnchorElement;
   private gameFocusElement: HTMLElement;
+  private library: Library;
 
   constructor(worldName: string,
     gl: WebGLRenderingContext, username: string,
@@ -164,6 +166,18 @@ export class World {
       this.state.players.set(this.username, playerState);
     } else {
       Log.info(`Welcome back, ${this.username}.`);
+    }
+
+    for (const thing of this.state.everything.allEntries()) {
+      if (thing.state.code) {
+        const computer = new Computer(
+          thing.state.code, thing.state.libraryList, this.state.library);
+        Log.info(`New cog: ${thing.state.libraryList}`);
+        const cog = new Cog(thing, computer);
+        this.cogs.push(cog);
+      } else {
+        Log.info("No code.");
+      }
     }
 
     Log.info(`Loaded ${this.state.library.size()} libraries.`);

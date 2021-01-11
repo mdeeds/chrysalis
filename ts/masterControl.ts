@@ -168,8 +168,10 @@ export class MasterControl {
           const state: ThingState = new ThingState([targetX, 0, targetZ]);
           const robot = new BasicBot(this.gl, state);
           this.state.everything.insert(robot.state.xyz[0], robot.state.xyz[2], robot);
-          const computer = new Computer("delta = {turn: 1.0, drive: 0.05}",
-            "", this.state.library);
+          robot.state.code = "delta = {turn: 1.0, drive: 0.05}";
+          robot.state.libraryList = "";
+          const computer = new Computer(
+            robot.state.code, robot.state.libraryList, this.state.library);
           const cog = new Cog(robot, computer);
           this.cogs.push(cog);
         }
