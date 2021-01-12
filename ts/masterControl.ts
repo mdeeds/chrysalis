@@ -25,7 +25,7 @@ import { Tile } from "./tile";
 
 export class MasterControl {
   state: State;
-  cogs: Cog[];
+  private cogs: Map<Shape, Cog>;
   startTimeMs: number;
   frameNumber: number;
   pendingEvents: Intention[];
@@ -42,7 +42,7 @@ export class MasterControl {
     this.keyFocusElement = keyFocusElement;
     this.username = username;
 
-    this.cogs = [];
+    this.cogs = new Map<Shape, Cog>();
     this.frameNumber = 0;
     this.pendingEvents = [];
     this.keysDown = new Set<string>();
@@ -62,12 +62,12 @@ export class MasterControl {
       if (thing instanceof Player) {
         Log.info("A Player!");
       }
-      if (thing.state.code) {
+      if (thing.state.code && thing instanceof Shape) {
         const computer = new Computer(
           thing.state.code, thing.state.libraryList, this.state.library);
         Log.info(`New cog: ${thing.state.libraryList}`);
         const cog = new Cog(thing, computer);
-        this.cogs.push(cog);
+        this.cogs.set(thing, cog);
       }
     }
 
@@ -81,7 +81,7 @@ export class MasterControl {
         new Computer(playerState.code,
           playerState.libraryList, this.state.library);
       const youCog = new Cog(playerThing, playerComputer);
-      this.cogs.push(youCog);
+      this.cogs.set(playerThing, youCog);
       this.terminal.setCog(youCog);
       this.keyFocusElement.focus();
       this.state.everything.insert(
@@ -220,7 +220,7 @@ export class MasterControl {
           const computer = new Computer(
             robot.state.code, robot.state.libraryList, this.state.library);
           const cog = new Cog(robot, computer);
-          this.cogs.push(cog);
+          this.cogs.set(robot, cog);
         }
       }
       if (action === "clear") {
@@ -294,7 +294,7 @@ export class MasterControl {
 
   eventLoop(ts: number) {
     const targetFrame = this.frameNumber + 5;
-    for (const cog of this.cogs) {
+    for (const cog of this.cogs.values()) {
       const cogPerspective = new Perspective();
       cogPerspective.keysDown = this.keysDown;
       cogPerspective.currentHeading = cog.thing.state.heading;
