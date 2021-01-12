@@ -31,7 +31,6 @@ export class Computer {
       postMessage(delta); 
     }
     `;
-    console.log(computeSource);
     const dataUrl = "data:text/javascript;base64," + btoa(computeSource);
     this.worker = new Worker(dataUrl);
     this.working = false;
