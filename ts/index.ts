@@ -1,6 +1,5 @@
 import { Log } from "./log";
 import { Render } from "./render";
-import { Terminal } from "./terminal";
 
 const logs = document.createElement("div");
 document.getElementsByTagName("body")[0].appendChild(logs);
