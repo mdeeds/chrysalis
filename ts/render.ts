@@ -5,6 +5,7 @@ import { MasterControl } from "./masterControl";
 import { Thing } from "./thing";
 import { Log } from "./log";
 import { BoundingBox } from "./quadTree";
+import { State } from "./state";
 
 export class Render {
   private canvas: HTMLCanvasElement;
@@ -54,11 +55,14 @@ export class Render {
 
     Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
-    this.world = new World("vialis", this.gl, username, this.focusContainer);
-    this.masterControl = new MasterControl(this.gl,
-      this.world.getState(), this.world.getCogs(), this.focusContainer);
-    this.focusContainer.focus();
-    this.renderLoop();
+    this.world = new World("vialis", this.gl, username);
+
+    this.world.getState().then((state: State) => {
+      this.masterControl = new MasterControl(this.gl,
+        state, this.focusContainer, username);
+      this.focusContainer.focus();
+      this.renderLoop();
+    });
   }
 
   private renderLoop() {

@@ -20,25 +20,23 @@ export class World {
   private worldName: string;
   private gl: WebGLRenderingContext;
   private username: string;
-  private cogs: Cog[];
   private state: State;
   private personalConnection: PeerConnection;
   private worldServer: PeerConnection;
   private terminal: Terminal;
   private saveButton: HTMLAnchorElement;
-  private gameFocusElement: HTMLElement;
   private library: Library;
+  private loaded: boolean;
+  private loadedCallback: Function;
 
   constructor(worldName: string,
-    gl: WebGLRenderingContext, username: string,
-    gameFocusElement: HTMLElement) {
+    gl: WebGLRenderingContext, username: string) {
     this.worldName = worldName;
     this.gl = gl;
     this.username = username;
-    this.cogs = [];
     this.state = new State(gl);
-    this.gameFocusElement = gameFocusElement;
-    this.terminal = new Terminal(gameFocusElement);
+    this.loaded = false;
+    this.loadedCallback = null;
 
     const url = new URL(document.URL);
     if (url.searchParams.get('local')) {
@@ -147,11 +145,15 @@ export class World {
   }
 
   getState() {
-    return this.state;
-  }
-
-  getCogs() {
-    return this.cogs;
+    if (this.loaded) {
+      return new Promise((resolve, reject) => {
+        resolve(this.state);
+      });
+    } else {
+      return new Promise((resolve, reject) => {
+        this.loadedCallback = resolve;
+      });
+    }
   }
 
   applyDelta(delta: StateDelta) {
@@ -168,46 +170,22 @@ export class World {
       Log.info(`Welcome back, ${this.username}.`);
     }
 
-    for (const thing of this.state.everything.allEntries()) {
-      if (thing.state.code) {
-        const computer = new Computer(
-          thing.state.code, thing.state.libraryList, this.state.library);
-        Log.info(`New cog: ${thing.state.libraryList}`);
-        const cog = new Cog(thing, computer);
-        this.cogs.push(cog);
-      } else {
-        Log.info("No code.");
-      }
-    }
-
     Log.info(`Loaded ${this.state.library.size()} libraries.`);
     for (const libName of this.state.library.libraryNames()) {
       Log.info(`Library: ${libName}`);
     }
     // TODO: We need to do something similar to this when a new player logs in.
 
-    if (!this.state.players.has(this.username)) {
-      Log.error(`${this.username} is not here.`);
-    } else {
-      Log.info(`Materializing ${this.username}.`);
-      const playerState = this.state.players.get(this.username);
-      const playerThing = new Player(this.gl, playerState);
-      const playerComputer =
-        new Computer(playerState.code,
-          playerState.libraryList, this.state.library);
-      const youCog = new Cog(playerThing, playerComputer);
-      this.cogs.push(youCog);
-      this.terminal.setCog(youCog);
-      this.gameFocusElement.focus();
-      this.state.everything.insert(
-        playerState.xyz[0], playerState.xyz[2], playerThing);
-    }
-
     // this.things.push(new BasicBot(this.gl, 2, 0));
     // this.things.push(new Gem(this.gl, -2, -2));
 
     // this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
 
+    this.loaded = true;
+    if (this.loadedCallback) {
+      this.loadedCallback(this.state);
+      this.loadedCallback = null;
+    }
     this.saveLoop();
   }
 }

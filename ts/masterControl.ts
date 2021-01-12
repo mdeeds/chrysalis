@@ -12,11 +12,12 @@ import { Intention } from "./intention";
 import { Log } from "./log";
 import { Ocean } from "./ocean";
 import { Perspective } from "./perspective";
+import { Player } from "./player";
 import { BoundingBox } from "./quadTree";
 import { Shape } from "./shape";
 import { State } from "./state";
-import { StateDelta } from "./stateDelta";
 import { Tablet } from "./tablet";
+import { Terminal } from "./terminal";
 import { Thing } from "./thing";
 import { ThingState } from "./thingState";
 import { ThingStateDelta } from "./thingStateDelta";
@@ -30,12 +31,18 @@ export class MasterControl {
   pendingEvents: Intention[];
   private keysDown: Set<string>;
   private gl: WebGLRenderingContext;
+  private username: string;
+  private keyFocusElement: HTMLElement;
+  private terminal: Terminal;
 
-  constructor(gl: WebGLRenderingContext, state: State, cogs: Cog[],
-    keyFocusElement: HTMLElement) {
+  constructor(gl: WebGLRenderingContext, state: State,
+    keyFocusElement: HTMLElement, username: string) {
     this.gl = gl;
     this.state = state;
-    this.cogs = cogs;
+    this.keyFocusElement = keyFocusElement;
+    this.username = username;
+
+    this.cogs = [];
     this.frameNumber = 0;
     this.pendingEvents = [];
     this.keysDown = new Set<string>();
@@ -48,6 +55,39 @@ export class MasterControl {
         this.keysDown.clear();
         Log.info("Lost focus.");
       })
+
+    this.terminal = new Terminal(keyFocusElement);
+
+    for (const thing of this.state.everything.allEntries()) {
+      if (thing instanceof Player) {
+        Log.info("A Player!");
+      }
+      if (thing.state.code) {
+        const computer = new Computer(
+          thing.state.code, thing.state.libraryList, this.state.library);
+        Log.info(`New cog: ${thing.state.libraryList}`);
+        const cog = new Cog(thing, computer);
+        this.cogs.push(cog);
+      }
+    }
+
+    if (!this.state.players.has(this.username)) {
+      Log.error(`${this.username} is not here.`);
+    } else {
+      Log.info(`Materializing ${this.username}.`);
+      const playerState = this.state.players.get(this.username);
+      const playerThing = new Player(this.gl, playerState);
+      const playerComputer =
+        new Computer(playerState.code,
+          playerState.libraryList, this.state.library);
+      const youCog = new Cog(playerThing, playerComputer);
+      this.cogs.push(youCog);
+      this.terminal.setCog(youCog);
+      this.keyFocusElement.focus();
+      this.state.everything.insert(
+        playerState.xyz[0], playerState.xyz[2], playerThing);
+    }
+
     requestAnimationFrame((ts) => { this.eventLoop(ts); });
   }
 
