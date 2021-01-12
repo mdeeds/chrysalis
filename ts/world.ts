@@ -15,19 +15,21 @@ import { StateDelta } from "./stateDelta";
 import { Terminal } from "./terminal";
 import { BoundingBox } from "./quadTree";
 import { Library } from "./library";
+import { WorldServer } from "./worldServer";
+import { WorldClient } from "./worldClient";
 
 export class World {
   private worldName: string;
   private gl: WebGLRenderingContext;
   private username: string;
   private state: State;
-  private personalConnection: PeerConnection;
-  private worldServer: PeerConnection;
   private terminal: Terminal;
   private saveButton: HTMLAnchorElement;
   private library: Library;
   private loaded: boolean;
   private loadedCallback: Function;
+  private worldServer: WorldServer;
+  private worldClient: WorldClient;
 
   constructor(worldName: string,
     gl: WebGLRenderingContext, username: string) {
@@ -37,6 +39,7 @@ export class World {
     this.state = new State(gl);
     this.loaded = false;
     this.loadedCallback = null;
+    this.worldServer = null;
 
     const url = new URL(document.URL);
     if (url.searchParams.get('local')) {
@@ -58,13 +61,14 @@ export class World {
   }
 
   setStateFromInternet() {
-    this.personalConnection = new PeerConnection(null);
     this.worldServer = null;
     const worldServerId = `chrysalis-${this.worldName}-72361`;
-    this.personalConnection.sendAndPromiseResponse(worldServerId, "Hi!")
+    this.worldClient = new WorldClient(worldServerId);
+    this.worldClient.getConnection()
+      .sendAndPromiseResponse(worldServerId, "Hi!")
       .then((id) => {
         Log.info("Thank you: " + id);
-        this.personalConnection.sendAndPromiseResponse(
+        this.worldClient.getConnection().sendAndPromiseResponse(
           worldServerId, "World, please.")
           .then((worldData: string) => {
             this.buildFromString(worldData);
@@ -73,19 +77,11 @@ export class World {
             Log.info("Failed to get world: " + reason)
           });
       })
-      .catch((reason) => {
+      .catch(async (reason) => {
         Log.info("Failed to say hello: " + reason);
-        this.worldServer = new PeerConnection(worldServerId);
-        this.worldServer.addCallback("World, please.",
-          async () => { return await this.loadFromSavedState(); })
-        this.personalConnection.sendAndPromiseResponse(
-          worldServerId, "World, please.")
-          .then((worldData: string) => {
-            this.buildFromString(worldData);
-          })
-          .catch((reason) => {
-            Log.info("Failed to get world: " + reason)
-          });
+        this.worldServer = new WorldServer(worldServerId, this);
+        const serializedState = await this.loadFromSavedState();
+        this.buildFromString(serializedState);
       })
   }
 
@@ -108,10 +104,9 @@ export class World {
     setTimeout(() => { this.saveLoop(); }, 2000);
     const dataUrl = "data:text/javascript;base64," + btoa(serializedState);
     this.saveButton.href = dataUrl;
-
   }
 
-  private async loadFromSavedState() {
+  async loadFromSavedState(): Promise<string> {
     const worldData = window.localStorage.getItem(`${this.worldName}-world`);
     const url = new URL(document.URL);
     if (worldData && !url.searchParams.get('reset')) {
@@ -125,7 +120,7 @@ export class World {
     }
   }
 
-  private async load(url: string) {
+  private async load(url: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const method = "GET";
@@ -144,7 +139,7 @@ export class World {
     });
   }
 
-  getState() {
+  getState(): Promise<State> {
     if (this.loaded) {
       return new Promise((resolve, reject) => {
         resolve(this.state);

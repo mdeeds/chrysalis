@@ -9,6 +9,7 @@ export class PeerConnection {
   private peers: Map<string, DataConnection>;
   private responses: Map<string, string>;
   private callbacks: Map<string, Function>;
+  private readyCallbacks: Function[];
 
   constructor(id: string) {
     this.peer = new Peer(id);
@@ -17,13 +18,17 @@ export class PeerConnection {
     this.callbacks = new Map<string, Function>();
     this.addCallback("Hi!", () => { return "Hello." });
     this.ready = false;
+    this.readyCallbacks = [];
     this.peer.on('open', (id: string) => {
       Log.info("My id is: " + id);
+      console.log(`AAAAA: ready.  Notifying: ${this.readyCallbacks.length}`);
       this.ready = true;
+      for (const readyCallback of this.readyCallbacks) {
+        readyCallback(this);
+      }
     })
     this.peer.on('connection', (conn) => {
-      conn.on('data', (data) => {
-        Log.info(`${conn.peer} says: ${data}`);
+      conn.on('data', (data: string) => {
         this.responses.set(conn.peer, data);
         if (this.callbacks.has(data)) {
           const responseMessage = this.callbacks.get(data)();
@@ -32,32 +37,40 @@ export class PeerConnection {
           } else {
             this.send(conn.peer, responseMessage);
           }
+        } else {
+          for (const prefix of this.callbacks.keys()) {
+            if (data.startsWith(prefix)) {
+              const value = data.substr(prefix.length);
+              this.callbacks.get(prefix)(value);
+            }
+          }
         }
       });
     });
+  }
+
+  async waitReady(): Promise<PeerConnection> {
+    return new Promise((resolve, reject) => {
+      if (this.ready) {
+        resolve(this);
+      } else {
+        Log.info("Not ready yet.");
+        this.readyCallbacks.push(resolve);
+      }
+    });
+  }
+
+  id() {
+    return this.peer.id;
   }
 
   addCallback(keyPhrase: string, callback: Function) {
     this.callbacks.set(keyPhrase, callback);
   }
 
-  async waitReady() {
-    return new Promise((resolve, reject) => {
-      if (this.ready) {
-        resolve();
-      } else {
-        setTimeout(() => {
-          this.waitReady()
-            .then(() => { resolve(); });
-        }, 100);
-      }
-    })
-  }
-
   send(targetId: string, message: string) {
     const conn = this.peer.connect(targetId);
     conn.on('open', () => {
-      Log.info(`to ${targetId}, ${this.peer.id} says: ${message}`);
       conn.send(message);
     });
   }
@@ -67,7 +80,6 @@ export class PeerConnection {
       .then(() => {
         this.conn = this.peer.connect(targetId);
         this.conn.on('open', () => {
-          Log.info(`to ${targetId}, ${this.peer.id} says: ${message}`);
           this.responses.delete(targetId);
           this.conn.send(message);
         });

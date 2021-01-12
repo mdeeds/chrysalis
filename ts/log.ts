@@ -19,6 +19,7 @@ export class Log {
 
   static info(message: string) {
     if (message === this.lastMessage) { return; }
+    console.log(message);
     this.lastMessage = message;
     const div = document.createElement("div");
     div.innerText = message;
