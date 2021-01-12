@@ -11,6 +11,7 @@ export class WorldClient {
     this.otherConnections = new Set<string>();
 
     this.personalConnection.addCallback("Meet ", (other: string) => {
+      Log.info(`Hello there, ${other}`);
       this.otherConnections.add(other);
     });
     this.personalConnection.waitReady().then(() => {
