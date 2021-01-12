@@ -1353,6 +1353,10 @@
       28
     ],
     [
+      20,
+      14
+    ],
+    [
       26,
       2
     ],
@@ -1375,6 +1379,10 @@
     [
       30,
       4
+    ],
+    [
+      20,
+      16
     ],
     [
       22,
@@ -1403,10 +1411,6 @@
     [
       22,
       24
-    ],
-    [
-      26,
-      16
     ],
     [
       26,
@@ -1917,18 +1921,20 @@
   ],
   "things": [
     {
-      "typeName": "BasicBot",
+      "typeName": "Tablet",
       "state": {
-        "id": 481,
+        "id": 16403,
         "xyz": {
-          "0": 31.59922218322754,
+          "0": 19.63702392578125,
           "1": 0,
-          "2": 17.699369430541992
+          "2": 14.684549331665039
         },
-        "heading": -4.238360769750719,
-        "code": "delta = {  turn: -1,  drive: 0.05}",
-        "libraryList": "",
-        "imageSource": "Basic Bot.png"
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "data": {
+          "type": "lib"
+        }
       }
     },
     {
@@ -1958,6 +1964,21 @@
         "code": null,
         "libraryList": null
       }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 481,
+        "xyz": {
+          "0": 32.10453414916992,
+          "1": 0,
+          "2": 16.579816818237305
+        },
+        "heading": -6.222620614353928,
+        "code": "delta = {\n  turn: -1,\n  drive: 0.1\n}",
+        "libraryList": "",
+        "imageSource": "Basic Bot.png"
+      }
     }
   ],
   "radius": 128,
@@ -1969,16 +1990,16 @@
     "profx": {
       "id": 1,
       "xyz": {
-        "0": 27.51581382751465,
+        "0": 25.881784439086914,
         "1": 0,
-        "2": 18.18632698059082
+        "2": 19.154254913330078
       },
-      "heading": 0.01935307179586232,
+      "heading": 3.7068530717958623,
       "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 2;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}",
       "libraryList": "turn admin",
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
-        "action": 1
+        "adminAction": null
       }
     },
     "_prototype": {
@@ -1989,21 +2010,24 @@
         "2": 0
       },
       "heading": 0,
-      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "code": "resetTurn();\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\nif (perspective.keysDown.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nsetTurn();",
       "libraryList": "turn",
       "imageSource": "Empty Player.png"
     },
     "matt": {
       "id": 2,
       "xyz": {
-        "0": 0,
+        "0": 32.297401428222656,
         "1": 0,
-        "2": 0
+        "2": 18.297401428222656
       },
-      "heading": 0,
-      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "heading": 3.018899908903906,
+      "code": "resetTurn();\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\nif (perspective.keysDown.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nsetTurn();",
       "libraryList": "turn",
-      "imageSource": "Empty Player.png"
+      "imageSource": "Empty Player.png",
+      "data": {
+        "action": 1
+      }
     }
   }
 }
