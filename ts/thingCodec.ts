@@ -29,17 +29,22 @@ export class ThingCodec {
   }
 
   static decode(gl: WebGLRenderingContext, dict: any): Thing {
+    const thingState = new ThingState([0, 0, 0]);
+    if (dict.state) {
+      thingState.mergeFrom(dict.state as ThingState);
+    }
+    Log.info(`Thing: ${thingState.id}`);
     switch (dict.typeName) {
       case "Gopher":
-        return new Gopher(gl, dict.state as ThingState);
+        return new Gopher(gl, thingState);
       case "GopherHole":
-        return new GopherHole(gl, dict.state as ThingState);
+        return new GopherHole(gl, thingState);
       case "BasicBot":
-        return new BasicBot(gl, dict.state as ThingState);
+        return new BasicBot(gl, thingState);
       case "Beacon":
-        return new Beacon(gl, dict.state as ThingState);
+        return new Beacon(gl, thingState);
       case "Tablet":
-        return new Tablet(gl, dict.state as ThingState);
+        return new Tablet(gl, thingState);
     }
     Log.error(`Cannot decode type: ${dict.typeName}`);
     return null;

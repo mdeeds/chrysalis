@@ -25,7 +25,7 @@ import { Tile } from "./tile";
 
 export class MasterControl {
   state: State;
-  private cogs: Map<Shape, Cog>;
+  private cogs: Map<number, Cog>;
   startTimeMs: number;
   frameNumber: number;
   pendingEvents: Intention[];
@@ -42,7 +42,7 @@ export class MasterControl {
     this.keyFocusElement = keyFocusElement;
     this.username = username;
 
-    this.cogs = new Map<Shape, Cog>();
+    this.cogs = new Map<number, Cog>();
     this.frameNumber = 0;
     this.pendingEvents = [];
     this.keysDown = new Set<string>();
@@ -53,21 +53,21 @@ export class MasterControl {
     keyFocusElement.addEventListener("focusout",
       (ev) => {
         this.keysDown.clear();
-        Log.info("Lost focus.");
       })
 
     this.terminal = new Terminal(keyFocusElement);
 
     for (const thing of this.state.everything.allEntries()) {
-      if (thing instanceof Player) {
-        Log.info("A Player!");
-      }
       if (thing.state.code && thing instanceof Shape) {
         const computer = new Computer(
           thing.state.code, thing.state.libraryList, this.state.library);
         Log.info(`New cog: ${thing.state.libraryList}`);
         const cog = new Cog(thing, computer);
-        this.cogs.set(thing, cog);
+        if (!(thing.state.id > 0) || this.cogs.has(thing.state.id)) {
+          Log.error(`Invalid thing: ${thing.state.id}`);
+        } else {
+          this.cogs.set(thing.state.id, cog);
+        }
       }
     }
 
@@ -81,7 +81,10 @@ export class MasterControl {
         new Computer(playerState.code,
           playerState.libraryList, this.state.library);
       const youCog = new Cog(playerThing, playerComputer);
-      this.cogs.set(playerThing, youCog);
+      if (this.cogs.has(playerThing.state.id)) {
+        Log.error(`Duplicate: ${playerThing.state.id}`);
+      }
+      this.cogs.set(playerThing.state.id, youCog);
       this.terminal.setCog(youCog);
       this.keyFocusElement.focus();
       this.state.everything.insert(
@@ -213,6 +216,9 @@ export class MasterControl {
         }
         if (!hasRobot) {
           const state: ThingState = new ThingState([targetX, 0, targetZ]);
+          if (this.cogs.has(state.id)) {
+            Log.error(`Duplicate!? ${state.id}`);
+          }
           const robot = new BasicBot(this.gl, state);
           this.state.everything.insert(robot.state.xyz[0], robot.state.xyz[2], robot);
           robot.state.code = "delta = {turn: 1.0, drive: 0.05}";
@@ -220,7 +226,7 @@ export class MasterControl {
           const computer = new Computer(
             robot.state.code, robot.state.libraryList, this.state.library);
           const cog = new Cog(robot, computer);
-          this.cogs.set(robot, cog);
+          this.cogs.set(robot.state.id, cog);
         }
       }
       if (action === "clear") {
@@ -252,9 +258,8 @@ export class MasterControl {
 
   actOnThing(actor: Thing, other: Thing) {
     if (actor instanceof Shape && other instanceof Shape) {
-      if (actor.lift(other) && this.cogs.has(other)) {
-        Log.info("lifting");
-        this.terminal.setCog(this.cogs.get(other));
+      if (actor.lift(other) && this.cogs.has(other.state.id)) {
+        this.terminal.setCog(this.cogs.get(other.state.id));
       }
     }
   }
@@ -265,9 +270,8 @@ export class MasterControl {
 
   handleAction(actor: Thing) {
     if (actor instanceof Shape && actor.isLifting()) {
-      if (actor.drop() && this.cogs.has(actor)) {
-        Log.info("dropping");
-        this.terminal.setCog(this.cogs.get(actor));
+      if (actor.drop() && this.cogs.has(actor.state.id)) {
+        this.terminal.setCog(this.cogs.get(actor.state.id));
       }
       return;
     }

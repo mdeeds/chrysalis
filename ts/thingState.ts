@@ -1,13 +1,19 @@
 // Pure data class with no dependencies.
 export class ThingState {
+
+  static numberOfThings: number = 0;
+
   xyz: Float32Array;
   heading: number;  // orientation on the X-Z plane.  Zero is Z-positive.
   code: string;
   libraryList: string;
   imageSource: string;
   data: any;
+  id: number;
 
   constructor(position: number[]) {
+    ThingState.numberOfThings += 1;
+    this.id = ThingState.numberOfThings;
     if (position != null) {
       this.xyz = new Float32Array(position);
     } else {
@@ -39,6 +45,10 @@ export class ThingState {
     if (other.data != null) {
       // TODO: Should this merge?
       this.data = other.data;
+    }
+    if (other.id) {
+      this.id = other.id;
+      ThingState.numberOfThings = Math.max(this.id, ThingState.numberOfThings);
     }
   }
 
