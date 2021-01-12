@@ -549,6 +549,130 @@
       60
     ],
     [
+      58,
+      -126
+    ],
+    [
+      58,
+      -124
+    ],
+    [
+      58,
+      -122
+    ],
+    [
+      58,
+      -120
+    ],
+    [
+      58,
+      -118
+    ],
+    [
+      58,
+      -116
+    ],
+    [
+      58,
+      -114
+    ],
+    [
+      58,
+      -112
+    ],
+    [
+      58,
+      -110
+    ],
+    [
+      58,
+      -108
+    ],
+    [
+      58,
+      -106
+    ],
+    [
+      58,
+      -104
+    ],
+    [
+      58,
+      -102
+    ],
+    [
+      58,
+      -100
+    ],
+    [
+      58,
+      -98
+    ],
+    [
+      58,
+      -96
+    ],
+    [
+      58,
+      -94
+    ],
+    [
+      58,
+      -92
+    ],
+    [
+      58,
+      -90
+    ],
+    [
+      58,
+      -88
+    ],
+    [
+      58,
+      -86
+    ],
+    [
+      58,
+      -84
+    ],
+    [
+      58,
+      -82
+    ],
+    [
+      58,
+      -80
+    ],
+    [
+      58,
+      -78
+    ],
+    [
+      58,
+      -76
+    ],
+    [
+      58,
+      -74
+    ],
+    [
+      58,
+      -72
+    ],
+    [
+      58,
+      -70
+    ],
+    [
+      58,
+      -68
+    ],
+    [
+      58,
+      -66
+    ],
+    [
       2,
       -62
     ],
@@ -1302,15 +1426,7 @@
     ],
     [
       28,
-      16
-    ],
-    [
-      28,
       18
-    ],
-    [
-      30,
-      16
     ],
     [
       30,
@@ -1801,69 +1917,24 @@
   ],
   "things": [
     {
-      "typeName": "Tablet",
+      "typeName": "BasicBot",
       "state": {
+        "id": 481,
         "xyz": {
-          "0": 25.026151657104492,
+          "0": 31.59922218322754,
           "1": 0,
-          "2": 15.84135627746582
+          "2": 17.699369430541992
         },
-        "heading": 0,
-        "code": null,
-        "libraryList": null,
-        "data": {
-          "type": "api"
-        }
-      }
-    },
-    {
-      "typeName": "Tablet",
-      "state": {
-        "xyz": {
-          "0": 27.779890060424805,
-          "1": 0,
-          "2": 14.831393241882324
-        },
-        "heading": 0,
-        "code": null,
-        "libraryList": null,
-        "data": {
-          "type": "lib"
-        }
-      }
-    },
-    {
-      "typeName": "Beacon",
-      "state": {
-        "xyz": {
-          "0": 23.44468116760254,
-          "1": 0,
-          "2": 18.25873565673828
-        },
-        "heading": 0,
-        "code": null,
-        "libraryList": null
-      }
-    },
-    {
-      "typeName": "Tablet",
-      "state": {
-        "xyz": {
-          "0": 28.933687210083008,
-          "1": 0,
-          "2": 16.84659767150879
-        },
-        "heading": 0,
-        "code": null,
-        "libraryList": null,
-        "data": {
-          "type": "note"
-        }
+        "heading": -4.238360769750719,
+        "code": "delta = {  turn: -1,  drive: 0.05}",
+        "libraryList": "",
+        "imageSource": "Basic Bot.png"
       }
     },
     {
       "typeName": "Gopher",
       "state": {
+        "id": 482,
         "xyz": {
           "0": 2.380267858505249,
           "1": 0,
@@ -1877,25 +1948,13 @@
     {
       "typeName": "GopherHole",
       "state": {
+        "id": 483,
         "xyz": {
           "0": 2.380267858505249,
           "1": 0,
           "2": 34.15846633911133
         },
         "heading": 0,
-        "code": null,
-        "libraryList": null
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
-        "xyz": {
-          "0": 33.28923034667969,
-          "1": 0,
-          "2": 15.852254867553711
-        },
-        "heading": 2.6362938564093903,
         "code": null,
         "libraryList": null
       }
@@ -1908,20 +1967,34 @@
   },
   "players": {
     "profx": {
+      "id": 1,
       "xyz": {
-        "0": 7.279265880584717,
+        "0": 27.51581382751465,
         "1": 0,
-        "2": 29.912586212158203
+        "2": 18.18632698059082
       },
-      "heading": 4.769353071795862,
-      "code": "let keys = perspective.keysDown;\n\nif (keys.has('ArrowRight')) {\n  delta.turn = 0.5; delta.drive = 1.0;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -0.5; delta.drive = 1.0;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0; delta.turn /= 2;\n}\nif (keys.has('KeyT')) { admin(\"setTile\"); }\nif (keys.has('KeyR')) { admin(\"setRobot\"); }\nif (keys.has('KeyX')) { admin(\"clear\"); }\nif (keys.has('KeyB')) { admin(\"setBeacon\"); }\nif (keys.has('KeyN')) { admin(\"setNote\"); }\nif (keys.has('KeyA')) { admin(\"setApi\"); }\nif (keys.has('KeyL')) { admin(\"setLib\"); }\nif (keys.has('KeyG')) { admin(\"setGopher\"); }\nif (keys.has('KeyO')) { admin(\"setOcean\"); }\nif (keys.has('KeyH')) { admin(\"setHazard\"); }\nif (keys.has('Space')) { delta.state = { action: 1 }; }\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}",
+      "heading": 0.01935307179586232,
+      "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 2;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}",
       "libraryList": "turn admin",
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
-        "adminAction": null
+        "action": 1
       }
     },
     "_prototype": {
+      "id": 2,
+      "xyz": {
+        "0": 0,
+        "1": 0,
+        "2": 0
+      },
+      "heading": 0,
+      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "libraryList": "turn",
+      "imageSource": "Empty Player.png"
+    },
+    "matt": {
+      "id": 2,
       "xyz": {
         "0": 0,
         "1": 0,
