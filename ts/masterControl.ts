@@ -251,9 +251,11 @@ export class MasterControl {
   }
 
   actOnThing(actor: Thing, other: Thing) {
-    // Log.info("Act on thing. TODO");
     if (actor instanceof Shape && other instanceof Shape) {
-      actor.lift(other);
+      if (actor.lift(other) && this.cogs.has(other)) {
+        Log.info("lifting");
+        this.terminal.setCog(this.cogs.get(other));
+      }
     }
   }
 
@@ -263,7 +265,10 @@ export class MasterControl {
 
   handleAction(actor: Thing) {
     if (actor instanceof Shape && actor.isLifting()) {
-      actor.drop();
+      if (actor.drop() && this.cogs.has(actor)) {
+        Log.info("dropping");
+        this.terminal.setCog(this.cogs.get(actor));
+      }
       return;
     }
     let targetX: number;

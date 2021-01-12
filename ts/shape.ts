@@ -152,16 +152,17 @@ export class Shape extends Thing {
 
   lift(other: Shape) {
     if (window.performance.now() < this.liftTime + 500) {
-      return;
+      return false;
     }
     this.liftTime = window.performance.now();
     other.liftedBy = this;
     this.lifting = other;
+    return true;
   }
 
   drop() {
     if (window.performance.now() < this.liftTime + 500) {
-      return;
+      return false;
     }
     this.liftTime = window.performance.now();
     const other: Shape = this.lifting;
@@ -169,6 +170,7 @@ export class Shape extends Thing {
     this.lifting = null;
     other.state.xyz[0] = this.state.xyz[0] - Math.sin(this.state.heading) * 0.1;
     other.state.xyz[2] = this.state.xyz[2] + Math.cos(this.state.heading) * 0.1;
+    return true;
   }
 
 }
