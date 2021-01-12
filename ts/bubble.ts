@@ -1,3 +1,5 @@
+import * as GLM from "gl-matrix"  // npm install -D gl-matrix
+import { Geometry } from "./geometry";
 import { Shape } from "./shape";
 import { ThingState } from "./thingState";
 
@@ -6,59 +8,50 @@ export class Bubble extends Shape {
 
   constructor(gl: WebGLRenderingContext, text: string, state: ThingState) {
     const canvas = document.createElement("canvas");
-    canvas.width = 1024;
-    canvas.height = 512;
+    canvas.width = 512;
+    canvas.height = 256;
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = "white";
-    ctx.clearRect(0, 0, 1024, 512);
-    ctx.fillStyle = "pink";
-    ctx.fillRect(100, 100, 400, 400);
-
-    // NOTE: Animation of the canvas doesn't work...
-
+    ctx.clearRect(0, 0, 512, 256);
+    ctx.beginPath();
+    ctx.fillRect(0, 0, 512, 256);
+    ctx.beginPath();
+    ctx.fillStyle = "green";
+    ctx.font = "128px 'Courier New', Courier, monospace";
+    ctx.fillText(text, 0, 128, 512);
     super(gl, canvas, state);
     this.canvas = canvas;
-    const positions: number[] = [
-      -2, 1, 0,
-      2, 1, 0,
-      -2, 0, 0,
-      2, 1, 0,
-      -2, 0, 0,
-      2, 0, 0,
-    ];
 
-    const textureCoordinates: number[] = [
-      0, 0,
-      1, 0,
-      0, 1,
-      1, 0,
-      0, 1,
-      1, 1,
-    ];
-    const vertexNormals: number[] = [
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1,
-    ];
-    this.vertexCount = positions.length / 3;
+    const positions: number[] = [];
+    const normals: number[] = [];
+    const textureCoords: number[] = [];
+    Geometry.addRectangleData(positions, normals, textureCoords, 1.5, 0.75);
 
-    this.positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER,
-      new Float32Array(positions), gl.STATIC_DRAW);
 
-    this.textureCoordBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.textureCoordBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER,
-      new Float32Array(textureCoordinates), gl.STATIC_DRAW);
+    this.createBuffers(gl, positions, textureCoords, normals);
+  }
 
-    this.normalBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals),
-      gl.STATIC_DRAW);
+  getObjectTransform() {
+    const objectTransform = super.getObjectTransform();
+    GLM.mat4.translate(objectTransform, objectTransform, [0, 3.5, 0]);
+    return objectTransform;
+  }
+
+  private makeMessageSVG(message: string) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.innerHTML = message;
+    text.setAttribute("x", "50");
+    text.setAttribute("y", "50");
+    text.setAttribute("font-size", "30");
+    svg.appendChild(text);
+
+    const xml = new XMLSerializer().serializeToString(svg);
+    const data = btoa(xml);
+    const dataUrl = `data:image/svg+xml;base64,${data}`;
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    return img;
   }
 
 }

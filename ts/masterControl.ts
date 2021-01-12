@@ -1,5 +1,6 @@
 import { BasicBot } from "./basicBot";
 import { Beacon } from "./beacon";
+import { Bubble } from "./bubble";
 import { Cog } from "./cog";
 import { Computer } from "./computer";
 import { Flower } from "./flower";
@@ -154,6 +155,11 @@ export class MasterControl {
           () => {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
             return new GopherHole(this.gl, state);
+          }, things);
+        this.setItem((thing: Thing) => { return thing instanceof Bubble; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            return new Bubble(this.gl, "Hi!  I'm Gigi.", state);
           }, things);
       }
 

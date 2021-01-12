@@ -249,5 +249,29 @@ export class Geometry {
     }
   }
 
+  static addRectangleData(positions: number[], normals: number[],
+    textureCoords: number[], rx: number, ry: number) {
+    positions.push(-rx, ry, 0);
+    positions.push(rx, ry, 0);
+    positions.push(-rx, -ry, 0);
+    positions.push(rx, ry, 0);
+    positions.push(-rx, -ry, 0);
+    positions.push(rx, -ry, 0);
+
+    textureCoords.push(0, 0);
+    textureCoords.push(1, 0);
+    textureCoords.push(0, 1);
+    textureCoords.push(1, 0);
+    textureCoords.push(0, 1);
+    textureCoords.push(1, 1);
+
+    normals.push(-rx, ry, 1);
+    normals.push(rx, ry, 1);
+    normals.push(-rx, -ry, 1);
+    normals.push(rx, ry, 1);
+    normals.push(-rx, -ry, 1);
+    normals.push(rx, -ry, 1);
+  }
+
 
 }
