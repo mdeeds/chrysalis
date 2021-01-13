@@ -46,9 +46,13 @@ export class State {
         target.xyz[i] += other.dxyz[i];
       }
     }
-    if (other.drive > 0 && other.turn != null) {
-      const drive = Math.max(0.0, Math.min(1.0, other.drive));
-      const turn = Math.max(-1.0, Math.min(1.0, other.turn));
+    if (other.drive != null && other.drive != 0 && other.turn != null) {
+      const drive = Math.max(-1.0, Math.min(1.0, other.drive));
+      if (drive < 0) { Log.info(`Drive: ${drive}`); }
+      let turn = Math.max(-1.0, Math.min(1.0, other.turn));
+      if (other.drive < 0) {
+        turn = -turn;
+      }
       const kSpeed = 0.2;
       const radius = 0.8;
       const dr = drive * kSpeed * (1 - Math.abs(turn));
