@@ -18,18 +18,25 @@ class CodeHolder {
 
   private div: HTMLDivElement;
   private img: HTMLImageElement;
-  constructor(code: string, container: HTMLElement, img: HTMLImageElement) {
+  private autoFormat: boolean;
+  constructor(code: string, container: HTMLElement, img: HTMLImageElement, autoFormat: boolean = true) {
     this.img = img;
     this.img.width = 64;
     this.img.onclick = (ev: MouseEvent) => {
       CodeHolder.activateHolder(this);
     };
 
+    this.autoFormat = autoFormat;
+
     this.div = document.createElement('div');
     this.div.classList.add("terminal");
     this.div.contentEditable = "true";
     this.div.spellcheck = false;
     this.div.innerText = code;
+    if (autoFormat) {
+      this.div.addEventListener('focusout', () => { this.format(); });
+      this.div.addEventListener('focusin', () => { this.format(); });
+    }
     container.appendChild(this.div);
 
     CodeHolder.allHolders.push(this);
@@ -100,7 +107,8 @@ export class Terminal {
     const cameraButton = document.createElement('img');
     cameraButton.src = "Camera.png";
     toolbar.appendChild(cameraButton);
-    this.imageCode = new CodeHolder("", body, cameraButton);
+    this.imageCode = new CodeHolder("", body, cameraButton,
+      /*autoFormat=*/false);
 
     const libraryButton = document.createElement('img');
     libraryButton.src = "Library.gif";
