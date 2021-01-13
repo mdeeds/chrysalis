@@ -11,8 +11,8 @@ export class GopherHole extends Shape {
     const positions = [];
     const textureCoordinates = [];
     const vertexNormals = [];
-    Geometry.addCubeData(positions, textureCoordinates, vertexNormals,
-      1.0, 1, 1.0);
+    Geometry.addCylinderData(positions, textureCoordinates, vertexNormals,
+      1.3);
     Geometry.translate(positions, 0, 0.3, 0);
 
     this.createBuffers(gl, positions, textureCoordinates, vertexNormals);

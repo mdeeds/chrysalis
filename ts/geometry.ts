@@ -63,10 +63,10 @@ export class Geometry {
       positions.push(x2, 1.0, z2);
 
       const s1 = 0.125 + Math.cos(t) * 0.125;
-      const t1 = 0.125 + Math.sin(t) * 0.125;
+      const t1 = 0.25 + Math.sin(t) * 0.25;
       const s2 = 0.125 + Math.cos(t + dt) * 0.125;
-      const t2 = 0.125 + Math.sin(t + dt) * 0.125;
-      textureCoords.push(0.125, 0.125);
+      const t2 = 0.25 + Math.sin(t + dt) * 0.25;
+      textureCoords.push(0.125, 0.25);
       textureCoords.push(s1, t1);
       textureCoords.push(s2, t2);
 
