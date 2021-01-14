@@ -44,20 +44,34 @@ canvas {
 .terminal {
   z-index: 10;
   position: absolute;
-  right: 0;
+  right: 70px;
   top: 0;
   height: 25vh;
-  width: 50vh;
-  border: 2px solid orange;
+  width: 30vw;
+  border: 2px solid #ff7c00;
   padding: 10px;
   background-color: black;
-  color: orange;
+  color: #ff7c00;
   font-family: 'Courier New', Courier, monospace;
   border-radius: 10px;
   overflow: scroll;
   white-space: pre;
   word-wrap: break-word;
   line-break: normal;
+  transition: width 2s, height 2s;
+}
+
+.terminal:focus {
+  height: 50vh;
+  width: 50vw;
+}
+
+.robot {
+  filter: hue-rotate(-150deg);
+}
+
+.library {
+  filter: hue-rotate(25deg);
 }
 
 .hidden {
@@ -67,7 +81,8 @@ canvas {
 .toolbar {
   position: absolute;
   right: 0;
-  top: calc(25vh + 24px);
+  top: 0;
+  width: 70px;
   padding: 5px;
 }
 

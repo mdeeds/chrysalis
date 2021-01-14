@@ -258,8 +258,13 @@ export class MasterControl {
 
   actOnThing(actor: Thing, other: Thing) {
     if (actor instanceof Shape && other instanceof Shape) {
-      if (actor.lift(other) && this.cogs.has(other.state.id)) {
-        this.terminal.setCog(this.cogs.get(other.state.id));
+      if (actor.lift(other)) {
+        if (this.cogs.has(other.state.id)) {
+          const otherCog: Cog = this.cogs.get(other.state.id);
+          this.terminal.setCog(otherCog);
+        } else {
+          this.terminal.setThing(other);
+        }
       }
     }
   }
@@ -271,7 +276,8 @@ export class MasterControl {
   handleAction(actor: Thing) {
     if (actor instanceof Shape && actor.isLifting()) {
       if (actor.drop() && this.cogs.has(actor.state.id)) {
-        this.terminal.setCog(this.cogs.get(actor.state.id));
+        this.terminal.setCog(
+          this.cogs.get(actor.state.id), /*takeFocus=*/false);
       }
       return;
     }

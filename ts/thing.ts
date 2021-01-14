@@ -18,4 +18,10 @@ export class Thing {
 
   render(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
   }
+
+  upload(code: string, libraryList: string) {
+    this.state.code = code;
+    this.state.libraryList = libraryList;
+  }
+
 }

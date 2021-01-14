@@ -1,15 +1,20 @@
+import beautify from "js-beautify";
+
+import { BasicBot } from "./basicBot";
 import { Cog } from "./cog";
 import { Log } from "./log";
+import { Player } from "./player";
 import { Shape } from "./shape";
-import beautify from "js-beautify";
+import { Tablet } from "./tablet";
+import { Thing } from "./thing";
 
 class CodeHolder {
   private static allHolders: CodeHolder[] = [];
 
-  static activateHolder(holder: CodeHolder) {
+  static activateHolder(holder: CodeHolder, takeFocus: boolean) {
     for (const h of CodeHolder.allHolders) {
       if (h === holder) {
-        h.activate();
+        h.activate(takeFocus);
       } else {
         h.deactivate();
       }
@@ -18,18 +23,21 @@ class CodeHolder {
 
   private div: HTMLDivElement;
   private img: HTMLImageElement;
-  private autoFormat: boolean;
-  constructor(code: string, container: HTMLElement, img: HTMLImageElement, autoFormat: boolean = true) {
+  private lastStyleClass: string;
+  constructor(code: string, container: HTMLElement, img: HTMLImageElement,
+    styleClass: string, autoFormat: boolean = true) {
     this.img = img;
     this.img.width = 64;
     this.img.onclick = (ev: MouseEvent) => {
-      CodeHolder.activateHolder(this);
+      CodeHolder.activateHolder(this, true);
     };
-
-    this.autoFormat = autoFormat;
 
     this.div = document.createElement('div');
     this.div.classList.add("terminal");
+    if (styleClass) {
+      this.div.classList.add(styleClass);
+      this.img.classList.add(styleClass);
+    }
     this.div.contentEditable = "true";
     this.div.spellcheck = false;
     this.div.innerText = code;
@@ -40,7 +48,17 @@ class CodeHolder {
     container.appendChild(this.div);
 
     CodeHolder.allHolders.push(this);
-    CodeHolder.activateHolder(this);
+    CodeHolder.activateHolder(this, false);
+  }
+
+  setStyle(imgSrc: string, styleClass: string) {
+    this.div.classList.remove(this.lastStyleClass);
+    this.div.classList.add(styleClass);
+    this.img.src = imgSrc;
+    this.img.classList.remove(this.lastStyleClass);
+    this.img.classList.add(styleClass);
+
+    this.lastStyleClass = styleClass;
   }
 
   setCode(code: string) {
@@ -76,10 +94,12 @@ class CodeHolder {
     this.setCode(code);
   }
 
-  private activate() {
+  private activate(takeFocus: boolean) {
     this.div.classList.remove("hidden");
     this.img.classList.remove("deactivated");
-    this.div.focus();
+    if (takeFocus) {
+      this.div.focus();
+    }
   }
 
   private deactivate() {
@@ -90,12 +110,12 @@ class CodeHolder {
 
 export class Terminal {
   private cog: Cog;
-  private lastContent: string;
+  private thing: Thing;
   private uploadButton: HTMLImageElement;
-  private dirty: boolean;
   private imageCode: CodeHolder;
+  private libraryList: CodeHolder;
   private programCode: CodeHolder;
-  private libraryCode: CodeHolder;
+
   private otherFocusElement: HTMLElement;
   constructor(otherFocusElement: HTMLElement) {
     this.otherFocusElement = otherFocusElement;
@@ -108,17 +128,17 @@ export class Terminal {
     cameraButton.src = "Camera.png";
     toolbar.appendChild(cameraButton);
     this.imageCode = new CodeHolder("", body, cameraButton,
-      /*autoFormat=*/false);
+      null, /*autoFormat=*/false);
 
     const libraryButton = document.createElement('img');
     libraryButton.src = "Library.gif";
     toolbar.appendChild(libraryButton);
-    this.libraryCode = new CodeHolder("", body, libraryButton);
+    this.libraryList = new CodeHolder("", body, libraryButton, null);
 
     const playerButton = document.createElement('img');
     playerButton.src = "PlayerCode.gif";
     toolbar.appendChild(playerButton);
-    this.programCode = new CodeHolder("", body, playerButton);
+    this.programCode = new CodeHolder("", body, playerButton, null);
 
     {
       const sp = document.createElement('span');
@@ -134,35 +154,59 @@ export class Terminal {
       this.upload();
     });
     toolbar.appendChild(this.uploadButton);
-    this.dirty = true;
-
     body.appendChild(toolbar);
   }
 
-  setCog(cog: Cog) {
+  setCog(cog: Cog, takeFocus: boolean = false) {
     this.cog = cog;
-    this.programCode.setCode(cog.thing.state.code);
-    this.libraryCode.setCode(cog.thing.state.libraryList);
+    this.setThing(cog.thing, takeFocus);
+  }
+
+  setThing(thing: Thing, takeFocus: boolean = false) {
+    this.cog = null;
+    this.thing = thing;
+    this.libraryList.setCode(thing.state.libraryList);
+    this.programCode.setCode(thing.state.code);
+
+    if (thing instanceof Player) {
+      Log.info("player");
+      this.programCode.setStyle("PlayerCode.gif", "player");
+    } else if (thing instanceof Tablet) {
+      Log.info("tablet");
+      this.programCode.setStyle("LibraryCode.png", "library");
+    } else if (thing instanceof BasicBot) {
+      Log.info("robot");
+      this.programCode.setStyle("RobotCode.gif", "robot");
+    } else {
+      Log.info("unknown!");
+      Log.info(thing.constructor.toString())
+      this.programCode.setStyle("PlayerCode.gif", "player");
+    }
+
     this.imageCode.setCode("");
-    if (cog.thing instanceof Shape) {
-      const textureImage = cog.thing.getTextureImage();
+    if (thing instanceof Shape) {
+      const textureImage = thing.getTextureImage();
       if (textureImage) {
         this.imageCode.setCode(textureImage);
       }
     }
-    CodeHolder.activateHolder(this.programCode);
+    CodeHolder.activateHolder(this.programCode, takeFocus);
   }
 
   upload() {
     const imageCode = this.imageCode.getCode();
-    if (imageCode && this.cog.thing instanceof Shape) {
-      this.cog.thing.setTextureImage(imageCode);
-      this.cog.thing.state.imageSource = imageCode;
+    if (imageCode && this.thing instanceof Shape) {
+      this.thing.setTextureImage(imageCode);
+      this.thing.state.imageSource = imageCode;
     }
     Log.info("Uploading.");
     this.programCode.format();
-    this.libraryCode.format();
-    this.cog.upload(this.programCode.getCode(), this.libraryCode.getCode());
+    this.libraryList.format();
+    if (this.cog) {
+      this.cog.upload(this.programCode.getCode(), this.libraryList.getCode());
+    } else {
+      this.thing.upload(this.programCode.getCode(), this.libraryList.getCode());
+    }
     this.otherFocusElement.focus();
   }
 }
