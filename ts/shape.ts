@@ -168,8 +168,8 @@ export class Shape extends Thing {
     const other: Shape = this.lifting;
     other.liftedBy = null;
     this.lifting = null;
-    other.state.xyz[0] = this.state.xyz[0] - Math.sin(this.state.heading) * 0.1;
-    other.state.xyz[2] = this.state.xyz[2] + Math.cos(this.state.heading) * 0.1;
+    other.state.xyz[0] = this.state.xyz[0] - Math.sin(this.state.heading) * 1.4;
+    other.state.xyz[2] = this.state.xyz[2] + Math.cos(this.state.heading) * 1.4;
     return true;
   }
 

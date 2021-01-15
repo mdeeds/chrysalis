@@ -120,13 +120,23 @@ export class MasterControl {
       newThing.state.xyz[0], newThing.state.xyz[2], newThing);
   }
 
+  private static removeThing(list: Thing[], toRemove: Thing) {
+    const index = list.indexOf(toRemove);
+    if (index < 0) {
+      return;
+    }
+    list[index] = list[list.length - 1];
+    list.pop();
+  }
+
   handleAdminAction(actor: Thing, action: string) {
     let targetX: number;
     let targetZ: number;
-    [targetX, targetZ] = actor.state.inFrontXZ();
+    [targetX, targetZ] = actor.state.inFrontXZ(2.0);
     const things: Thing[] = [];
     this.state.everything.appendFromRange(
-      new BoundingBox(targetX, targetZ, 0.99), things);
+      new BoundingBox(targetX, targetZ, 2.0), things);
+    MasterControl.removeThing(things, actor);
     if (things.length == 0) {
       Log.info('Missed.');
       return;
@@ -283,10 +293,11 @@ export class MasterControl {
     }
     let targetX: number;
     let targetZ: number;
-    [targetX, targetZ] = actor.state.inFrontXZ();
+    [targetX, targetZ] = actor.state.inFrontXZ(2.0);
     const things: Thing[] = [];
     this.state.everything.appendFromRange(
-      new BoundingBox(targetX, targetZ, 0.99), things);
+      new BoundingBox(targetX, targetZ, 2.0), things);
+    MasterControl.removeThing(things, actor);
     let frontTile: Tile = null;
     let middleObject: Thing = null;
     for (const t of things) {
@@ -357,11 +368,8 @@ export class MasterControl {
       const otherThings: Thing[] = [];
       this.state.everything.appendFromRange(
         new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
-
+      MasterControl.removeThing(otherThings, t);
       for (const other of otherThings) {
-        if (other === t) {
-          continue;
-        }
         if (other instanceof Tile) {
           continue;
         }
