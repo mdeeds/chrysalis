@@ -429,8 +429,220 @@
       60
     ],
     [
-      -2,
+      -22,
+      10
+    ],
+    [
+      -22,
+      8
+    ],
+    [
+      -22,
+      14
+    ],
+    [
+      -22,
+      12
+    ],
+    [
+      -18,
+      8
+    ],
+    [
+      -18,
+      10
+    ],
+    [
+      -20,
+      8
+    ],
+    [
+      -20,
+      10
+    ],
+    [
+      -18,
+      14
+    ],
+    [
+      -20,
+      12
+    ],
+    [
+      -18,
+      12
+    ],
+    [
+      -20,
+      14
+    ],
+    [
+      -22,
+      16
+    ],
+    [
+      -22,
+      18
+    ],
+    [
+      -22,
+      22
+    ],
+    [
+      -22,
+      20
+    ],
+    [
+      -18,
+      16
+    ],
+    [
+      -18,
+      18
+    ],
+    [
+      -20,
+      16
+    ],
+    [
+      -20,
+      18
+    ],
+    [
+      -18,
+      20
+    ],
+    [
+      -20,
+      20
+    ],
+    [
+      -20,
+      22
+    ],
+    [
+      -18,
+      22
+    ],
+    [
+      -22,
+      26
+    ],
+    [
+      -22,
+      24
+    ],
+    [
+      -22,
+      28
+    ],
+    [
+      -22,
+      30
+    ],
+    [
+      -18,
+      24
+    ],
+    [
+      -20,
+      24
+    ],
+    [
+      -20,
+      26
+    ],
+    [
+      -18,
+      26
+    ],
+    [
+      -18,
+      28
+    ],
+    [
+      -18,
+      30
+    ],
+    [
+      -20,
+      30
+    ],
+    [
+      -20,
+      28
+    ],
+    [
+      -10,
       6
+    ],
+    [
+      -14,
+      8
+    ],
+    [
+      -14,
+      10
+    ],
+    [
+      -16,
+      8
+    ],
+    [
+      -16,
+      10
+    ],
+    [
+      -16,
+      14
+    ],
+    [
+      -16,
+      12
+    ],
+    [
+      -12,
+      8
+    ],
+    [
+      -12,
+      10
+    ],
+    [
+      -10,
+      10
+    ],
+    [
+      -10,
+      8
+    ],
+    [
+      -10,
+      12
+    ],
+    [
+      -8,
+      6
+    ],
+    [
+      -6,
+      6
+    ],
+    [
+      -8,
+      10
+    ],
+    [
+      -6,
+      8
+    ],
+    [
+      -8,
+      8
+    ],
+    [
+      -8,
+      12
     ],
     [
       -2,
@@ -449,12 +661,48 @@
       10
     ],
     [
+      -4,
+      8
+    ],
+    [
       -2,
       12
     ],
     [
       -2,
       14
+    ],
+    [
+      -16,
+      16
+    ],
+    [
+      -16,
+      18
+    ],
+    [
+      -16,
+      20
+    ],
+    [
+      -16,
+      22
+    ],
+    [
+      -16,
+      26
+    ],
+    [
+      -16,
+      24
+    ],
+    [
+      -16,
+      28
+    ],
+    [
+      -16,
+      30
     ],
     [
       -2,
@@ -483,6 +731,42 @@
     [
       -2,
       28
+    ],
+    [
+      -22,
+      34
+    ],
+    [
+      -22,
+      32
+    ],
+    [
+      -22,
+      36
+    ],
+    [
+      -18,
+      32
+    ],
+    [
+      -20,
+      32
+    ],
+    [
+      -20,
+      34
+    ],
+    [
+      -18,
+      34
+    ],
+    [
+      -20,
+      36
+    ],
+    [
+      -18,
+      36
     ],
     [
       -32,
@@ -515,6 +799,18 @@
     [
       -18,
       60
+    ],
+    [
+      -16,
+      32
+    ],
+    [
+      -16,
+      34
+    ],
+    [
+      -16,
+      36
     ],
     [
       -16,
@@ -1353,10 +1649,6 @@
       28
     ],
     [
-      20,
-      14
-    ],
-    [
       26,
       2
     ],
@@ -1381,8 +1673,8 @@
       4
     ],
     [
-      20,
-      16
+      26,
+      14
     ],
     [
       22,
@@ -1411,6 +1703,10 @@
     [
       22,
       24
+    ],
+    [
+      26,
+      16
     ],
     [
       26,
@@ -1553,31 +1849,35 @@
       8
     ],
     [
-      38,
-      10
-    ],
-    [
-      38,
-      8
-    ],
-    [
       36,
       8
     ],
     [
       38,
-      14
+      8
+    ],
+    [
+      38,
+      10
     ],
     [
       38,
       12
     ],
     [
+      38,
+      14
+    ],
+    [
+      40,
+      6
+    ],
+    [
       42,
       6
     ],
     [
-      40,
+      44,
       6
     ],
     [
@@ -1586,10 +1886,6 @@
     ],
     [
       46,
-      6
-    ],
-    [
-      44,
       6
     ],
     [
@@ -1645,12 +1941,28 @@
       18
     ],
     [
+      34,
+      18
+    ],
+    [
       38,
       16
     ],
     [
+      36,
+      18
+    ],
+    [
+      38,
+      18
+    ],
+    [
       40,
       16
+    ],
+    [
+      40,
+      18
     ],
     [
       50,
@@ -1735,6 +2047,10 @@
     [
       60,
       6
+    ],
+    [
+      62,
+      4
     ],
     [
       60,
@@ -1899,6 +2215,10 @@
     [
       60,
       60
+    ],
+    [
+      64,
+      4
     ]
   ],
   "hazards": [
@@ -1923,17 +2243,54 @@
     {
       "typeName": "Tablet",
       "state": {
-        "id": 16403,
+        "id": 64279,
         "xyz": {
-          "0": 19.63702392578125,
+          "0": -16.08772850036621,
           "1": 0,
-          "2": 14.684549331665039
+          "2": 16.465648651123047
         },
         "heading": 0,
-        "code": null,
-        "libraryList": null,
+        "code": "var dx;\nvar dy;\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);\n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n  delta.turn /= Math.PI;\n}",
+        "libraryList": "turn",
+        "imageSource": "tabletLib.png",
         "data": {
           "type": "lib"
+        }
+      }
+    },
+    {
+      "typeName": "Tablet",
+      "state": {
+        "id": 64278,
+        "xyz": {
+          "0": -15.92949390411377,
+          "1": 0,
+          "2": 12.911195755004883
+        },
+        "heading": 0,
+        "code": "admin = function(action) {\n  if (!delta.state) {\n    delta.state = {};\n  }\n  delta.state.adminAction = action;\n}",
+        "libraryList": "admin",
+        "imageSource": "tabletLib.png",
+        "data": {
+          "type": "lib"
+        }
+      }
+    },
+    {
+      "typeName": "Tablet",
+      "state": {
+        "id": 48362,
+        "xyz": {
+          "0": 2.484578847885132,
+          "1": 0,
+          "2": 0.9031311869621277
+        },
+        "heading": 0,
+        "code": "Hello, and welcome to Vialis!",
+        "libraryList": "",
+        "imageSource": "tabletNote.png",
+        "data": {
+          "type": "note"
         }
       }
     },
@@ -1942,9 +2299,9 @@
       "state": {
         "id": 482,
         "xyz": {
-          "0": 2.380267858505249,
+          "0": 2.6492409706115723,
           "1": 0,
-          "2": 34.15846633911133
+          "2": 33.912513732910156
         },
         "heading": 0,
         "code": null,
@@ -1956,9 +2313,9 @@
       "state": {
         "id": 483,
         "xyz": {
-          "0": 2.380267858505249,
+          "0": 2.341498613357544,
           "1": 0,
-          "2": 34.15846633911133
+          "2": 33.79339599609375
         },
         "heading": 0,
         "code": null,
@@ -1968,38 +2325,51 @@
     {
       "typeName": "BasicBot",
       "state": {
+        "id": 16509,
+        "xyz": {
+          "0": 32.66416549682617,
+          "1": 0,
+          "2": 16.64982795715332
+        },
+        "heading": 5.428733493830402,
+        "code": "delta = {turn: 1.0, drive: 0.05}",
+        "libraryList": ""
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
         "id": 481,
         "xyz": {
-          "0": 32.10453414916992,
+          "0": 69.07904815673828,
           "1": 0,
-          "2": 16.579816818237305
+          "2": 3
         },
-        "heading": -6.222620614353928,
-        "code": "delta = {\n  turn: -1,\n  drive: 0.1\n}",
-        "libraryList": "",
-        "imageSource": "Basic Bot.png"
+        "heading": -1.5707963267948961,
+        "code": "resetTurn();\ngoEast();\nsetTurn();",
+        "libraryList": "turn",
+        "imageSource": "Basic Bot.png",
+        "data": {
+          "action": 1
+        }
       }
     }
   ],
   "radius": 128,
-  "library": {
-    "turn": "var dx;\nvar dy;\n\nresetTurn = function() {\n  dx = 0;\n  dy = 0;\n}\n\ngoNorth = function() {\n  delta.drive = 1.0;\n  dy = -1\n}\n\ngoSouth = function() {\n  delta.drive = 1.0;\n  dy = 1\n}\n\ngoEast = function() {\n  delta.drive = 1.0;\n  dx = -1\n}\n\ngoWest = function() {\n  delta.drive = 1.0;\n  dx = 1\n}\n\nsetTurn = function() {\n  let desiredAngle = 0;\n  if (dx != 0 || dy != 0) {\n    desiredAngle = Math.atan2(dx, dy);  \n  }\n  delta.turn = desiredAngle - perspective.currentHeading;\n  if (delta.turn > Math.PI) {\n    delta.turn -= 2 * Math.PI;\n  }\n  if (delta.turn < -Math.PI) {\n    delta.turn += 2 * Math.PI;\n  }\n}\n",
-    "admin": "admin = function(action) { if (delta.state == null) { delta.state = {}; } delta.state.adminAction = action; }"
-  },
   "players": {
     "profx": {
       "id": 1,
       "xyz": {
-        "0": 25.881784439086914,
+        "0": -18.427453994750977,
         "1": 0,
-        "2": 19.154254913330078
+        "2": 17.60985565185547
       },
-      "heading": 3.7068530717958623,
-      "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 2;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}",
+      "heading": 0.6017763138449652,
+      "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -0.5;\n  delta.drive = 1.0;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 2;\n}\nif (keys.has('ArrowDown')) {\n  delta.drive = -1.0;\n  delta.turn /= 2;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}",
       "libraryList": "turn admin",
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
-        "adminAction": null
+        "action": 1
       }
     },
     "_prototype": {
@@ -2010,21 +2380,51 @@
         "2": 0
       },
       "heading": 0,
-      "code": "resetTurn();\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\nif (perspective.keysDown.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nsetTurn();",
+      "code": "resetTurn();if (perspective.keysDown.has('ArrowUp')) {  goNorth();}if (perspective.keysDown.has('ArrowDown')) {  goSouth();}if (perspective.keysDown.has('ArrowRight')) {  goEast();}if (perspective.keysDown.has('ArrowLeft')) {  goWest();}if (perspective.keysDown.has('Space')) {  delta.state = {    action: 1  }}setTurn();",
       "libraryList": "turn",
-      "imageSource": "Empty Player.png"
+      "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAAC5UlEQVRoQ92YPWgVQRDH92HAwkKL14jPKjaKhY1FwEIwaCEpg+lSBAQbG/GjSBTBQgNpXiMIKdIZUkaLhAQsAhY2FsE0WvmCFgG1sBASInMwl929mZ3Z2z3f4VXJfszN/7f/2523nds3Tx0a4tn5um/Onx2hupy2ky8WxDH2gN2N7fLfM+MXo+Zyg1NidjgA8DINBB/A9NIlszT90cnVbgslS821A3H9QwVw98JmKRgSPDf/znx+cJVt45Kl5vri/djYnwI12QH9N3MVwZwDnnd7FRc/2huUbXUcEIqpgVoAGOwdmF73WCU5zSdgO0CyqwSgzoYgxZSgJjuA2gQ58lKyPgApeRifGrMAoFlpbnW4U4BKPiZZyb6YT2pMxwE+CAqM34YA/sVqgWj/PdIeEDqRIF4QgKY+AACh1QolbG+AlDjqk6BOAhsCxtQ6KMoBlCNCDtAmgeK5Y07aXLnPU+PK4CboBw4BSEkC52oSrnNShOY0cgrkTrLJeFEOoBJ53P9RNE9O3cia58rrtTJe7tgYGN6R7ID/GoBmSQFAb7Rjxi5f1wxXj3n/Yd0Mvhw2EhuTgHeQDggVN/1P1xwRr97+LP5vAgC+KHfsCgB7d0fxfoGxs9Atf+n5ENTL2sKBTinMice8AQJUVr8e3muNlJQyHkSUn4AkHhVjpdUWCFkAaMW3DUKq+MIB97cXiztB6kdFyOdtcEI2ALHibTB3Zm5F7QeQND6aS1cpeGq8zsH3tfJW+MrE0Q3v1qq70XF9sQAkQdAPN1T+Q91YaWJJYyoAoDyE0pMCQPXlBsBdz3HtkkCp3wHw7fdRNXf6xLozl+vLCcAXiU7A1c8N4eXisnEASLS4/lwQbIHU37kAgHB8sgDAYKkgmgZgCw8C+PNk1hx/+qyuIYp5dWA0+QlQ4os6wD4FUDEA8J8UIDEwcm+CnPBGPgHJMloQOY5BSfhQAKQUUBJc7NcKHzqAXBunDSZWPMz9C8oDRI/WID11AAAAAElFTkSuQmCC\n",
+      "data": {
+        "action": 1
+      }
     },
     "matt": {
       "id": 2,
       "xyz": {
-        "0": 32.297401428222656,
+        "0": 37.44933319091797,
         "1": 0,
-        "2": 18.297401428222656
+        "2": 14.999373435974121
       },
-      "heading": 3.018899908903906,
-      "code": "resetTurn();\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\nif (perspective.keysDown.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nsetTurn();",
+      "heading": 1.5772100576555128,
+      "code": "resetTurn();\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\nsetTurn();\nif (perspective.keysDown.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}",
       "libraryList": "turn",
-      "imageSource": "Empty Player.png",
+      "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACXElEQVRoQ+2ZsUoDQRCGNyhoaZEusRT0BbTxDQSbgLEXBN8hIEIewC6VvRFs7OxtrC0UUmpAJA+gYFDmvL3szc3e/ne3G2PMNQmbmbmZb/+d3bvUjvfWvpRwPT5/qq31Zemn1Nh5c8NpQwb794eJ3c3OpWr0Bym/YRuLY/ppHx4bSig2qtkA0O8IhLIAKD4VM7yKC792p22DFgyAOyWlqgAwITQOBipPBSYsbhsMgE8F2GDyWUWgo8sFiRUtgZfRWDXrS4h9xgZRwMpZN+P3cdqJxlLLAMzAVEBebCRcbg9AAvgEQIXpS/cG25hWgRcAiNRtMHwDoMKjGY6bo/5ujimjYXoBoIvjICQwfMwnAERxvAEGBYCcDxAAFMdMVK9/cSts/dw1M+OteEw4L9hiI0BTPcClAEkRKIC8ZHgjlNZ9AgU8MCHFk02hJhgKgFYCfSYHI6MCDcTn9qfDT+0kiM6IdC4IUTgEAEn64W0bMZtZm8oKmGsAyLQtAMzDErCdBHsX/ZQITo7a0CMyopxZsYl6AAfACzeTnUUIVY7ymSaYVzyBIAAhL6QY14GtSH4JgPfObhG/xHa1e1fKz+ZUFABin5dgBMA161KAUEpACjJtEPsgAMpOuwsc8gRatWgz99r49Tb1Vri+OVnjo6fJLmAbLwriTwCgwqlgDkAaLwpA29tA/LoCyhZUxk+C8K8ASNvqAoDwj5TPfZ8rNdMEyYBeWfHXTNK7tzKy5z58GSAK8HFfHcMKgN9kWgCk4nxue5ACfBJGYpXZGpG4iI2oAMTRp80CQOAHrLzJ+gYllMTIfPpGLwAAAABJRU5ErkJggg==",
+      "data": {
+        "action": 1
+      }
+    },
+    "tw": {
+      "id": 2,
+      "xyz": {
+        "0": 0,
+        "1": 0,
+        "2": 0
+      },
+      "heading": 0,
+      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "libraryList": "turn",
+      "imageSource": "Empty Player.png"
+    },
+    "manjaro": {
+      "id": 2,
+      "xyz": {
+        "0": 28.848180770874023,
+        "1": 0,
+        "2": 18.254676818847656
+      },
+      "heading": 1.114341463170419,
+      "code": "resetTurn();if (perspective.keysDown.has('ArrowUp')) {  goNorth();}if (perspective.keysDown.has('ArrowDown')) {  goSouth();}if (perspective.keysDown.has('ArrowRight')) {  goEast();}if (perspective.keysDown.has('ArrowLeft')) {  goWest();}if (perspective.keysDown.has('Space')) {  delta.state = {    action: 1  }}setTurn();",
+      "libraryList": "turn",
+      "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAAC5UlEQVRoQ92YPWgVQRDH92HAwkKL14jPKjaKhY1FwEIwaCEpg+lSBAQbG/GjSBTBQgNpXiMIKdIZUkaLhAQsAhY2FsE0WvmCFgG1sBASInMwl929mZ3Z2z3f4VXJfszN/7f/2523nds3Tx0a4tn5um/Onx2hupy2ky8WxDH2gN2N7fLfM+MXo+Zyg1NidjgA8DINBB/A9NIlszT90cnVbgslS821A3H9QwVw98JmKRgSPDf/znx+cJVt45Kl5vri/djYnwI12QH9N3MVwZwDnnd7FRc/2huUbXUcEIqpgVoAGOwdmF73WCU5zSdgO0CyqwSgzoYgxZSgJjuA2gQ58lKyPgApeRifGrMAoFlpbnW4U4BKPiZZyb6YT2pMxwE+CAqM34YA/sVqgWj/PdIeEDqRIF4QgKY+AACh1QolbG+AlDjqk6BOAhsCxtQ6KMoBlCNCDtAmgeK5Y07aXLnPU+PK4CboBw4BSEkC52oSrnNShOY0cgrkTrLJeFEOoBJ53P9RNE9O3cia58rrtTJe7tgYGN6R7ID/GoBmSQFAb7Rjxi5f1wxXj3n/Yd0Mvhw2EhuTgHeQDggVN/1P1xwRr97+LP5vAgC+KHfsCgB7d0fxfoGxs9Atf+n5ENTL2sKBTinMice8AQJUVr8e3muNlJQyHkSUn4AkHhVjpdUWCFkAaMW3DUKq+MIB97cXiztB6kdFyOdtcEI2ALHibTB3Zm5F7QeQND6aS1cpeGq8zsH3tfJW+MrE0Q3v1qq70XF9sQAkQdAPN1T+Q91YaWJJYyoAoDyE0pMCQPXlBsBdz3HtkkCp3wHw7fdRNXf6xLozl+vLCcAXiU7A1c8N4eXisnEASLS4/lwQbIHU37kAgHB8sgDAYKkgmgZgCw8C+PNk1hx/+qyuIYp5dWA0+QlQ4os6wD4FUDEA8J8UIDEwcm+CnPBGPgHJMloQOY5BSfhQAKQUUBJc7NcKHzqAXBunDSZWPMz9C8oDRI/WID11AAAAAElFTkSuQmCC\n",
       "data": {
         "action": 1
       }

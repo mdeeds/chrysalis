@@ -23,5 +23,4 @@ export class Thing {
     this.state.code = code;
     this.state.libraryList = libraryList;
   }
-
 }

@@ -2,6 +2,8 @@ import { BasicBot } from "./basicBot";
 import { Beacon } from "./beacon";
 import { Gopher } from "./gopher";
 import { GopherHole } from "./gopherHole";
+import { Library } from "./library";
+import { LibTablet } from "./libTablet";
 import { Log } from "./log";
 import { Tablet } from "./tablet";
 import { Thing } from "./thing";
@@ -28,7 +30,7 @@ export class ThingCodec {
     return result;
   }
 
-  static decode(gl: WebGLRenderingContext, dict: any): Thing {
+  static decode(gl: WebGLRenderingContext, dict: any, library: Library): Thing {
     const thingState = new ThingState([0, 0, 0]);
     if (dict.state) {
       thingState.mergeFrom(dict.state as ThingState);
@@ -44,7 +46,12 @@ export class ThingCodec {
       case "Beacon":
         return new Beacon(gl, thingState);
       case "Tablet":
-        return new Tablet(gl, thingState);
+        if (thingState.libraryList && thingState.data.type === "lib") {
+          Log.info(`Tablet: ${thingState.libraryList}`)
+          return new LibTablet(gl, library, thingState);
+        } else {
+          return new Tablet(gl, thingState);
+        }
     }
     Log.error(`Cannot decode type: ${dict.typeName}`);
     return null;

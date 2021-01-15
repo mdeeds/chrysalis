@@ -80,12 +80,6 @@ export class State {
         this.players.get(name).mergeFrom(other.players[name]);
       }
     }
-    if (other.library != null) {
-      Log.info(`Libraries exist.`);
-      this.library.mergeFromObject(other.library);
-    } else {
-      Log.info(`No libraries in this world.`);
-    }
   }
 
   getThings(bb: BoundingBox) {
@@ -101,7 +95,6 @@ export class State {
     dict.hazards = [];
     dict.things = [];
     dict.radius = this.radius;
-    dict.library = this.library.toObject();
 
     for (const t of this.everything.allEntries()) {
       if (t instanceof Ocean) {
@@ -151,7 +144,7 @@ export class State {
 
     if (dict.things) {
       for (const encoded of dict.things) {
-        const thing: Thing = ThingCodec.decode(this.gl, encoded);
+        const thing: Thing = ThingCodec.decode(this.gl, encoded, this.library);
         this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
       }
     }

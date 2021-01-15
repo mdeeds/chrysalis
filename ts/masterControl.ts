@@ -58,7 +58,8 @@ export class MasterControl {
     this.terminal = new Terminal(keyFocusElement);
 
     for (const thing of this.state.everything.allEntries()) {
-      if (thing.state.code && thing instanceof Shape) {
+      if (thing.state.code && thing instanceof Shape
+        && !(thing instanceof Tablet)) {
         const computer = new Computer(
           thing.state.code, thing.state.libraryList, this.state.library);
         Log.info(`New cog: ${thing.state.libraryList}`);
