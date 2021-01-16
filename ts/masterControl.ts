@@ -319,12 +319,40 @@ export class MasterControl {
     }
   }
 
+  private distance(a: Float32Array, b: Float32Array) {
+    const dx = a[0] - b[0];
+    const dz = a[2] - b[2];
+    return Math.sqrt(dx * dx + dz * dz);
+  }
+
   eventLoop(ts: number) {
     const targetFrame = this.frameNumber + 5;
     for (const cog of this.cogs.values()) {
       const cogPerspective = new Perspective();
       cogPerspective.keysDown = this.keysDown;
       cogPerspective.currentHeading = cog.thing.state.heading;
+      const things: Thing[] = [];
+      this.state.everything.appendFromRange(
+        new BoundingBox(cog.thing.state.xyz[0],
+          cog.thing.state.xyz[2], 10.0), things);
+      let closestPlayer: ThingState = null;
+      let distance = 0;
+      for (const t of things) {
+        if (t instanceof Player) {
+          if (!closestPlayer) {
+            closestPlayer = t.state;
+            distance = this.distance(t.state.xyz, cog.thing.state.xyz);
+          } else {
+            const newDistance =
+              this.distance(t.state.xyz, cog.thing.state.xyz);
+            if (newDistance < distance) {
+              distance = newDistance;
+              closestPlayer = t.state;
+            }
+          }
+        }
+      }
+
       cog.computer.getDelta(cogPerspective)
         .then((delta: ThingStateDelta) => {
           const intention = new Intention(targetFrame, delta, cog);
