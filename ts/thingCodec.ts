@@ -35,7 +35,6 @@ export class ThingCodec {
     if (dict.state) {
       thingState.mergeFrom(dict.state as ThingState);
     }
-    Log.info(`Thing: ${thingState.id}`);
     switch (dict.typeName) {
       case "Gopher":
         return new Gopher(gl, thingState);

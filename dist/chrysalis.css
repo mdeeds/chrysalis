@@ -93,3 +93,16 @@ img {
 img.deactivated {
   filter: grayscale(100%);
 }
+
+.bigbox {
+  color: lightgreen;
+  width: 100vw;
+  height: 100vh;
+  white-space: pre;
+  padding: 5px;
+  overflow: scroll;
+}
+
+.bigbox.error {
+  color: darkred;
+}

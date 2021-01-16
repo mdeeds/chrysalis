@@ -20,7 +20,7 @@ export class PeerConnection {
     this.ready = false;
     this.readyCallbacks = [];
     this.peer.on('open', (id: string) => {
-      Log.info("My id is: " + id);
+      Log.info(`${this.peer.id}: I am on.`);
       console.log(`AAAAA: ready.  Notifying: ${this.readyCallbacks.length}`);
       this.ready = true;
       for (const readyCallback of this.readyCallbacks) {
@@ -40,6 +40,7 @@ export class PeerConnection {
         } else {
           for (const prefix of this.callbacks.keys()) {
             if (data.startsWith(prefix)) {
+
               const value = data.substr(prefix.length);
               this.callbacks.get(prefix)(value);
             }
@@ -54,7 +55,7 @@ export class PeerConnection {
       if (this.ready) {
         resolve(this);
       } else {
-        Log.info("Not ready yet.");
+        Log.info(`${this.peer.id}: Not ready.`);
         this.readyCallbacks.push(resolve);
       }
     });
@@ -65,6 +66,7 @@ export class PeerConnection {
   }
 
   addCallback(keyPhrase: string, callback: Function) {
+    Log.info(`${this.peer.id}: Listening for ${keyPhrase}`);
     this.callbacks.set(keyPhrase, callback);
   }
 
@@ -86,7 +88,7 @@ export class PeerConnection {
       });
     return new Promise((resolve, reject) => {
       const deadline = window.performance.now() + 5000;
-      Log.info("Deadline: " + deadline.toFixed(0));
+      Log.info(`${this.peer.id}: Deadline ${deadline.toFixed(0)}.`);
       this.waitForResponse(targetId, deadline, resolve, reject);
     });
   }
@@ -96,12 +98,12 @@ export class PeerConnection {
     if (this.responses.has(id)) {
       const response = this.responses.get(id);
       this.responses.delete(id);
-      Log.info("I heard you, " + id);
+      Log.info(`${this.peer.id}: I heard you, ${id}`);
       resolve(response);
     } else {
       if (window.performance.now() >= deadline) {
-        Log.info("Deadline exceeded: " +
-          (window.performance.now() - deadline));
+        Log.info(`${this.peer.id}: `
+          + `Deadline exceeded: ${(window.performance.now() - deadline)}`);
         reject("Deadline exceeded.");
       } else {
         setTimeout(() => {

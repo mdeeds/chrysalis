@@ -6,12 +6,11 @@ import { World } from "./world";
 export class WorldServer {
   private connection: PeerConnection;
   private otherConnections: Set<string>;
-  private world: World;
 
   constructor(worldServerId: string, world: World) {
+    Log.info("Creating new server for the world.")
     this.connection = new PeerConnection(worldServerId);
     this.otherConnections = new Set<string>();
-    this.world = world;
 
     this.connection.addCallback("World, please.",
       async () => {
@@ -25,10 +24,13 @@ export class WorldServer {
         Log.info(`Sending introductions to ${this.otherConnections.size}`);
         for (const other of this.otherConnections) {
           if (other !== value) {
+            Log.info(`${other}, please meet ${value}`);
             this.connection.send(other, `Meet ${value}`);
+            Log.info(`${value}, please meet ${other}`);
+            this.connection.send(value, `Meet ${other}`);
           }
         }
-        Log.info(`Nice to meet you ${value}`);
+        this.connection.send(value, "Nice to meet you.");
         this.otherConnections.add(value);
         return "";
       });

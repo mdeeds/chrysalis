@@ -1,18 +1,7 @@
-import { BasicBot } from "./basicBot";
-import { Bubble } from "./bubble";
-import { Cog } from "./cog";
-import { Computer } from "./computer";
-import { Gem } from "./gem";
 import { Log } from "./log";
-import { Ocean } from "./ocean";
-import { PeerConnection } from "./peerConnection";
-import { Player } from "./player";
 import { State } from "./state";
 import { Thing } from "./thing";
-import { Tile } from "./tile";
-import { ThingState } from "./thingState";
 import { StateDelta } from "./stateDelta";
-import { Terminal } from "./terminal";
 import { BoundingBox } from "./quadTree";
 import { Library } from "./library";
 import { WorldServer } from "./worldServer";
@@ -20,12 +9,9 @@ import { WorldClient } from "./worldClient";
 
 export class World {
   private worldName: string;
-  private gl: WebGLRenderingContext;
   private username: string;
   private state: State;
-  private terminal: Terminal;
   private saveButton: HTMLAnchorElement;
-  private library: Library;
   private loaded: boolean;
   private loadedCallback: Function;
   private worldServer: WorldServer;
@@ -34,7 +20,6 @@ export class World {
   constructor(worldName: string,
     gl: WebGLRenderingContext, username: string) {
     this.worldName = worldName;
-    this.gl = gl;
     this.username = username;
     this.state = new State(gl);
     this.loaded = false;
@@ -46,8 +31,9 @@ export class World {
       this.loadFromSavedState()
         .then((data: string) => {
           this.buildFromString(data);
-        })
+        });
     } else {
+      Log.info("Searching internet for chrysalis installation.");
       this.setStateFromInternet();
     }
 
@@ -64,25 +50,16 @@ export class World {
     this.worldServer = null;
     const worldServerId = `chrysalis-${this.worldName}-72361`;
     this.worldClient = new WorldClient(worldServerId);
-    this.worldClient.getConnection()
-      .sendAndPromiseResponse(worldServerId, "Hi!")
-      .then((id) => {
-        Log.info("Thank you: " + id);
-        this.worldClient.getConnection().sendAndPromiseResponse(
-          worldServerId, "World, please.")
-          .then((worldData: string) => {
-            this.buildFromString(worldData);
-          })
-          .catch((reason) => {
-            Log.info("Failed to get world: " + reason)
-          });
+    this.worldClient.getWorldStateText()
+      .then((worldData) => {
+        this.buildFromString(worldData);
       })
       .catch(async (reason) => {
         Log.info("Failed to say hello: " + reason);
         this.worldServer = new WorldServer(worldServerId, this);
         const serializedState = await this.loadFromSavedState();
         this.buildFromString(serializedState);
-      })
+      });
   }
 
   getPlayerCoords(): Float32Array {
@@ -169,18 +146,17 @@ export class World {
     for (const libName of this.state.library.libraryNames()) {
       Log.info(`Library: ${libName}`);
     }
-    // TODO: We need to do something similar to this when a new player logs in.
-
-    // this.things.push(new BasicBot(this.gl, 2, 0));
-    // this.things.push(new Gem(this.gl, -2, -2));
-
-    // this.things.push(new Bubble(this.gl, "Hello, World!", 10, 10));
 
     this.loaded = true;
+    Log.info(`World loaded.  Notifying ${!!this.loadedCallback}`);
     if (this.loadedCallback) {
       this.loadedCallback(this.state);
       this.loadedCallback = null;
     }
     this.saveLoop();
+  }
+
+  getClient() {
+    return this.worldClient;
   }
 }
