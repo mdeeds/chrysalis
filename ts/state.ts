@@ -1,5 +1,3 @@
-import { Cog } from "./cog";
-import { Computer } from "./computer";
 import { Hazard } from "./hazard";
 import { Library } from "./library";
 import { Log } from "./log";
