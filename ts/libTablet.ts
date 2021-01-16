@@ -1,6 +1,5 @@
 import { Library } from "./library";
 import { Tablet } from "./tablet";
-import { Thing } from "./thing";
 import { ThingState } from "./thingState";
 
 export class LibTablet extends Tablet {

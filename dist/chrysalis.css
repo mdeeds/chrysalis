@@ -58,7 +58,7 @@ canvas {
   white-space: pre;
   word-wrap: break-word;
   line-break: normal;
-  transition: width 2s, height 2s;
+  transition: width 0.1s, height 0.1s;
 }
 
 .terminal:focus {
