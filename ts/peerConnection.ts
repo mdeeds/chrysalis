@@ -21,7 +21,6 @@ export class PeerConnection {
     this.readyCallbacks = [];
     this.peer.on('open', (id: string) => {
       Log.info(`${this.peer.id}: I am on.`);
-      console.log(`AAAAA: ready.  Notifying: ${this.readyCallbacks.length}`);
       this.ready = true;
       for (const readyCallback of this.readyCallbacks) {
         readyCallback(this);

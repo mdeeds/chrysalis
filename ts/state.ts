@@ -15,6 +15,7 @@ export class State {
   radius: number;
   readonly players: Map<string, ThingState>;
   readonly everything: QuadTree<Thing>;
+  private thingIndex: Map<number, Thing>;
   readonly library: Library;
 
   gl: WebGLRenderingContext;
@@ -22,6 +23,7 @@ export class State {
     this.gl = gl;
     this.players = new Map<string, ThingState>();
     this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
+    this.thingIndex = new Map<number, Thing>();
     this.library = new Library();
     this.radius = 0;
   }
@@ -117,6 +119,29 @@ export class State {
     return JSON.stringify(dict);
   }
 
+  mergeThings(thingsDict: any) {
+    for (const encoded of thingsDict) {
+      const thing: Thing = ThingCodec.decode(this.gl, encoded, this.library);
+      if (thing instanceof Tile) {
+        // TODO: Support tile updates?
+        continue;
+      }
+      if (this.thingIndex.has(thing.state.id)) {
+        const oldThing = this.thingIndex.get(thing.state.id);
+        const moved = (oldThing.state.xyz[0] != thing.state.xyz[0] ||
+          oldThing.state.xyz[2] != thing.state.xyz[2]);
+        oldThing.state.mergeFrom(thing.state);
+        if (moved) {
+          this.everything.move(oldThing.state.xyz[0], oldThing.state.xyz[2],
+            oldThing);
+        }
+      } else {
+        this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
+        this.thingIndex.set(thing.state.id, thing);
+      }
+    }
+  }
+
   deserialize(data: string) {
     const dict: any = JSON.parse(data);
     this.mergeFromObject(dict);
@@ -124,27 +149,33 @@ export class State {
     const map: any = dict.map;
     this.radius = dict.radius;
 
+    const tilePositions: Set<string> = new Set<string>();
     for (const tilePosition of dict.tiles) {
       const x: number = tilePosition[0];
       const z: number = tilePosition[1];
-      const tile = new Tile(this.gl, new ThingState([x, 0, z]));
-      this.everything.insert(x, z, tile);
+      const pos = `${x},${z}`;
+      if (!tilePositions.has(pos)) {
+        tilePositions.add(pos);
+        const tile = new Tile(this.gl, new ThingState([x, 0, z]));
+        this.everything.insert(x, z, tile);
+      }
     }
 
     if (dict.hazards) {
       for (const hazardPosition of dict.hazards) {
         const x: number = hazardPosition[0];
         const z: number = hazardPosition[1];
-        const hazard = new Hazard(this.gl, new ThingState([x, 0, z]));
-        this.everything.insert(x, z, hazard);
+        const pos = `${x},${z}`;
+        if (!tilePositions.has(pos)) {
+          tilePositions.add(pos);
+          const hazard = new Hazard(this.gl, new ThingState([x, 0, z]));
+          this.everything.insert(x, z, hazard);
+        }
       }
     }
 
     if (dict.things) {
-      for (const encoded of dict.things) {
-        const thing: Thing = ThingCodec.decode(this.gl, encoded, this.library);
-        this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
-      }
+      this.mergeThings(dict.things);
     }
 
     const scan: Thing[] = [];
@@ -152,9 +183,7 @@ export class State {
       const z = j;
       for (let i = -this.radius; i < this.radius; i += 2) {
         const x = i;
-        while (scan.length > 0) {
-          scan.pop();
-        }
+        scan.splice(0, scan.length);
         this.everything.appendFromRange(new BoundingBox(x, z, 0.5), scan);
         if (scan.length === 0) {
           const ocean = new Ocean(this.gl, new ThingState([x, 0, z]));

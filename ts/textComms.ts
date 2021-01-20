@@ -21,7 +21,9 @@ export class TextComms {
 
     this.world = new World("vialis", gl, username);
     this.worldClient = this.world.getClient();
-    this.worldClient.addCallback((text) => { this.setText(text); });
+    this.worldClient.addCallback((text) => {
+      this.setText(text);
+    });
     this.state = null;
 
     this.div = document.createElement('div');
@@ -42,12 +44,16 @@ export class TextComms {
   setText(worldData: string) {
     this.div.innerText = stringify(
       JSON.parse(worldData), { maxLength: 80, indent: " " });
+    // We only want to broadcast "natural" changes.  I.e. when the user
+    // edits the text box directly.
+    this.previousText = this.div.innerText;
   }
 
   sendUpdates() {
     if (this.previousText !== this.div.innerText) {
       try {
         const dict: any = JSON.parse(this.div.innerText);
+        this.state.deserialize(this.div.innerText);
         this.div.classList.remove("error");
         this.worldClient.sendNewState(this.div.innerText);
         this.previousText = this.div.innerText;
@@ -57,7 +63,6 @@ export class TextComms {
         this.div.classList.add("error");
         this.previousText = this.div.innerText;
       }
-
     }
     requestAnimationFrame(() => { this.sendUpdates(); });
   }
