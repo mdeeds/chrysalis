@@ -136,7 +136,7 @@ export class MasterControl {
     [targetX, targetZ] = actor.state.inFrontXZ(2.0);
     const things: Thing[] = [];
     this.state.everything.appendFromRange(
-      new BoundingBox(targetX, targetZ, 2.0), things);
+      new BoundingBox(targetX, targetZ, 1.0), things);
     MasterControl.removeThing(things, actor);
     if (things.length == 0) {
       Log.info('Missed.');
