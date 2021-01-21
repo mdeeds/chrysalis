@@ -331,6 +331,9 @@ export class MasterControl {
       const cogPerspective = new Perspective();
       cogPerspective.keysDown = this.keysDown;
       cogPerspective.currentHeading = cog.thing.state.heading;
+      if (cog.thing.state.data) {
+        cogPerspective.data = cog.thing.state.data;
+      }
       const things: Thing[] = [];
       this.state.everything.appendFromRange(
         new BoundingBox(cog.thing.state.xyz[0],
@@ -394,6 +397,10 @@ export class MasterControl {
         t.trackWithLifter();
         continue;
       }
+      if (!t.state.data) {
+        t.state.data = {};
+      }
+      t.state.data.bumped = false;
       const otherThings: Thing[] = [];
       this.state.everything.appendFromRange(
         new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
@@ -432,6 +439,7 @@ export class MasterControl {
             const arr = deltaStorage.get(t);
             arr[0] = arr[0] + mx;
             arr[2] = arr[2] + mz;
+            t.state.data.bumped = true;
           }
         }
       }
