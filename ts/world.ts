@@ -133,6 +133,7 @@ export class World {
   }
 
   buildFromString(data: string) {
+    Log.info(`Deserializing ${data.length} bytes of encoded state.`);
     this.state.deserialize(data);
     if (!this.state.players.has(this.username)) {
       Log.info(`${this.username} is new to this world.`);

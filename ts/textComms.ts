@@ -53,7 +53,7 @@ export class TextComms {
     if (this.previousText !== this.div.innerText) {
       try {
         const dict: any = JSON.parse(this.div.innerText);
-        this.state.deserialize(this.div.innerText);
+        this.world.buildFromString(this.div.innerText);
         this.div.classList.remove("error");
         this.worldClient.sendNewState(this.div.innerText);
         this.previousText = this.div.innerText;
