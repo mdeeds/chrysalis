@@ -159,11 +159,13 @@ export class Terminal {
 
   setCog(cog: Cog, takeFocus: boolean = false) {
     this.cog = cog;
-    this.setThing(cog.thing, takeFocus);
+    this.setThing(cog.thing, takeFocus, true);
   }
 
-  setThing(thing: Thing, takeFocus: boolean = false) {
-    this.cog = null;
+  setThing(thing: Thing, takeFocus: boolean = false, isCog: boolean = false) {
+    if (!isCog) {
+      this.cog = null;
+    }
     this.thing = thing;
     this.libraryList.setCode(thing.state.libraryList);
     this.programCode.setCode(thing.state.code);
@@ -199,13 +201,15 @@ export class Terminal {
       this.thing.setTextureImage(imageCode);
       this.thing.state.imageSource = imageCode;
     }
-    Log.info("Uploading.");
     this.programCode.format();
     this.libraryList.format();
+    const programCode: string = this.programCode.getCode();
     if (this.cog) {
-      this.cog.upload(this.programCode.getCode(), this.libraryList.getCode());
+      Log.info(`Uploading ${programCode.length} bytes to cog.`);
+      this.cog.upload(programCode, this.libraryList.getCode());
     } else {
-      this.thing.upload(this.programCode.getCode(), this.libraryList.getCode());
+      Log.info(`Updating state with ${programCode.length} bytes.`);
+      this.thing.upload(programCode, this.libraryList.getCode());
     }
     this.otherFocusElement.focus();
   }
