@@ -48,7 +48,6 @@ export class State {
     }
     if (other.drive != null && other.drive != 0 && other.turn != null) {
       const drive = Math.max(-1.0, Math.min(1.0, other.drive));
-      if (drive < 0) { Log.info(`Drive: ${drive}`); }
       let turn = Math.max(-1.0, Math.min(1.0, other.turn));
       if (other.drive < 0) {
         turn = -turn;
