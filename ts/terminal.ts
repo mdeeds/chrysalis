@@ -171,16 +171,13 @@ export class Terminal {
     this.programCode.setCode(thing.state.code);
 
     if (thing instanceof Player) {
-      Log.info("player");
       this.programCode.setStyle("PlayerCode.gif", "player");
     } else if (thing instanceof Tablet) {
-      Log.info("tablet");
       this.programCode.setStyle("LibraryCode.png", "library");
     } else if (thing instanceof BasicBot) {
-      Log.info("robot");
       this.programCode.setStyle("RobotCode.gif", "robot");
     } else {
-      Log.info("unknown!");
+      Log.error("unknown!");
       Log.info(thing.constructor.toString())
       this.programCode.setStyle("PlayerCode.gif", "player");
     }
