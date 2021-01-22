@@ -319,43 +319,125 @@ export class MasterControl {
     }
   }
 
-  private distance(a: Float32Array, b: Float32Array) {
+  private distance2(a: Float32Array, b: Float32Array) {
     const dx = a[0] - b[0];
     const dz = a[2] - b[2];
-    return Math.sqrt(dx * dx + dz * dz);
+    return dx * dx + dz * dz;
+  }
+
+  private distance(a: Float32Array, b: Float32Array) {
+    return Math.sqrt(this.distance2(a, b));
+  }
+
+  private closerOfTwo(
+    reference: Float32Array, a: Float32Array, b: Float32Array): Float32Array {
+    if (a === null) {
+      return b;
+    } else if (b === null) {
+      return a;
+    }
+    const d2a = this.distance2(reference, a);
+    const d2b = this.distance2(reference, b);
+    return (d2a < d2b) ? a : b;
+  }
+
+  getCogPerspective(cog: Cog): Perspective {
+    const cogLocation = cog.thing.state.xyz;
+    const cogPerspective = new Perspective();
+    cogPerspective.keysDown = this.keysDown;
+    cogPerspective.currentHeading = cog.thing.state.heading;
+    if (cog.thing.state.data) {
+      cogPerspective.data = cog.thing.state.data;
+    }
+    const things: Thing[] = [];
+    this.state.everything.appendFromRange(
+      new BoundingBox(cog.thing.state.xyz[0],
+        cog.thing.state.xyz[2], 10.0), things);
+    let closestPlayer: Float32Array = null;
+    let closestBeacon: Float32Array = null;
+    for (const t of things) {
+      if (t instanceof Player) {
+        closestPlayer = this.closerOfTwo(
+          cogLocation, closestPlayer, t.state.xyz);
+      } else if (t instanceof Beacon) {
+        if (t.getIsOn()) {
+          closestBeacon = this.closerOfTwo(
+            cogLocation, closestBeacon, t.state.xyz);
+        }
+      }
+    }
+
+    if (closestBeacon) {
+      cogPerspective.closestBeacon = [
+        closestBeacon[0] - cogLocation[0],
+        closestBeacon[2] - cogLocation[2]];
+    }
+    cogPerspective.closestPlayer = [
+      closestBeacon[0] - cogLocation[0],
+      closestBeacon[2] - cogLocation[2]];
+    return cogPerspective;
+  }
+
+  collideThing(t: Thing, deltaStorage: Map<Thing, Float32Array>) {
+    if (t.lightness === 0) {
+      return;
+    }
+    if (t instanceof Shape && t.isLifted()) {
+      t.trackWithLifter();
+      return;
+    }
+    if (!t.state.data) {
+      t.state.data = {};
+    }
+    t.state.data.bumped = false;
+    const otherThings: Thing[] = [];
+    this.state.everything.appendFromRange(
+      new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
+    MasterControl.removeThing(otherThings, t);
+    for (const other of otherThings) {
+      if (other instanceof Tile) {
+        continue;
+      }
+      if (t instanceof BasicBot && other instanceof Hazard) {
+        continue;
+      }
+      if (other instanceof Shape && other.isLifted()) {
+        continue;
+      }
+      const dx = t.state.xyz[0] - other.state.xyz[0];
+      const dz = t.state.xyz[2] - other.state.xyz[2];
+      if (dx === 0 && dz === 0) {
+        // Probably the same thing, but even if they aren't
+        // which way would we move?
+        continue;
+      }
+      const r2 = dx * dx + dz * dz;
+      const hit2 = (t.radius + other.radius) * (t.radius + other.radius);
+      if (r2 < hit2) {
+        const p = t.lightness / (t.lightness + other.lightness);
+        const r = Math.sqrt(r2);
+        const distanceToMove = p * (Math.sqrt(hit2) - r);
+        const ndx = dx / r;
+        const ndz = dz / r;
+        const mx = ndx * distanceToMove;
+        const mz = ndz * distanceToMove;
+        if (mx !== 0 || mz !== 0) {
+          if (!deltaStorage.has(t)) {
+            deltaStorage.set(t, new Float32Array(3));
+          }
+          const arr = deltaStorage.get(t);
+          arr[0] = arr[0] + mx;
+          arr[2] = arr[2] + mz;
+          t.state.data.bumped = true;
+        }
+      }
+    }
   }
 
   eventLoop(ts: number) {
     const targetFrame = this.frameNumber + 5;
     for (const cog of this.cogs.values()) {
-      const cogPerspective = new Perspective();
-      cogPerspective.keysDown = this.keysDown;
-      cogPerspective.currentHeading = cog.thing.state.heading;
-      if (cog.thing.state.data) {
-        cogPerspective.data = cog.thing.state.data;
-      }
-      const things: Thing[] = [];
-      this.state.everything.appendFromRange(
-        new BoundingBox(cog.thing.state.xyz[0],
-          cog.thing.state.xyz[2], 10.0), things);
-      let closestPlayer: ThingState = null;
-      let distance = 0;
-      for (const t of things) {
-        if (t instanceof Player) {
-          if (!closestPlayer) {
-            closestPlayer = t.state;
-            distance = this.distance(t.state.xyz, cog.thing.state.xyz);
-          } else {
-            const newDistance =
-              this.distance(t.state.xyz, cog.thing.state.xyz);
-            if (newDistance < distance) {
-              distance = newDistance;
-              closestPlayer = t.state;
-            }
-          }
-        }
-      }
-
+      const cogPerspective = this.getCogPerspective(cog);
       cog.computer.getDelta(cogPerspective)
         .then((delta: ThingStateDelta) => {
           const intention = new Intention(targetFrame, delta, cog);
@@ -390,60 +472,9 @@ export class MasterControl {
       this.state.everything.getBoundary(), allThings);
 
     for (const t of allThings) {
-      if (t.lightness === 0) {
-        continue;
-      }
-      if (t instanceof Shape && t.isLifted()) {
-        t.trackWithLifter();
-        continue;
-      }
-      if (!t.state.data) {
-        t.state.data = {};
-      }
-      t.state.data.bumped = false;
-      const otherThings: Thing[] = [];
-      this.state.everything.appendFromRange(
-        new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
-      MasterControl.removeThing(otherThings, t);
-      for (const other of otherThings) {
-        if (other instanceof Tile) {
-          continue;
-        }
-        if (t instanceof BasicBot && other instanceof Hazard) {
-          continue;
-        }
-        if (other instanceof Shape && other.isLifted()) {
-          continue;
-        }
-        const dx = t.state.xyz[0] - other.state.xyz[0];
-        const dz = t.state.xyz[2] - other.state.xyz[2];
-        if (dx === 0 && dz === 0) {
-          // Probably the same thing, but even if they aren't
-          // which way would we move?
-          continue;
-        }
-        const r2 = dx * dx + dz * dz;
-        const hit2 = (t.radius + other.radius) * (t.radius + other.radius);
-        if (r2 < hit2) {
-          const p = t.lightness / (t.lightness + other.lightness);
-          const r = Math.sqrt(r2);
-          const distanceToMove = p * (Math.sqrt(hit2) - r);
-          const ndx = dx / r;
-          const ndz = dz / r;
-          const mx = ndx * distanceToMove;
-          const mz = ndz * distanceToMove;
-          if (mx !== 0 || mz !== 0) {
-            if (!deltaStorage.has(t)) {
-              deltaStorage.set(t, new Float32Array(3));
-            }
-            const arr = deltaStorage.get(t);
-            arr[0] = arr[0] + mx;
-            arr[2] = arr[2] + mz;
-            t.state.data.bumped = true;
-          }
-        }
-      }
+      this.collideThing(t, deltaStorage);
     }
+
     for (const thing of deltaStorage.keys()) {
       const state = thing.state;
       const arr = deltaStorage.get(thing);

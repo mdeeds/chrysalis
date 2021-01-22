@@ -4,6 +4,7 @@ import { Shape } from "./shape";
 import { ThingState } from "./thingState";
 
 export class Beacon extends Shape {
+  private isOn: boolean;
   constructor(gl: WebGLRenderingContext, state: ThingState) {
     super(gl, "Beacon.png", state);
     this.radius = 0.4;
@@ -17,6 +18,24 @@ export class Beacon extends Shape {
     Geometry.translate(positions, 0, 1.8, 0);
     Geometry.addTubeData(positions, textureCoordinates, vertexNormals, 0.2);
     this.createBuffers(gl, positions, textureCoordinates, vertexNormals);
+  }
+
+  turnOn() {
+    if (!this.isOn) {
+      this.isOn = true;
+      super.setTextureImage("Beacon.png");
+    }
+  }
+
+  turnOff() {
+    if (this.isOn) {
+      this.isOn = false;
+      super.setTextureImage("BeaconOff.png");
+    }
+  }
+
+  getIsOn() {
+    return this.isOn;
   }
 
   getObjectTransform() {

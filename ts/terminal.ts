@@ -206,7 +206,11 @@ export class Terminal {
       this.cog.upload(programCode, this.libraryList.getCode());
     } else {
       Log.info(`Updating state with ${programCode.length} bytes.`);
-      this.thing.upload(programCode, this.libraryList.getCode());
+      if (this.thing instanceof Tablet) {
+        (this.thing as Tablet).upload(programCode, this.libraryList.getCode());
+      } else {
+        this.thing.upload(programCode, this.libraryList.getCode());
+      }
     }
     this.otherFocusElement.focus();
   }

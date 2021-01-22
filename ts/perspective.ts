@@ -8,9 +8,9 @@ export class Perspective {
   currentHeading: number;  // Measured in radians.
   keysDown: Set<string>;
   data: any;
-  nearestPlayer: ThingState;
-  nearestFlower: ThingState;
-  nearestBeacon: ThingState;
+  closestPlayer: number[];
+  closestFlower: number[];
+  closestBeacon: number[];
   constructor() {
     this.data = {};
   }

@@ -1,4 +1,5 @@
 import { Library } from "./library";
+import { Log } from "./log";
 import { Tablet } from "./tablet";
 import { ThingState } from "./thingState";
 
@@ -17,6 +18,7 @@ export class LibTablet extends Tablet {
   }
 
   upload(code: string, libraryList: string) {
+    Log.info(`Updating library: ${libraryList}`);
     super.upload(code, libraryList);
     this.library.setCode(libraryList, code);
   }
