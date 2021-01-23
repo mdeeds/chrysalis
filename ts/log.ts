@@ -18,8 +18,8 @@ export class Log {
   }
 
   static info(message: string) {
-    console.log(message);
     if (message === this.lastMessage) { return; }
+    console.log(message);
     this.lastMessage = message;
     const div = document.createElement("div");
     div.innerText = message;
@@ -27,8 +27,8 @@ export class Log {
   }
 
   static error(message: string) {
-    console.error(message);
     if (message === this.lastMessage) { return; }
+    console.error(message);
     this.lastMessage = message;
     const div = document.createElement("div");
     div.classList.add("error");
