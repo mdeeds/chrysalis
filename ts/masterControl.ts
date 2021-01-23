@@ -444,6 +444,10 @@ export class MasterControl {
       const cogPerspective = this.getCogPerspective(cog);
       cog.computer.getDelta(cogPerspective)
         .then((delta: ThingStateDelta) => {
+          if (delta.state && delta.state.log) {
+            Log.info(delta.state.log);
+            delta.state.log = null;
+          }
           const intention = new Intention(targetFrame, delta, cog);
           this.pendingEvents.push(intention);
         });
