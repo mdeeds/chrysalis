@@ -342,7 +342,6 @@ export class MasterControl {
   }
 
   getCogPerspective(cog: Cog): Perspective {
-    const cogLocation = cog.thing.state.xyz;
     const cogPerspective = new Perspective();
     cogPerspective.keysDown = this.keysDown;
     cogPerspective.currentHeading = cog.thing.state.heading;
@@ -350,31 +349,36 @@ export class MasterControl {
       cogPerspective.data = cog.thing.state.data;
     }
     const things: Thing[] = [];
-    this.state.everything.appendFromRange(
-      new BoundingBox(cog.thing.state.xyz[0],
-        cog.thing.state.xyz[2], 10.0), things);
-    let closestPlayer: Float32Array = null;
-    let closestBeacon: Float32Array = null;
-    for (const t of things) {
-      if (t instanceof Player) {
-        closestPlayer = this.closerOfTwo(
-          cogLocation, closestPlayer, t.state.xyz);
-      } else if (t instanceof Beacon) {
-        if (t.getIsOn()) {
-          closestBeacon = this.closerOfTwo(
-            cogLocation, closestBeacon, t.state.xyz);
+
+    const cogLocation = cog.thing.state.xyz;
+    if (cogLocation) {
+      this.state.everything.appendFromRange(
+        new BoundingBox(cogLocation[0],
+          cogLocation[2], 10.0), things);
+      let closestPlayer: Float32Array = null;
+      let closestBeacon: Float32Array = null;
+      for (const t of things) {
+        if (t instanceof Player) {
+          closestPlayer = this.closerOfTwo(
+            cogLocation, closestPlayer, t.state.xyz);
+        } else if (t instanceof Beacon) {
+          if (t.getIsOn()) {
+            closestBeacon = this.closerOfTwo(
+              cogLocation, closestBeacon, t.state.xyz);
+          }
         }
       }
+      if (closestBeacon) {
+        cogPerspective.closestBeacon = [
+          closestBeacon[0] - cogLocation[0],
+          closestBeacon[2] - cogLocation[2]];
+      }
+      if (closestPlayer) {
+        cogPerspective.closestPlayer = [
+          closestPlayer[0] - cogLocation[0],
+          closestPlayer[2] - cogLocation[2]];
+      }
     }
-
-    if (closestBeacon) {
-      cogPerspective.closestBeacon = [
-        closestBeacon[0] - cogLocation[0],
-        closestBeacon[2] - cogLocation[2]];
-    }
-    cogPerspective.closestPlayer = [
-      closestBeacon[0] - cogLocation[0],
-      closestBeacon[2] - cogLocation[2]];
     return cogPerspective;
   }
 
@@ -444,7 +448,6 @@ export class MasterControl {
           this.pendingEvents.push(intention);
         });
     }
-
     const futureStack: Intention[] = [];
     const deltaStorage = new Map<Thing, Float32Array>();
     for (const i of this.pendingEvents) {
