@@ -60,7 +60,8 @@ export class State {
       const dz = Math.cos(target.heading) * dr;
       const dx = -Math.sin(target.heading) * dr;
       target.heading += dt;
-      target.heading = target.heading % (Math.PI * 2);
+      target.heading =
+        (target.heading + Math.PI) % (Math.PI * 2) - Math.PI;
       target.xyz[0] = target.xyz[0] + dx;
       target.xyz[2] = target.xyz[2] + dz;
     }
