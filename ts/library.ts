@@ -34,6 +34,7 @@ export class Library {
   }
 
   setCode(libraryName: string, code: string) {
+    Log.info(`Updating library ${libraryName} with ${code.length} bytes`);
     this.books.set(libraryName, code);
   }
 
