@@ -316,7 +316,7 @@ export class MasterControl {
       this.actOnThing(actor, middleObject);
       return;
     }
-    if (frontTile != null) {
+    if (frontTile != null && actor instanceof Player) {
       this.raiseRobot(actor, frontTile);
     }
   }
