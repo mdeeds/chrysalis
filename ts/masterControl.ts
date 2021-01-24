@@ -281,7 +281,6 @@ export class MasterControl {
   }
 
   raiseRobot(actor: Thing, tile: Tile) {
-    Log.info("Raising robot.");
   }
 
   handleAction(actor: Thing) {
