@@ -145,6 +145,10 @@ export class Shape extends Thing {
     return this.lifting !== null;
   }
 
+  liftedThing(): Thing {
+    return this.lifting;
+  }
+
   trackWithLifter() {
     this.state.xyz[0] = this.liftedBy.state.xyz[0];
     this.state.xyz[2] = this.liftedBy.state.xyz[2];
@@ -154,6 +158,15 @@ export class Shape extends Thing {
     if (window.performance.now() < this.liftTime + 500) {
       return false;
     }
+    // Make sure we are not lifting something which is lifting us.
+    let liftCursor = other.lifting;
+    while (liftCursor !== null) {
+      if (liftCursor === this) {
+        return false;
+      }
+      liftCursor = liftCursor.lifting;
+    }
+
     this.liftTime = window.performance.now();
     other.liftedBy = this;
     this.lifting = other;

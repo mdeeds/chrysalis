@@ -286,9 +286,12 @@ export class MasterControl {
 
   handleAction(actor: Thing) {
     if (actor instanceof Shape && actor.isLifting()) {
+      const droppedThing = actor.liftedThing();
       if (actor.drop() && this.cogs.has(actor.state.id)) {
         this.terminal.setCog(
           this.cogs.get(actor.state.id), /*takeFocus=*/false);
+        this.state.everything.move(droppedThing.state.xyz[0],
+          droppedThing.state.xyz[2], droppedThing);
       }
       return;
     }
@@ -345,6 +348,10 @@ export class MasterControl {
     const cogPerspective = new Perspective();
     cogPerspective.keysDown = this.keysDown;
     cogPerspective.currentHeading = cog.thing.state.heading;
+    if (cog.thing instanceof Shape) {
+      cogPerspective.isLifted = cog.thing.isLifted();
+      cogPerspective.isLifting = cog.thing.isLifting();
+    }
     if (cog.thing.state.data) {
       cogPerspective.data = cog.thing.state.data;
     }

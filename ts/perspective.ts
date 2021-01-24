@@ -1,8 +1,6 @@
 // This class is purely data.  It conveys information to our Web Workers,
 // and we don't want to use any bandwidth moving code around.
 
-import { ThingState } from "./thingState";
-
 // I haven't confirmed if that's a thing...
 export class Perspective {
   currentHeading: number;  // Measured in radians.
@@ -11,6 +9,8 @@ export class Perspective {
   closestPlayer: number[];
   closestFlower: number[];
   closestBeacon: number[];
+  isLifting: boolean;
+  isLifted: boolean;
   constructor() {
     this.data = {};
   }
