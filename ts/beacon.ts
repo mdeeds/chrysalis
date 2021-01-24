@@ -9,7 +9,7 @@ export class Beacon extends Shape {
     super(gl, "Beacon.png", state);
     this.radius = 0.4;
 
-    const positions = []
+    const positions = [];
     const vertexNormals = [];
     const textureCoordinates = [];
 
@@ -18,6 +18,7 @@ export class Beacon extends Shape {
     Geometry.translate(positions, 0, 1.8, 0);
     Geometry.addTubeData(positions, textureCoordinates, vertexNormals, 0.2);
     this.createBuffers(gl, positions, textureCoordinates, vertexNormals);
+    this.isOn = true;
   }
 
   turnOn() {
