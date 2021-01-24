@@ -66,9 +66,7 @@ class CodeHolder {
   }
 
   getCode() {
-    const newContent = this.div.innerText;
-    const cleanContent = newContent.replace(/[^\n\x20-\x7e]/g, " ");
-    return cleanContent;
+    return this.div.innerText;
   }
 
   format() {
@@ -85,7 +83,7 @@ class CodeHolder {
       "unescape_strings": false,
       "jslint_happy": false,
       "end_with_newline": false,
-      "wrap_line_length": 0,
+      "wrap_line_length": 80,
       "comma_first": false,
       "e4x": false,
       "indent_empty_lines": false
