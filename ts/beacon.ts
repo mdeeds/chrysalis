@@ -1,10 +1,12 @@
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { Geometry } from "./geometry";
+import { Log } from "./log";
 import { Shape } from "./shape";
 import { ThingState } from "./thingState";
 
 export class Beacon extends Shape {
   private isOn: boolean;
+  private lastToggle: number;
   constructor(gl: WebGLRenderingContext, state: ThingState) {
     super(gl, "Beacon.png", state);
     this.radius = 0.4;
@@ -19,6 +21,21 @@ export class Beacon extends Shape {
     Geometry.addTubeData(positions, textureCoordinates, vertexNormals, 0.2);
     this.createBuffers(gl, positions, textureCoordinates, vertexNormals);
     this.isOn = true;
+    this.lastToggle = window.performance.now();
+  }
+
+  toggle() {
+    Log.info("toggle");
+    if (window.performance.now() - this.lastToggle < 500) {
+      return;
+    } else {
+      this.lastToggle = window.performance.now();
+      if (this.isOn) {
+        this.turnOff();
+      } else {
+        this.turnOn();
+      }
+    }
   }
 
   turnOn() {

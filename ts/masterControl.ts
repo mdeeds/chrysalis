@@ -431,6 +431,10 @@ export class MasterControl {
         const ndz = dz / r;
         const mx = ndx * distanceToMove;
         const mz = ndz * distanceToMove;
+        t.state.data.bumped = true;
+        if (other instanceof Beacon) {
+          other.toggle();
+        }
         if (mx !== 0 || mz !== 0) {
           if (!deltaStorage.has(t)) {
             deltaStorage.set(t, new Float32Array(3));
@@ -438,7 +442,6 @@ export class MasterControl {
           const arr = deltaStorage.get(t);
           arr[0] = arr[0] + mx;
           arr[2] = arr[2] + mz;
-          t.state.data.bumped = true;
         }
       }
     }
