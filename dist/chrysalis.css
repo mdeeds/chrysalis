@@ -109,3 +109,10 @@ img.deactivated {
 .bigbox.error {
   color: darkred;
 }
+
+.status {
+  position: absolute;
+  right: 0px;
+  bottom: 30px;
+  color: palegoldenrod;
+}

@@ -3,7 +3,6 @@ import { Log } from "./log";
 
 export class PeerConnection {
   private peer: Peer;
-  private conn: DataConnection;
   private ready: boolean;
 
   private peers: Map<string, DataConnection>;
@@ -39,7 +38,6 @@ export class PeerConnection {
         } else {
           for (const prefix of this.callbacks.keys()) {
             if (data.startsWith(prefix)) {
-
               const value = data.substr(prefix.length);
               this.callbacks.get(prefix)(value);
             }
@@ -69,25 +67,40 @@ export class PeerConnection {
     this.callbacks.set(keyPhrase, callback);
   }
 
-  send(targetId: string, message: string) {
-    const conn = this.peer.connect(targetId);
-    conn.on('open', () => {
-      conn.send(message);
-    });
+  send(targetId: string, message: string, clearResponse: boolean = false) {
+    let messageSent = false;
+    if (this.peers.has(targetId)) {
+      const conn = this.peers.get(targetId);
+      if (conn.open) {
+        if (clearResponse) {
+          this.responses.delete(targetId);
+        }
+        conn.send(message);
+        messageSent = true;
+      } else {
+        Log.info(`Connection is not open to: ${targetId}`)
+      }
+    }
+    if (!messageSent) {
+      const conn = this.peer.connect(targetId);
+      this.peers.set(targetId, conn);
+      conn.on('open', () => {
+        Log.info(`New connection open to: ${targetId}`);
+        if (clearResponse) {
+          this.responses.delete(targetId);
+        }
+        conn.send(message);
+      });
+    }
   }
 
   async sendAndPromiseResponse(targetId: string, message: string) {
     this.waitReady()
       .then(() => {
-        this.conn = this.peer.connect(targetId);
-        this.conn.on('open', () => {
-          this.responses.delete(targetId);
-          this.conn.send(message);
-        });
+        this.send(targetId, message, /*clearResponse=*/true);
       });
     return new Promise((resolve, reject) => {
       const deadline = window.performance.now() + 5000;
-      Log.info(`${this.peer.id}: Deadline ${deadline.toFixed(0)}.`);
       this.waitForResponse(targetId, deadline, resolve, reject);
     });
   }
@@ -107,7 +120,7 @@ export class PeerConnection {
       } else {
         setTimeout(() => {
           this.waitForResponse(id, deadline, resolve, reject);
-        }, 1);
+        }, 10);
       }
     }
   }

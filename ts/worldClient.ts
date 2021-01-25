@@ -1,34 +1,32 @@
+import { HeartbeatGroup } from "./heartbeatGroup";
 import { Log } from "./log";
 import { PeerConnection } from "./peerConnection";
 
-export class WorldClient {
-  private personalConnection: PeerConnection;
+export class WorldClient extends HeartbeatGroup {
   private worldServerId: string;
-  private otherConnections: Set<string>;
   private updateCallbacks: Function[];
 
   constructor(worldServerId: string) {
+    super();
     Log.info("Creating new client to the world.");
-    this.personalConnection = new PeerConnection(null);
     this.worldServerId = worldServerId;
-    this.otherConnections = new Set<string>();
     this.updateCallbacks = [];
 
-    this.personalConnection.addCallback("Meet ", (other: string) => {
+    this.connection.addCallback("Meet ", (other: string) => {
       Log.info(`Hello there, ${other}`);
-      if (other !== this.personalConnection.id()) {
-        this.otherConnections.add(other);
+      if (other !== this.connection.id()) {
+        this.otherConnections.set(other, window.performance.now());
       }
     });
 
-    this.personalConnection.addCallback("State: ", (serialized: string) => {
+    this.connection.addCallback("State: ", (serialized: string) => {
       Log.info(`Recieved new state: ${serialized.length}`);
       for (const callback of this.updateCallbacks) {
         callback(serialized);
       }
-    })
+    });
 
-    this.personalConnection.waitReady().then(() => {
+    this.connection.waitReady().then(() => {
       Log.info("Introducing myself.")
       this.introduce();
     });
@@ -61,8 +59,8 @@ export class WorldClient {
   }
 
   introduce() {
-    this.personalConnection.sendAndPromiseResponse(this.worldServerId,
-      `My id is: ${this.personalConnection.id()}`)
+    this.connection.sendAndPromiseResponse(this.worldServerId,
+      `My id is: ${this.connection.id()}`)
       .then(() => {
         Log.info("I was heard.");
       })
@@ -72,21 +70,12 @@ export class WorldClient {
       });
   }
 
-  broadcast(message: string) {
-    Log.info(`Broadcasting to ${this.otherConnections.size}`)
-    for (const other of this.otherConnections) {
-      this.personalConnection.send(other, message);
-    }
-  }
-
   sendNewState(serialized: string) {
     Log.info("Broadcasting update.");
     this.broadcast(`State: ${serialized}`);
   }
 
   getConnection() {
-    return this.personalConnection;
+    return this.connection;
   }
-
-
 }
