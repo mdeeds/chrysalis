@@ -3,7 +3,7 @@ import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { MasterControl } from "./masterControl";
 import { Thing } from "./thing";
 import { Log } from "./log";
-import { BoundingBox } from "./quadTree";
+import { BoundingBox } from "./quadTreeView";
 import { State } from "./state";
 import { WorldClient } from "./worldClient";
 

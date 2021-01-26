@@ -13,7 +13,7 @@ import { Log } from "./log";
 import { Ocean } from "./ocean";
 import { Perspective } from "./perspective";
 import { Player } from "./player";
-import { BoundingBox } from "./quadTree";
+import { BoundingBox } from "./quadTreeView";
 import { Shape } from "./shape";
 import { State } from "./state";
 import { Tablet } from "./tablet";
