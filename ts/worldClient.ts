@@ -1,13 +1,21 @@
 import { HeartbeatGroup } from "./heartbeatGroup";
 import { Log } from "./log";
-import { PeerConnection } from "./peerConnection";
+import { State } from "./state";
+import { WorldServer } from "./worldServer";
 
 export class WorldClient extends HeartbeatGroup {
   private worldServerId: string;
   private updateCallbacks: Function[];
+  private gl: WebGLRenderingContext;
+  private worldName: string;
+  private username: string;
 
-  constructor(worldServerId: string) {
+  constructor(gl: WebGLRenderingContext, worldServerId: string,
+    worldName: string, username: string) {
     super();
+    this.gl = gl;
+    this.worldName = worldName;
+    this.username = username;
     Log.info("Creating new client to the world.");
     this.worldServerId = worldServerId;
     this.updateCallbacks = [];
@@ -30,31 +38,44 @@ export class WorldClient extends HeartbeatGroup {
       Log.info("Introducing myself.")
       this.introduce();
     });
+
+    this.findWorldServer();
   }
 
   addCallback(callback: Function) {
     this.updateCallbacks.push(callback);
   }
 
-  getWorldStateText(): Promise<string> {
-    return new Promise((resolve, reject) => {
+  findWorldServer() {
+    return new Promise<void>((resolve, reject) => {
       this.getConnection()
         .sendAndPromiseResponse(this.worldServerId, "Hi!")
         .then((id) => {
-          Log.info("Thank you: " + id);
-          this.getConnection().sendAndPromiseResponse(
-            this.worldServerId, "World, please.")
-            .then((worldData: string) => {
-              Log.info("Recieved world from server.");
-              resolve(worldData);
-            })
-            .catch((reason) => {
-              reject(reason);
-            });
+          Log.info(`Connected to world server: ${id}`);
+          resolve();
+        })
+        .catch((reason) => {
+          Log.info('Initiating new world server');
+          const worldServer = new WorldServer(
+            this.gl, this.worldServerId, this.worldName, this.username);
+          resolve();
+        });
+    });
+  }
+
+  async getWorldState(): Promise<State> {
+    await this.findWorldServer();
+    return new Promise((resolve, reject) => {
+      this.getConnection().sendAndPromiseResponse(
+        this.worldServerId, "World, please.")
+        .then((serialized: string) => {
+          const state = new State(this.gl, this.worldName, this.username);
+          state.buildFromString(serialized);
+          resolve(state);
         })
         .catch((reason) => {
           reject(reason);
-        })
+        });
     });
   }
 

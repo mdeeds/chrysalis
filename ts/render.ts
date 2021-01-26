@@ -1,19 +1,20 @@
 import { ProgramInfo } from "./programInfo"
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
-import { World } from "./world";
 import { MasterControl } from "./masterControl";
 import { Thing } from "./thing";
 import { Log } from "./log";
 import { BoundingBox } from "./quadTree";
 import { State } from "./state";
+import { WorldClient } from "./worldClient";
 
 export class Render {
   private canvas: HTMLCanvasElement;
   private programInfo: ProgramInfo;
   private gl: WebGLRenderingContext;
-  private world: World;
   private masterControl: MasterControl;
   private focusContainer: HTMLElement;
+  private worldClient: WorldClient;
+  private state: State;
   constructor() {
     for (let h of document.getElementsByTagName('h1')) {
       h.remove();
@@ -43,21 +44,33 @@ export class Render {
     this.programInfo = new ProgramInfo();
     this.programInfo.program = shaderProgram;
 
-    this.programInfo.vertexPosition = this.gl.getAttribLocation(shaderProgram, 'aVertexPosition');
-    this.programInfo.vertexNormal = this.gl.getAttribLocation(shaderProgram, 'aVertexNormal');
-    this.programInfo.textureCoord = this.gl.getAttribLocation(shaderProgram, 'aTextureCoord');
+    this.programInfo.vertexPosition =
+      this.gl.getAttribLocation(shaderProgram, 'aVertexPosition');
+    this.programInfo.vertexNormal =
+      this.gl.getAttribLocation(shaderProgram, 'aVertexNormal');
+    this.programInfo.textureCoord =
+      this.gl.getAttribLocation(shaderProgram, 'aTextureCoord');
 
-    this.programInfo.uSampler = this.gl.getUniformLocation(shaderProgram, 'uSampler');
-    this.programInfo.projectionMatrix = this.gl.getUniformLocation(shaderProgram, 'uProjectionMatrix');
-    this.programInfo.modelViewMatrix = this.gl.getUniformLocation(shaderProgram, 'uModelViewMatrix');
-    this.programInfo.objectTransform = this.gl.getUniformLocation(shaderProgram, 'uObjectTransform');
-    this.programInfo.eyePosition = this.gl.getUniformLocation(shaderProgram, "uEyePosition");
+    this.programInfo.uSampler =
+      this.gl.getUniformLocation(shaderProgram, 'uSampler');
+    this.programInfo.projectionMatrix =
+      this.gl.getUniformLocation(shaderProgram, 'uProjectionMatrix');
+    this.programInfo.modelViewMatrix =
+      this.gl.getUniformLocation(shaderProgram, 'uModelViewMatrix');
+    this.programInfo.objectTransform =
+      this.gl.getUniformLocation(shaderProgram, 'uObjectTransform');
+    this.programInfo.eyePosition =
+      this.gl.getUniformLocation(shaderProgram, "uEyePosition");
 
     Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
-    this.world = new World("vialis", this.gl, username);
+    const worldName = "vialis"
+    const worldServerId = `chrysalis-vialis-72361`
+    this.worldClient =
+      new WorldClient(this.gl, worldServerId, worldName, username);
 
-    this.world.getState().then((state: State) => {
+    this.worldClient.getWorldState().then((state: State) => {
+      this.state = state;
       this.masterControl = new MasterControl(this.gl,
         state, this.focusContainer, username);
       this.focusContainer.focus();
@@ -66,10 +79,10 @@ export class Render {
   }
 
   private renderLoop() {
-    const playerCoords = this.world.getPlayerCoords();
+    const playerCoords = this.state.getPlayerCoords();
     this.setScene(this.gl, this.programInfo,
       playerCoords);
-    for (const thing of this.world.getThings(
+    for (const thing of this.state.getThings(
       new BoundingBox(playerCoords[0], playerCoords[2] - 5, 26))) {
       thing.render(this.gl, this.programInfo);
     }

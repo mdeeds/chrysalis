@@ -18,14 +18,28 @@ export class State {
   private thingIndex: Map<number, Thing>;
   readonly library: Library;
 
-  gl: WebGLRenderingContext;
-  constructor(gl: WebGLRenderingContext) {
+  private gl: WebGLRenderingContext;
+  private worldName: string;
+  private saveButton: HTMLAnchorElement;
+  private username: string;
+  constructor(gl: WebGLRenderingContext, worldName: string,
+    username: string) {
     this.gl = gl;
+    this.worldName = worldName;
+    this.username = username;
     this.players = new Map<string, ThingState>();
     this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
     this.thingIndex = new Map<number, Thing>();
     this.library = new Library();
     this.radius = 0;
+
+    this.saveButton = document.createElement('a');
+    this.saveButton.innerText = "Download";
+    // this.saveButton.download = "vialis.json";
+    const saveDiv = document.createElement('div');
+    saveDiv.appendChild(this.saveButton);
+    saveDiv.classList.add("download");
+    document.getElementsByTagName('body')[0].appendChild(saveDiv);
   }
 
   apply(other: StateDelta) {
@@ -142,7 +156,7 @@ export class State {
     }
   }
 
-  deserialize(data: string) {
+  private deserialize(data: string) {
     const dict: any = JSON.parse(data);
     this.mergeFromObject(dict);
     Log.info("Loaded size: " + data.length.toLocaleString());
@@ -191,5 +205,45 @@ export class State {
         }
       }
     }
+  }
+
+  materializeUser(username: string) {
+    if (!this.players.has(username)) {
+      Log.info(`${username} is new to this world.`);
+      const playerState = this.players.get("_prototype");
+      this.players.set(username, playerState);
+    } else {
+      Log.info(`Welcome back, ${username}.`);
+    }
+  }
+
+  getPlayerCoords() {
+    if (!this.players.has(this.username)) {
+      this.materializeUser(this.username);
+    }
+    return this.players.get(this.username).xyz;
+  }
+
+  private saveLoop() {
+    const serializedState = this.serialize();
+    window.localStorage.setItem(`${this.worldName}-world`, serializedState);
+    setTimeout(() => { this.saveLoop(); }, 2000);
+    const dataUrl = "data:text/javascript;base64," + btoa(serializedState);
+    this.saveButton.href = dataUrl;
+  }
+
+  buildFromString(data: string) {
+    Log.info(`Deserializing ${data.length} bytes of encoded state.`);
+    if (data.length < 100) {
+      Log.error(`Data: ${data}`);
+    }
+    this.deserialize(data);
+
+    Log.info(`Loaded ${this.library.size()} libraries.`);
+    for (const libName of this.library.libraryNames()) {
+      Log.info(`Library: ${libName}`);
+    }
+
+    this.saveLoop();
   }
 }

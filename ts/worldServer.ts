@@ -1,19 +1,31 @@
 import { HeartbeatGroup } from "./heartbeatGroup";
 import { Log } from "./log";
-import { PeerConnection } from "./peerConnection";
 import { State } from "./state";
-import { World } from "./world";
 
 export class WorldServer extends HeartbeatGroup {
-  constructor(worldServerId: string, world: World) {
+  private loaded: boolean;
+  private state: State;
+  private worldName: string;
+  private worldServerId: string;
+
+  constructor(
+    gl: WebGLRenderingContext,
+    worldServerId: string,
+    worldName: string,
+    username: string) {
     Log.info("Creating new server for the world.")
     super(worldServerId);
+    this.worldServerId = worldServerId;
+    this.worldName = worldName;
+    this.loaded = false;
+    this.state = new State(gl, worldName, username);
+    this.getState().then((state) => { this.state = state; });
 
     this.connection.addCallback("World, please.",
       async () => {
         Log.info("World request recieved.");
         let worldState: State;
-        worldState = await world.getState();
+        worldState = await this.getState();
         return worldState.serialize();
       })
     this.connection.addCallback("My id is: ",
@@ -41,5 +53,52 @@ export class WorldServer extends HeartbeatGroup {
         }
         return JSON.stringify(others);
       });
+  }
+
+  private async loadFromSavedState(): Promise<string> {
+    const worldData = window.localStorage.getItem(`${this.worldName}-world`);
+    const url = new URL(document.URL);
+    if (worldData && !url.searchParams.get('reset')) {
+      return new Promise((resolve, reject) => {
+        Log.info("Loading from local storage.");
+        resolve(worldData);
+      });
+    } else {
+      Log.info("Loading from json");
+      return this.load("emptyWorld.json");
+    }
+  }
+
+  private async load(url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const method = "GET";
+      xhr.open(method, url, true);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          var status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            resolve(xhr.responseText);
+          } else {
+            reject("Failed to load world.");
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+  private async getState(): Promise<State> {
+    if (this.loaded) {
+      return new Promise((resolve, reject) => {
+        resolve(this.state);
+      });
+    } else {
+      return new Promise(async (resolve, reject) => {
+        const serialized = await this.loadFromSavedState();
+        this.state.buildFromString(serialized);
+        resolve(this.state);
+      })
+    }
   }
 }

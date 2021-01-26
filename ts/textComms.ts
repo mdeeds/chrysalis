@@ -1,16 +1,12 @@
 import { Log } from "./log";
 import { State } from "./state";
-import { World } from "./world";
 import { WorldClient } from "./worldClient";
-import { WorldServer } from "./worldServer";
-const stringify = require("json-stringify-pretty-compact");
+import stringify from "json-stringify-pretty-compact";
 
 export class TextComms {
-  worldServer: WorldServer;
   worldClient: WorldClient;
   div: HTMLDivElement;
   worldServerId: string;
-  world: World;
   state: State;
   previousText: string;
 
@@ -19,9 +15,9 @@ export class TextComms {
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext("webgl");
 
-    this.world = new World("vialis", gl, username);
-    this.worldClient = this.world.getClient();
-    this.worldClient.addCallback((text) => {
+    this.worldClient =
+      new WorldClient(gl, this.worldServerId, "vialis", username);
+    this.worldClient.addCallback((text: string) => {
       this.setText(text);
     });
     this.state = null;
@@ -33,10 +29,10 @@ export class TextComms {
     this.div.contentEditable = "true";
     this.div.spellcheck = false;
     document.getElementsByTagName('body')[0].appendChild(this.div);
-    this.world.getState()
-      .then((state) => {
-        this.state = state;
-        this.setText(state.serialize());
+    this.worldClient.getWorldState()
+      .then((state: State) => {
+        const serializedState = state.serialize();
+        this.setText(serializedState);
       })
     this.sendUpdates();
   }
@@ -52,8 +48,8 @@ export class TextComms {
   sendUpdates() {
     if (this.previousText !== this.div.innerText) {
       try {
-        const dict: any = JSON.parse(this.div.innerText);
-        this.world.buildFromString(this.div.innerText);
+        // Parse the JSON and only send if it is valid.
+        JSON.parse(this.div.innerText);
         this.div.classList.remove("error");
         this.worldClient.sendNewState(this.div.innerText);
         this.previousText = this.div.innerText;
