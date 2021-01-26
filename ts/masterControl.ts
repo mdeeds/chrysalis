@@ -57,7 +57,7 @@ export class MasterControl {
 
     this.terminal = new Terminal(keyFocusElement);
 
-    for (const thing of this.state.everything.allEntries()) {
+    for (const thing of this.state.getEverything().allEntries()) {
       if (thing.state.code && thing instanceof Shape
         && !(thing instanceof Tablet)) {
         const computer = new Computer(
@@ -88,7 +88,7 @@ export class MasterControl {
       this.cogs.set(playerThing.state.id, youCog);
       this.terminal.setCog(youCog);
       this.keyFocusElement.focus();
-      this.state.everything.insert(
+      this.state.insert(
         playerState.xyz[0], playerState.xyz[2], playerThing);
     }
 
@@ -100,9 +100,9 @@ export class MasterControl {
     factory: (state: ThingState) => Ground, things: Thing[]) {
     for (const thing of things) {
       if (thing instanceof Ground && !selector(thing)) {
-        this.state.everything.remove(thing);
+        this.state.remove(thing);
         const newGround = factory(thing.state);
-        this.state.everything.insert(
+        this.state.insert(
           newGround.state.xyz[0], newGround.state.xyz[2], newGround);
         break;
       }
@@ -117,7 +117,7 @@ export class MasterControl {
       }
     }
     const newThing = factory();
-    this.state.everything.insert(
+    this.state.insert(
       newThing.state.xyz[0], newThing.state.xyz[2], newThing);
   }
 
@@ -135,7 +135,7 @@ export class MasterControl {
     let targetZ: number;
     [targetX, targetZ] = actor.state.inFrontXZ(2.0);
     const things: Thing[] = [];
-    this.state.everything.appendFromRange(
+    this.state.getEverything().appendFromRange(
       new BoundingBox(targetX, targetZ, 1.0), things);
     MasterControl.removeThing(things, actor);
     if (things.length == 0) {
@@ -231,7 +231,7 @@ export class MasterControl {
             Log.error(`Duplicate!? ${state.id}`);
           }
           const robot = new BasicBot(this.gl, state);
-          this.state.everything.insert(robot.state.xyz[0], robot.state.xyz[2], robot);
+          this.state.insert(robot.state.xyz[0], robot.state.xyz[2], robot);
           robot.state.code = "delta = {turn: 1.0, drive: 0.05}";
           robot.state.libraryList = "";
           const computer = new Computer(
@@ -243,7 +243,7 @@ export class MasterControl {
       if (action === "clear") {
         for (const thing of things) {
           if (!(thing instanceof Ground)) {
-            this.state.everything.remove(thing);
+            this.state.remove(thing);
           }
         }
       }
@@ -289,7 +289,7 @@ export class MasterControl {
       if (actor.drop() && this.cogs.has(actor.state.id)) {
         this.terminal.setCog(
           this.cogs.get(actor.state.id), /*takeFocus=*/false);
-        this.state.everything.move(droppedThing.state.xyz[0],
+        this.state.move(droppedThing.state.xyz[0],
           droppedThing.state.xyz[2], droppedThing);
       }
       return;
@@ -298,7 +298,7 @@ export class MasterControl {
     let targetZ: number;
     [targetX, targetZ] = actor.state.inFrontXZ(2.0);
     const things: Thing[] = [];
-    this.state.everything.appendFromRange(
+    this.state.getEverything().appendFromRange(
       new BoundingBox(targetX, targetZ, 2.0), things);
     MasterControl.removeThing(things, actor);
     let frontTile: Tile = null;
@@ -358,7 +358,7 @@ export class MasterControl {
 
     const cogLocation = cog.thing.state.xyz;
     if (cogLocation) {
-      this.state.everything.appendFromRange(
+      this.state.getEverything().appendFromRange(
         new BoundingBox(cogLocation[0],
           cogLocation[2], 10.0), things);
       let closestPlayer: Float32Array = null;
@@ -401,7 +401,7 @@ export class MasterControl {
     }
     t.state.data.bumped = false;
     const otherThings: Thing[] = [];
-    this.state.everything.appendFromRange(
+    this.state.getEverything().appendFromRange(
       new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
     MasterControl.removeThing(otherThings, t);
     for (const other of otherThings) {
@@ -484,8 +484,8 @@ export class MasterControl {
     this.pendingEvents = futureStack;
 
     const allThings: Thing[] = [];
-    this.state.everything.appendFromRange(
-      this.state.everything.getBoundary(), allThings);
+    this.state.getEverything().appendFromRange(
+      this.state.getEverything().getBoundary(), allThings);
 
     for (const t of allThings) {
       this.collideThing(t, deltaStorage);
@@ -496,7 +496,7 @@ export class MasterControl {
       const arr = deltaStorage.get(thing);
       state.xyz[0] += arr[0];
       state.xyz[2] += arr[2];
-      this.state.everything.move(state.xyz[0], state.xyz[2], thing);
+      this.state.move(state.xyz[0], state.xyz[2], thing);
     }
 
     this.frameNumber++;

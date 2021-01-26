@@ -3,7 +3,7 @@ import { Library } from "./library";
 import { Log } from "./log";
 import { Ocean } from "./ocean";
 import { Player } from "./player";
-import { BoundingBox } from "./quadTreeView";
+import { BoundingBox, QuadTreeView } from "./quadTreeView";
 import { QuadTree } from "./quadTree";
 import { StateDelta } from "./stateDelta";
 import { Thing } from "./thing";
@@ -15,7 +15,7 @@ import { Tile } from "./tile";
 export class State {
   radius: number;
   readonly players: Map<string, ThingState>;
-  readonly everything: QuadTree<Thing>;
+  private everything: QuadTree<Thing>;
   private thingIndex: Map<number, Thing>;
   readonly library: Library;
 
@@ -41,6 +41,25 @@ export class State {
     saveDiv.appendChild(this.saveButton);
     saveDiv.classList.add("download");
     document.getElementsByTagName('body')[0].appendChild(saveDiv);
+  }
+
+  getEverything(): QuadTreeView<Thing> {
+    return this.everything as QuadTreeView<Thing>;
+  }
+
+  // TODO: Broadcast
+  insert(x: number, z: number, thing: Thing) {
+    this.everything.insert(x, z, thing);
+  }
+
+  // TODO: Broadcast
+  remove(thing: Thing) {
+    this.everything.remove(thing);
+  }
+
+  // TODO: Broadcast
+  move(newX: number, newZ: number, thing: Thing) {
+    this.everything.move(newX, newZ, thing);
   }
 
   apply(other: StateDelta) {
