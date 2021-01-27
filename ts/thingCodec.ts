@@ -41,7 +41,11 @@ export class ThingCodec {
       case "GopherHole":
         return new GopherHole(gl, thingState);
       case "BasicBot":
-        return new BasicBot(gl, thingState);
+        const bot = new BasicBot(gl, thingState);
+        if (thingState.imageSource) {
+          bot.setTextureImage(thingState.imageSource);
+        }
+        return bot;
       case "Beacon":
         return new Beacon(gl, thingState);
       case "Tablet":
