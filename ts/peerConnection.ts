@@ -15,7 +15,6 @@ export class PeerConnection {
     this.peers = new Map<string, DataConnection>();
     this.responses = new Map<string, string>();
     this.callbacks = new Map<string, Function>();
-    this.addCallback("Hi!", () => { return "Hello." });
     this.ready = false;
     this.readyCallbacks = [];
     this.peer.on('open', (id: string) => {

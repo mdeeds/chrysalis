@@ -40,7 +40,6 @@ export class WorldServer extends HeartbeatGroup {
           }
         }
         if (value !== this.connection.id()) {
-          this.connection.send(value, "Nice to meet you.");
           this.otherConnections.set(value, window.performance.now());
         }
         return "";
