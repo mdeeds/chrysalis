@@ -1,7 +1,9 @@
 import { HeartbeatGroup } from "./heartbeatGroup";
 import { Log } from "./log";
 import { State } from "./state";
+import { ThingCodec } from "./thingCodec";
 import { WorldServer } from "./worldServer";
+import { Thing } from "./thing";
 
 export class WorldClient extends HeartbeatGroup {
   private worldServerId: string;
@@ -9,6 +11,7 @@ export class WorldClient extends HeartbeatGroup {
   private gl: WebGLRenderingContext;
   private worldName: string;
   private username: string;
+  private state: State;
 
   constructor(gl: WebGLRenderingContext, worldServerId: string,
     worldName: string, username: string) {
@@ -16,6 +19,7 @@ export class WorldClient extends HeartbeatGroup {
     this.gl = gl;
     this.worldName = worldName;
     this.username = username;
+    this.state = null;
     Log.info("Creating new client to the world.");
     this.worldServerId = worldServerId;
     this.updateCallbacks = [];
@@ -27,12 +31,12 @@ export class WorldClient extends HeartbeatGroup {
       }
     });
 
-    this.connection.addCallback("State: ", (serialized: string) => {
-      Log.info(`Recieved new state: ${serialized.length}`);
-      for (const callback of this.updateCallbacks) {
-        callback(serialized);
-      }
-    });
+    this.connection.addCallback("Move: ", (serialized: string) => {
+      if (!this.state) { return; }
+      const dict: any = JSON.parse(serialized);
+      const movedThing = ThingCodec.decode(this.gl, dict, this.state.library);
+      this.state.mergeThing(movedThing);
+    })
 
     this.connection.waitReady().then(() => {
       Log.info("Introducing myself.")
@@ -44,6 +48,11 @@ export class WorldClient extends HeartbeatGroup {
 
   addCallback(callback: Function) {
     this.updateCallbacks.push(callback);
+  }
+
+  move(movedThing: Thing) {
+    const serialized = ThingCodec.encode(movedThing);
+    this.broadcast(`Move: ${serialized}`);
   }
 
   findWorldServer() {
@@ -69,9 +78,9 @@ export class WorldClient extends HeartbeatGroup {
       this.getConnection().sendAndPromiseResponse(
         this.worldServerId, "World, please.")
         .then((serialized: string) => {
-          const state = new State(this.gl, this.worldName, this.username);
-          state.buildFromString(serialized);
-          resolve(state);
+          this.state = new State(this.gl, this.worldName, this.username);
+          this.state.buildFromString(serialized);
+          resolve(this.state);
         })
         .catch((reason) => {
           reject(reason);

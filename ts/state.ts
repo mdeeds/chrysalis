@@ -75,12 +75,8 @@ export class State {
   }
 
   applyThing(target: ThingState, other: ThingStateDelta) {
-    if (other.dxyz != null) {
-      for (let i = 0; i < 3; ++i) {
-        target.xyz[i] += other.dxyz[i];
-      }
-    }
-    if (other.drive != null && other.drive != 0 && other.turn != null) {
+    if (other.turn !== NaN && other.drive !== NaN &&
+      other.drive != null && other.drive != 0 && other.turn != null) {
       const drive = Math.max(-1.0, Math.min(1.0, other.drive));
       let turn = Math.max(-1.0, Math.min(1.0, other.turn));
       if (other.drive < 0) {
@@ -153,26 +149,30 @@ export class State {
     return JSON.stringify(dict);
   }
 
+  mergeThing(thing: Thing) {
+    if (thing instanceof Tile) {
+      // TODO: Support tile updates?
+      return;
+    }
+    if (this.thingIndex.has(thing.state.id)) {
+      const oldThing = this.thingIndex.get(thing.state.id);
+      const moved = (oldThing.state.xyz[0] != thing.state.xyz[0] ||
+        oldThing.state.xyz[2] != thing.state.xyz[2]);
+      oldThing.state.mergeFrom(thing.state);
+      if (moved) {
+        this.everything.move(oldThing.state.xyz[0], oldThing.state.xyz[2],
+          oldThing);
+      }
+    } else {
+      this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
+      this.thingIndex.set(thing.state.id, thing);
+    }
+  }
+
   mergeThings(thingsDict: any) {
     for (const encoded of thingsDict) {
       const thing: Thing = ThingCodec.decode(this.gl, encoded, this.library);
-      if (thing instanceof Tile) {
-        // TODO: Support tile updates?
-        continue;
-      }
-      if (this.thingIndex.has(thing.state.id)) {
-        const oldThing = this.thingIndex.get(thing.state.id);
-        const moved = (oldThing.state.xyz[0] != thing.state.xyz[0] ||
-          oldThing.state.xyz[2] != thing.state.xyz[2]);
-        oldThing.state.mergeFrom(thing.state);
-        if (moved) {
-          this.everything.move(oldThing.state.xyz[0], oldThing.state.xyz[2],
-            oldThing);
-        }
-      } else {
-        this.everything.insert(thing.state.xyz[0], thing.state.xyz[2], thing);
-        this.thingIndex.set(thing.state.id, thing);
-      }
+      this.mergeThing(thing);
     }
   }
 
