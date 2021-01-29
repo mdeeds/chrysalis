@@ -59,14 +59,16 @@ export class WorldClient extends HeartbeatGroup {
     return new Promise<void>((resolve, reject) => {
       this.getConnection()
         .sendAndPromiseResponse(this.worldServerId, "Hi!")
-        .then((id) => {
-          Log.info(`Connected to world server: ${id}`);
+        .then((message) => {
+          Log.info(`Connected to world server: ${message}`);
           resolve();
         })
         .catch((reason) => {
           Log.info('Initiating new world server');
+          this.state = new State(this.gl, this.worldName, this.username);
           const worldServer = new WorldServer(
-            this.gl, this.worldServerId, this.worldName, this.username);
+            this.gl, this.worldServerId, this.worldName, this.username,
+            this.state);
           resolve();
         });
     });

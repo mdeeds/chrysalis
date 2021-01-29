@@ -12,14 +12,21 @@ export class WorldServer extends HeartbeatGroup {
     gl: WebGLRenderingContext,
     worldServerId: string,
     worldName: string,
-    username: string) {
+    username: string,
+    state: State) {
     Log.info("Creating new server for the world.")
     super(worldServerId);
     this.worldServerId = worldServerId;
     this.worldName = worldName;
     this.loaded = false;
-    this.state = new State(gl, worldName, username);
-    this.getState().then((state) => { this.state = state; });
+    this.state = state;
+    (async function () { await this.getState(); })();
+
+    // The "Hi!" message is the protocol for establishing the presence of
+    // a WorldServer.
+    this.connection.addCallback("Hi!", () => {
+      return `Welcome to ${worldName}`;
+    });
 
     this.connection.addCallback("World, please.",
       async () => {
@@ -94,6 +101,7 @@ export class WorldServer extends HeartbeatGroup {
       });
     } else {
       return new Promise(async (resolve, reject) => {
+        Log.info('Loading world from saved state.');
         const serialized = await this.loadFromSavedState();
         this.state.buildFromString(serialized);
         resolve(this.state);
