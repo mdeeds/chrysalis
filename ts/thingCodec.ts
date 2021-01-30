@@ -5,6 +5,7 @@ import { GopherHole } from "./gopherHole";
 import { Library } from "./library";
 import { LibTablet } from "./libTablet";
 import { Log } from "./log";
+import { Player } from "./player";
 import { Tablet } from "./tablet";
 import { Thing } from "./thing";
 import { ThingState } from "./thingState";
@@ -22,6 +23,8 @@ export class ThingCodec {
       result.typeName = "BasicBot";
     } else if (thing instanceof Beacon) {
       result.typeName = "Beacon";
+    } else if (thing instanceof Player) {
+      result.typeName = "Player";
     } else {
       Log.error(`Missing encoding ${thing.constructor.name}`);
       return null;
@@ -55,6 +58,8 @@ export class ThingCodec {
         } else {
           return new Tablet(gl, thingState);
         }
+      case "Player":
+        return new Player(gl, thingState);
     }
     Log.error(`Cannot decode type: ${dict.typeName}`);
     return null;

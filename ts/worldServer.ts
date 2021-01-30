@@ -20,7 +20,7 @@ export class WorldServer extends HeartbeatGroup {
     this.worldName = worldName;
     this.loaded = false;
     this.state = state;
-    (async function () { await this.getState(); })();
+    (async function () { await this.getState(); }.bind(this))();
 
     // The "Hi!" message is the protocol for establishing the presence of
     // a WorldServer.

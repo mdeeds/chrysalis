@@ -32,7 +32,10 @@ export class WorldClient extends HeartbeatGroup {
     });
 
     this.connection.addCallback("Move: ", (serialized: string) => {
-      if (!this.state) { return; }
+      if (!this.state) {
+        Log.info("Discarding move... No state.");
+        return;
+      }
       const dict: any = JSON.parse(serialized);
       const movedThing = ThingCodec.decode(this.gl, dict, this.state.library);
       this.state.mergeThing(movedThing);
@@ -50,11 +53,6 @@ export class WorldClient extends HeartbeatGroup {
     this.updateCallbacks.push(callback);
   }
 
-  move(movedThing: Thing) {
-    const serialized = ThingCodec.encode(movedThing);
-    this.broadcast(`Move: ${serialized}`);
-  }
-
   findWorldServer() {
     return new Promise<void>((resolve, reject) => {
       this.getConnection()
@@ -65,7 +63,8 @@ export class WorldClient extends HeartbeatGroup {
         })
         .catch((reason) => {
           Log.info('Initiating new world server');
-          this.state = new State(this.gl, this.worldName, this.username);
+          this.state = new State(this.gl, this.worldName, this.username,
+            this.broadcast.bind(this));
           const worldServer = new WorldServer(
             this.gl, this.worldServerId, this.worldName, this.username,
             this.state);
@@ -80,7 +79,8 @@ export class WorldClient extends HeartbeatGroup {
       this.getConnection().sendAndPromiseResponse(
         this.worldServerId, "World, please.")
         .then((serialized: string) => {
-          this.state = new State(this.gl, this.worldName, this.username);
+          this.state = new State(this.gl, this.worldName, this.username,
+            this.broadcast.bind(this));
           this.state.buildFromString(serialized);
           resolve(this.state);
         })

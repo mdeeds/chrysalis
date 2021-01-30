@@ -472,7 +472,7 @@ export class MasterControl {
         if (i.delta.state != null && i.delta.state.action != null) {
           this.handleAction(i.cog.thing);
         }
-        this.state.applyThing(i.cog.thing.state, i.delta);
+        this.state.applyThing(i.cog.thing, i.delta);
         if (!deltaStorage.has(i.cog.thing)) {
           // Register the fact that it has moved.
           deltaStorage.set(i.cog.thing, new Float32Array(3));
@@ -494,9 +494,11 @@ export class MasterControl {
     for (const thing of deltaStorage.keys()) {
       const state = thing.state;
       const arr = deltaStorage.get(thing);
-      state.xyz[0] += arr[0];
-      state.xyz[2] += arr[2];
-      this.state.move(state.xyz[0], state.xyz[2], thing);
+      if (arr[0] != 0 && arr[2] != 0) {
+        state.xyz[0] += arr[0];
+        state.xyz[2] += arr[2];
+        this.state.move(state.xyz[0], state.xyz[2], thing);
+      }
     }
 
     this.frameNumber++;

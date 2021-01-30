@@ -23,11 +23,13 @@ export class State {
   private worldName: string;
   private saveButton: HTMLAnchorElement;
   private username: string;
+  private broadcast: Function;
   constructor(gl: WebGLRenderingContext, worldName: string,
-    username: string) {
+    username: string, broadcast: Function = null) {
     this.gl = gl;
     this.worldName = worldName;
     this.username = username;
+    this.broadcast = broadcast;
     this.players = new Map<string, ThingState>();
     this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
     this.thingIndex = new Map<number, Thing>();
@@ -59,6 +61,11 @@ export class State {
 
   // TODO: Broadcast
   move(newX: number, newZ: number, thing: Thing) {
+    if (this.broadcast !== null) {
+      if (thing instanceof Player || thing.state.id === 1) {
+        this.broadcast(`Move: ${JSON.stringify(ThingCodec.encode(thing))}`);
+      }
+    }
     this.everything.move(newX, newZ, thing);
   }
 
@@ -74,7 +81,9 @@ export class State {
     }
   }
 
-  applyThing(target: ThingState, other: ThingStateDelta) {
+  applyThing(thing: Thing, other: ThingStateDelta) {
+    const target = thing.state;
+    let moved = false;
     if (other.turn !== NaN && other.drive !== NaN &&
       other.drive != null && other.drive != 0 && other.turn != null) {
       const drive = Math.max(-1.0, Math.min(1.0, other.drive));
@@ -94,9 +103,13 @@ export class State {
         (target.heading + Math.PI) % (Math.PI * 2) - Math.PI;
       target.xyz[0] = target.xyz[0] + dx;
       target.xyz[2] = target.xyz[2] + dz;
+      moved = (dx !== 0 || dz !== 0);
     }
     if (other.state != null) {
       target.data = other.state;
+    }
+    if (moved) {
+      this.move(target.xyz[0], target.xyz[2], thing);
     }
   }
 
