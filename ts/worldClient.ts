@@ -38,6 +38,7 @@ export class WorldClient extends HeartbeatGroup {
       }
       const dict: any = JSON.parse(serialized);
       const movedThing = ThingCodec.decode(this.gl, dict, this.state.library);
+      Log.info(`AAAAA: Moved: ${movedThing.state.id}`);
       this.state.mergeThing(movedThing);
     })
 

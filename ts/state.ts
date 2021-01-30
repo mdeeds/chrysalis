@@ -14,7 +14,7 @@ import { Tile } from "./tile";
 
 export class State {
   radius: number;
-  readonly players: Map<string, ThingState>;
+  readonly players: Map<string, number>;
   private everything: QuadTree<Thing>;
   private thingIndex: Map<number, Thing>;
   readonly library: Library;
@@ -30,7 +30,7 @@ export class State {
     this.worldName = worldName;
     this.username = username;
     this.broadcast = broadcast;
-    this.players = new Map<string, ThingState>();
+    this.players = new Map<string, number>();
     this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
     this.thingIndex = new Map<number, Thing>();
     this.library = new Library();
@@ -69,18 +69,6 @@ export class State {
     this.everything.move(newX, newZ, thing);
   }
 
-  apply(other: StateDelta) {
-    if (other.players != null) {
-      for (let name of other.players.keys()) {
-        if (!this.players.has(name)) {
-          Log.info("Orphaned ThingStateDelta for " + name);
-          this.players[name] = new ThingState([0, 0, 0]);
-        }
-        this.applyThing(this.players[name], other.players[name]);
-      }
-    }
-  }
-
   applyThing(thing: Thing, other: ThingStateDelta) {
     const target = thing.state;
     let moved = false;
@@ -117,10 +105,20 @@ export class State {
     if (other.players != null) {
       for (let name of Object.keys(other.players)) {
         Log.info(`Loading ${name} player info`);
-        if (!this.players.has(name)) {
-          this.players.set(name, new ThingState([0, 0, 0]));
+        const playerDict = other.players[name];
+        if (this.players.has(name)) {
+          const playerId = this.players.get(name);
+          const playerThing = this.thingIndex.get(playerId);
+          playerThing.state.mergeFrom(playerDict);
+        } else {
+          const playerId: number = playerDict.id;
+          const newPlayer = new Player(this.gl, new ThingState([0, 0, 0]));
+          newPlayer.state.mergeFrom(other.players[name]);
+          this.everything.insert(newPlayer.state.xyz[0], newPlayer.state.xyz[2],
+            newPlayer);
+          this.thingIndex.set(playerId, newPlayer);
+          this.players.set(name, playerId);
         }
-        this.players.get(name).mergeFrom(other.players[name]);
       }
     }
   }
