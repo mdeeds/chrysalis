@@ -32,6 +32,7 @@ export class WorldClient extends HeartbeatGroup {
     });
 
     this.connection.addCallback("Move: ", (serialized: string) => {
+      // Log.info("AAAAA: Moving...");
       if (!this.state) {
         Log.info("Discarding move... No state.");
         return;

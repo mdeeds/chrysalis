@@ -66,6 +66,7 @@ export class State {
     if (this.broadcast !== null) {
       if (thing instanceof Player &&
         thing.state.id === this.userId) {
+        // Log.info(`AAAAA Sending move.`);
         this.broadcast(`Move: ${JSON.stringify(ThingCodec.encode(thing))}`);
       }
     }

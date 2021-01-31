@@ -34,7 +34,7 @@ export class WorldServer extends HeartbeatGroup {
         let worldState: State;
         worldState = await this.getState();
         return worldState.serialize();
-      })
+      });
     this.connection.addCallback("My id is: ",
       (value: string) => {
         Log.info(`Sending introductions to ${this.otherConnections.size}`);
@@ -49,7 +49,7 @@ export class WorldServer extends HeartbeatGroup {
         if (value !== this.connection.id()) {
           this.otherConnections.set(value, window.performance.now());
         }
-        return "";
+        return `Thank you, ${value}.`;
       });
     this.connection.addCallback("Who is here?",
       (value: string) => {

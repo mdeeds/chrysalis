@@ -1,24 +1,37 @@
 import Peer, { DataConnection } from "peerjs";
 import { Log } from "./log";
 
+class ResolveReject {
+  resolve: Function;
+  reject: Function;
+  timeout: NodeJS.Timeout;
+  constructor(resolve: Function, reject: Function) {
+    this.resolve = resolve;
+    this.reject = reject;
+    this.timeout = setTimeout(() => {
+      reject("Deadline exceeded.");
+    }, 5000);
+  }
+}
+
 export class PeerConnection {
   private peer: Peer;
   private ready: boolean;
 
   private peers: Map<string, DataConnection>;
-  private responses: Map<string, string>;
+  private responses: Map<number, ResolveReject>;
   private callbacks: Map<string, Function>;
   private readyCallbacks: Function[];
 
   constructor(id: string) {
     this.peer = new Peer(id);
     this.peers = new Map<string, DataConnection>();
-    this.responses = new Map<string, string>();
+    this.responses = new Map<number, ResolveReject>();
     this.callbacks = new Map<string, Function>();
     this.ready = false;
     this.readyCallbacks = [];
     this.peer.on('open', (id: string) => {
-      Log.info(`${this.peer.id}: I am on.`);
+      Log.info(`I am ${this.peer.id}`);
       this.ready = true;
       for (const readyCallback of this.readyCallbacks) {
         readyCallback(this);
@@ -26,19 +39,46 @@ export class PeerConnection {
     })
     this.peer.on('connection', (conn) => {
       conn.on('data', (data: string) => {
-        this.responses.set(conn.peer, data);
+        // First check if this is a timestamped response that we asked for.
+        const m = data.match(/<(\d+)<(.*)/);
+        if (m !== null) {
+          const timestamp = parseInt(m[1]);
+          if (this.responses.has(timestamp)) {
+            const rr = this.responses.get(timestamp);
+            clearTimeout(rr.timeout);
+            this.responses.delete(timestamp);
+            rr.resolve(m[2]);
+          } else {
+            Log.error(`${this.peer.id} did not ask for ${timestamp}`);
+          }
+          return;
+        }
+        // Check if this is a timestamped request from someone.  We will
+        // need to use this timestamp on the reply.
+        const m2 = data.match(/>(\d+)>(.*)/);
+        let responseTag = '';
+        if (m2 !== null) {
+          const timestamp = parseInt(m2[1]);
+          data = m2[2];
+          responseTag = `<${timestamp}<`;
+        }
         if (this.callbacks.has(data)) {
           const responseMessage = this.callbacks.get(data)();
           if (responseMessage instanceof Promise) {
-            responseMessage.then((message) => { this.send(conn.peer, message); });
+            responseMessage.then((message) => {
+              this.send(conn.peer, responseTag + message);
+            });
           } else {
-            this.send(conn.peer, responseMessage);
+            this.send(conn.peer, responseTag + responseMessage);
           }
         } else {
           for (const prefix of this.callbacks.keys()) {
             if (data.startsWith(prefix)) {
               const value = data.substr(prefix.length);
-              this.callbacks.get(prefix)(value);
+              const response = this.callbacks.get(prefix)(value);
+              if (response) {
+                this.send(conn.peer, responseTag + response);
+              }
             }
           }
         }
@@ -66,14 +106,11 @@ export class PeerConnection {
     this.callbacks.set(keyPhrase, callback);
   }
 
-  send(targetId: string, message: string, clearResponse: boolean = false) {
+  send(targetId: string, message: string) {
     let messageSent = false;
     if (this.peers.has(targetId)) {
       const conn = this.peers.get(targetId);
       if (conn.open) {
-        if (clearResponse) {
-          this.responses.delete(targetId);
-        }
         conn.send(message);
         messageSent = true;
       } else {
@@ -85,43 +122,21 @@ export class PeerConnection {
       this.peers.set(targetId, conn);
       conn.on('open', () => {
         Log.info(`New connection open to: ${targetId}`);
-        if (clearResponse) {
-          this.responses.delete(targetId);
-        }
         conn.send(message);
       });
     }
   }
 
   async sendAndPromiseResponse(targetId: string, message: string) {
+    const timestamp = Math.trunc(window.performance.now());
     this.waitReady()
       .then(() => {
-        this.send(targetId, message, /*clearResponse=*/true);
+        this.send(targetId, `>${timestamp.toFixed(0)}>${message}`);
       });
     return new Promise((resolve, reject) => {
-      const deadline = window.performance.now() + 5000;
-      this.waitForResponse(targetId, deadline, resolve, reject);
+      const rr = new ResolveReject(resolve, reject);
+      this.responses.set(timestamp, rr);
     });
-  }
-
-  waitForResponse(id: string, deadline: number,
-    resolve: Function, reject: Function) {
-    if (this.responses.has(id)) {
-      const response = this.responses.get(id);
-      this.responses.delete(id);
-      Log.info(`${this.peer.id}: I heard you, ${id}`);
-      resolve(response);
-    } else {
-      if (window.performance.now() >= deadline) {
-        Log.info(`${this.peer.id}: `
-          + `Deadline exceeded: ${(window.performance.now() - deadline)}`);
-        reject("Deadline exceeded.");
-      } else {
-        setTimeout(() => {
-          this.waitForResponse(id, deadline, resolve, reject);
-        }, 10);
-      }
-    }
   }
 
 }
