@@ -2,6 +2,7 @@ export class Log {
   private static target: HTMLDivElement;
   private static messages: HTMLDivElement[] = [];
   private static lastMessage = "";
+  private static startTime = window.performance.now();
 
   static setTargetElement(target: HTMLDivElement) {
     Log.target = target;
@@ -19,7 +20,8 @@ export class Log {
 
   static info(message: string) {
     if (message === this.lastMessage) { return; }
-    console.log(message);
+    const elapsedSeconds = (window.performance.now() - Log.startTime) / 1000;
+    console.log(`${elapsedSeconds.toFixed(3)}: ${message}`);
     this.lastMessage = message;
     const div = document.createElement("div");
     div.innerText = message;
