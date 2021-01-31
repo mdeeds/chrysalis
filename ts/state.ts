@@ -14,15 +14,16 @@ import { Tile } from "./tile";
 
 export class State {
   radius: number;
-  readonly players: Map<string, number>;
+  readonly players: Map<string, ThingState>;
   private everything: QuadTree<Thing>;
-  private thingIndex: Map<number, Thing>;
+  thingIndex: Map<number, Thing>;  // TODO make this private again.
   readonly library: Library;
 
   private gl: WebGLRenderingContext;
   private worldName: string;
   private saveButton: HTMLAnchorElement;
   private username: string;
+  private userId: number;
   private broadcast: Function;
   constructor(gl: WebGLRenderingContext, worldName: string,
     username: string, broadcast: Function = null) {
@@ -30,11 +31,12 @@ export class State {
     this.worldName = worldName;
     this.username = username;
     this.broadcast = broadcast;
-    this.players = new Map<string, number>();
+    this.players = new Map<string, ThingState>();
     this.everything = new QuadTree(new BoundingBox(0, 0, 1024));
     this.thingIndex = new Map<number, Thing>();
     this.library = new Library();
     this.radius = 0;
+    this.userId = null;
 
     this.saveButton = document.createElement('a');
     this.saveButton.innerText = "Download";
@@ -101,24 +103,13 @@ export class State {
     }
   }
 
-  private mergeFromObject(other: any) {
+  private loadPlayers(other: any) {
     if (other.players != null) {
       for (let name of Object.keys(other.players)) {
         Log.info(`Loading ${name} player info`);
         const playerDict = other.players[name];
-        if (this.players.has(name)) {
-          const playerId = this.players.get(name);
-          const playerThing = this.thingIndex.get(playerId);
-          playerThing.state.mergeFrom(playerDict);
-        } else {
-          const playerId: number = playerDict.id;
-          const newPlayer = new Player(this.gl, new ThingState([0, 0, 0]));
-          newPlayer.state.mergeFrom(other.players[name]);
-          this.everything.insert(newPlayer.state.xyz[0], newPlayer.state.xyz[2],
-            newPlayer);
-          this.thingIndex.set(playerId, newPlayer);
-          this.players.set(name, playerId);
-        }
+        const playerState = playerDict as ThingState;
+        this.players.set(name, playerState);
       }
     }
   }
@@ -189,7 +180,8 @@ export class State {
 
   private deserialize(data: string) {
     const dict: any = JSON.parse(data);
-    this.mergeFromObject(dict);
+    Log.info(`AAAAA: ${JSON.stringify(dict.players)}`);
+    this.loadPlayers(dict);
     Log.info("Loaded size: " + data.length.toLocaleString());
     const map: any = dict.map;
     this.radius = dict.radius;
@@ -249,10 +241,15 @@ export class State {
   }
 
   getPlayerCoords() {
-    if (!this.players.has(this.username)) {
+    if (!this.userId) {
       this.materializeUser(this.username);
+      this.userId = this.players.get(this.username).id;
     }
-    return this.players.get(this.username).xyz;
+    const player = this.thingIndex.get(this.userId);
+    if (!player) {
+      Log.error(`Nothing found for ${this.username} ${this.userId}`);
+    }
+    return player.state.xyz;
   }
 
   private saveLoop() {

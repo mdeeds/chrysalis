@@ -62,7 +62,6 @@ export class MasterControl {
         && !(thing instanceof Tablet)) {
         const computer = new Computer(
           thing.state.code, thing.state.libraryList, this.state.library);
-        Log.info(`New cog: ${thing.state.libraryList}`);
         const cog = new Cog(thing, computer);
         if (!(thing.state.id > 0) || this.cogs.has(thing.state.id)) {
           Log.error(`Invalid thing: ${thing.state.id}`);
@@ -77,19 +76,28 @@ export class MasterControl {
     } else {
       Log.info(`Materializing ${this.username}.`);
       const playerState = this.state.players.get(this.username);
-      const playerThing = new Player(this.gl, playerState);
+      const playerId = playerState.id;
+      let newPlayer = null;
+      if (this.state.thingIndex.has(playerId)) {
+        newPlayer = this.state.thingIndex.get(playerId);
+      } else {
+        newPlayer = new Player(this.gl, playerState);
+        this.state.thingIndex.set(playerId, newPlayer);
+      }
+      Log.info("Building computer for player.");
       const playerComputer =
         new Computer(playerState.code,
           playerState.libraryList, this.state.library);
-      const youCog = new Cog(playerThing, playerComputer);
-      if (this.cogs.has(playerThing.state.id)) {
-        Log.error(`Duplicate: ${playerThing.state.id}`);
+      const youCog = new Cog(newPlayer, playerComputer);
+      this.state.insert(newPlayer.state.xyz[0], newPlayer.state.xyz[2],
+        newPlayer);
+
+      if (this.cogs.has(newPlayer.state.id)) {
+        Log.error(`Duplicate: ${newPlayer.state.id}`);
       }
-      this.cogs.set(playerThing.state.id, youCog);
+      this.cogs.set(newPlayer.state.id, youCog);
       this.terminal.setCog(youCog);
       this.keyFocusElement.focus();
-      this.state.insert(
-        playerState.xyz[0], playerState.xyz[2], playerThing);
     }
 
     requestAnimationFrame((ts) => { this.eventLoop(ts); });
