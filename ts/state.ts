@@ -64,7 +64,8 @@ export class State {
   // TODO: Broadcast
   move(newX: number, newZ: number, thing: Thing) {
     if (this.broadcast !== null) {
-      if (thing instanceof Player || thing.state.id === 1) {
+      if (thing instanceof Player &&
+        thing.state.id === this.userId) {
         this.broadcast(`Move: ${JSON.stringify(ThingCodec.encode(thing))}`);
       }
     }
