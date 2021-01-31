@@ -180,7 +180,6 @@ export class State {
 
   private deserialize(data: string) {
     const dict: any = JSON.parse(data);
-    Log.info(`AAAAA: ${JSON.stringify(dict.players)}`);
     this.loadPlayers(dict);
     Log.info("Loaded size: " + data.length.toLocaleString());
     const map: any = dict.map;
