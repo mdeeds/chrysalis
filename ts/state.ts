@@ -110,7 +110,8 @@ export class State {
       for (let name of Object.keys(other.players)) {
         Log.info(`Loading ${name} player info`);
         const playerDict = other.players[name];
-        const playerState = playerDict as ThingState;
+        const playerState = new ThingState([0, 0, 0]);
+        playerState.mergeFrom(playerDict);
         this.players.set(name, playerState);
       }
     }
@@ -234,7 +235,8 @@ export class State {
   materializeUser(username: string) {
     if (!this.players.has(username)) {
       Log.info(`${username} is new to this world.`);
-      const playerState = this.players.get("_prototype");
+      const playerState = new ThingState([0, 0, 0]);
+      playerState.mergeFrom(this.players.get("_prototype"));
       this.players.set(username, playerState);
     } else {
       Log.info(`Welcome back, ${username}.`);
