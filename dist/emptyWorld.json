@@ -2681,32 +2681,13 @@
       "state": {
         "id": 481,
         "xyz": {
-          "0": 5.825472831726074,
+          "0": 1.4122779369354248,
           "1": 0,
-          "2": -8.087045669555664
+          "2": -5.8863043785095215
         },
-        "heading": -3.2743760461068527,
+        "heading": -6.406514203029592,
         "code": "if (perspective.data.bumped) {\n  delta.turn = -0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = 0.05;\n  delta.drive = 0.5;\n}",
         "libraryList": "turn things",
-        "imageSource": "Basic Bot.png",
-        "data": {
-          "action": 1,
-          "bumped": false
-        }
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
-        "id": 143479,
-        "xyz": {
-          "0": 0.5960506796836853,
-          "1": 0,
-          "2": -6.161799907684326
-        },
-        "heading": -2.4372480011545656,
-        "code": "if (perspective.data.bumped) {\n  delta.turn = 0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = -0.05;\n  delta.drive = 0.5;\n}",
-        "libraryList": "things",
         "imageSource": "Basic Bot.png",
         "data": {
           "action": 1,
@@ -2729,6 +2710,25 @@
         "imageSource": "tabletNote.png",
         "data": {
           "type": "note"
+        }
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 143479,
+        "xyz": {
+          "0": 1.0003817081451416,
+          "1": 0,
+          "2": -3.9284913539886475
+        },
+        "heading": 0.6737607701270223,
+        "code": "if (perspective.data.bumped) {\n  delta.turn = 0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = -0.05;\n  delta.drive = 0.5;\n}",
+        "libraryList": "things",
+        "imageSource": "Basic Bot.png",
+        "data": {
+          "action": 1,
+          "bumped": false
         }
       }
     },
@@ -2787,7 +2787,7 @@
           "1": 0,
           "2": 14.999999046325684
         },
-        "heading": 0.8012951056793378,
+        "heading": 3.0862567267036844,
         "code": "resetTurn();\nif (isLifting()) {\n  if (distanceToBeacon() < 13) {\n    goEast();\n    setTurn();\n  } else {\n    drop();\n  }\n} else {\n  if (distanceToBeacon() > 7) {\n    goWest();\n    setTurn();\n  } else {\n    delta.turn = 1.0;\n    delta.drive = 0.2;\n    grab();\n  }\n}",
         "libraryList": "things turn util",
         "imageSource": "Basic Bot.png",
@@ -2846,36 +2846,36 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 307535,
+        "id": 95962,
         "xyz": {
-          "0": 46.21080780029297,
+          "0": 42.126285552978516,
           "1": 0,
-          "2": 14.589130401611328
+          "2": 15.009547233581543
         },
-        "heading": -4.0134412624356575,
-        "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
-        "libraryList": "turn things",
+        "heading": -0.5910636564932688,
+        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
+        "libraryList": "",
         "imageSource": "Basic Bot.png",
         "data": {
-          "bumped": false
+          "bumped": true
         }
       }
     },
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 95962,
+        "id": 307535,
         "xyz": {
-          "0": 44.019142150878906,
+          "0": 46.21080780029297,
           "1": 0,
-          "2": 18.673095703125
+          "2": 14.589130401611328
         },
-        "heading": 2.1221216506865748,
-        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
-        "libraryList": "",
+        "heading": -6.283185306742994,
+        "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
+        "libraryList": "turn things",
         "imageSource": "Basic Bot.png",
         "data": {
-          "bumped": true
+          "bumped": false
         }
       }
     },
@@ -2888,7 +2888,7 @@
           "1": 0,
           "2": 14.990259170532227
         },
-        "heading": -4.179198453870168,
+        "heading": -6.2831853068998065,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
         "libraryList": "turn things",
         "imageSource": "Basic Bot.png",
@@ -2906,7 +2906,7 @@
           "1": 0,
           "2": 14.941085815429688
         },
-        "heading": -6.283185307179583,
+        "heading": -6.2831853071795685,
         "code": "let turn = 1.0;\nif (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {\n  turn = -1.0;\n}\nconst drive = Math.abs(subtractAngles(angleToPlayer(), perspective\n  .currentHeading)) / 4;\ndelta = {\n  turn: turn,\n  drive: drive\n}",
         "libraryList": "turn things",
         "imageSource": "Basic Bot.png",
@@ -2924,7 +2924,7 @@
           "1": 0,
           "2": 21.66701889038086
         },
-        "heading": -6.283185307179583,
+        "heading": -6.283185307177887,
         "code": "let turn = 1.0;\nif (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {\n  turn = -1.0;\n}\nconst drive = Math.abs(subtractAngles(angleToPlayer(), perspective\n  .currentHeading)) / 4;\ndelta = {\n  turn: turn,\n  drive: drive\n}",
         "libraryList": "turn things",
         "imageSource": "Basic Bot.png",
@@ -2942,7 +2942,7 @@
           "1": 0,
           "2": 20.948232650756836
         },
-        "heading": 8.881784197001252e-16,
+        "heading": 2.618349981275969e-12,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
         "libraryList": "turn things",
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACAklEQVRoQ+2YvXHDMAyFqQyVKgukT5E17EHsNVKkzwKpPFSUg+VngRAAQrZ1cSCr0lGECHwEHn+6rrz15YqnL59XWP+9aUcA9v172XQfs7yBTQoAsyIXnR8AMpTAIwNOBKiuW4/UilQlsO93pZTDicGz+r56AESHQ1hdBqweQPISWLkItlYA7XsKDfj5eqlie3r9Vllo/VIA4NEiSAnBak8BQB6GKFgNAG9LfRiKAEDWpMgAWfBzAFwinPdkc7wPkOIWdRAl8Z/tzwAs5bdg8CzRMqYF8V7sbwrAu1niJ03aTWoApD1s+O4TfSx7vlW3Trd8/AmA6DJozaA2aDQAcp4Hbb1TvwhALwthXwGwgtLaPQBawJg5bwYlAB6AzAYPgHevAd9UAK26lRsmLoJ4HwPdlU23Pc6oduEa0YDhfoKO39uJa60M0MblbYsBgKfkPHdcBhMBEElhXg6yZAg892NxAPVgyIBxFvl3fQaHvngAEPB4exSgnAj8Y5EMwGBytnk7gvIC0JyWbbYG1RBRQqMPQ0maALw1PSKSMm21rGipOHcWy5oVQF0CtmaEAeCHWv3xzZK3DkunNV3wVdwuH38fMC03KcoLl8CQXtZK0NYA2NcCOiyP9arSKoFRP+iWi2646TmcV6RFNOAWy2j0H1ERtP43ARAdmPdLcxi6JPgsNr8mbtpvB9xXagAAAABJRU5ErkJggg==",
@@ -2988,14 +2988,14 @@
     "matt": {
       "id": 2,
       "xyz": {
-        "0": 41.831180572509766,
+        "0": 40.30460739135742,
         "1": 0,
-        "2": 10.184064865112305
+        "2": 4.368102073669434
       },
-      "heading": -7.737410575694086,
-      "code": "resetTurn();\nif (perspective.keysDown.has('ArrowUp')) {\n  goNorth();\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\nsetTurn();\nif (perspective.keysDown.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}",
+      "heading": -0.08873948847696811,
+      "code": "resetTurn();if (perspective.keysDown.has('ArrowUp')) {  goNorth();}if (perspective.keysDown.has('ArrowDown')) {  goSouth();}if (perspective.keysDown.has('ArrowRight')) {  goEast();}if (perspective.keysDown.has('ArrowLeft')) {  goWest();}setTurn();if (perspective.keysDown.has('Space')) {  delta.state = {    action: 1  };}",
       "libraryList": "turn",
-      "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACXElEQVRoQ+2ZsUoDQRCGNyhoaZEusRT0BbTxDQSbgLEXBN8hIEIewC6VvRFs7OxtrC0UUmpAJA+gYFDmvL3szc3e/ne3G2PMNQmbmbmZb/+d3bvUjvfWvpRwPT5/qq31Zemn1Nh5c8NpQwb794eJ3c3OpWr0Bym/YRuLY/ppHx4bSig2qtkA0O8IhLIAKD4VM7yKC792p22DFgyAOyWlqgAwITQOBipPBSYsbhsMgE8F2GDyWUWgo8sFiRUtgZfRWDXrS4h9xgZRwMpZN+P3cdqJxlLLAMzAVEBebCRcbg9AAvgEQIXpS/cG25hWgRcAiNRtMHwDoMKjGY6bo/5ujimjYXoBoIvjICQwfMwnAERxvAEGBYCcDxAAFMdMVK9/cSts/dw1M+OteEw4L9hiI0BTPcClAEkRKIC8ZHgjlNZ9AgU8MCHFk02hJhgKgFYCfSYHI6MCDcTn9qfDT+0kiM6IdC4IUTgEAEn64W0bMZtZm8oKmGsAyLQtAMzDErCdBHsX/ZQITo7a0CMyopxZsYl6AAfACzeTnUUIVY7ymSaYVzyBIAAhL6QY14GtSH4JgPfObhG/xHa1e1fKz+ZUFABin5dgBMA161KAUEpACjJtEPsgAMpOuwsc8gRatWgz99r49Tb1Vri+OVnjo6fJLmAbLwriTwCgwqlgDkAaLwpA29tA/LoCyhZUxk+C8K8ASNvqAoDwj5TPfZ8rNdMEyYBeWfHXTNK7tzKy5z58GSAK8HFfHcMKgN9kWgCk4nxue5ACfBJGYpXZGpG4iI2oAMTRp80CQOAHrLzJ+gYllMTIfPpGLwAAAABJRU5ErkJggg==",
+      "imageSource": "Matt.png",
       "data": {
         "action": 1,
         "bumped": false
