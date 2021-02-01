@@ -1,5 +1,6 @@
 import { BasicBot } from "./basicBot";
 import { Beacon } from "./beacon";
+import { Gem } from "./gem";
 import { Gopher } from "./gopher";
 import { GopherHole } from "./gopherHole";
 import { Library } from "./library";
@@ -17,6 +18,8 @@ export class ThingCodec {
       result.typeName = "Gopher";
     } else if (thing instanceof GopherHole) {
       result.typeName = "GopherHole";
+    } else if (thing instanceof Gem) {
+      result.typeName = "Gem";
     } else if (thing instanceof Tablet) {
       result.typeName = "Tablet";
     } else if (thing instanceof BasicBot) {
@@ -39,6 +42,8 @@ export class ThingCodec {
       thingState.mergeFrom(dict.state as ThingState);
     }
     switch (dict.typeName) {
+      case "Gem":
+        return new Gem(gl, thingState);
       case "Gopher":
         return new Gopher(gl, thingState);
       case "GopherHole":

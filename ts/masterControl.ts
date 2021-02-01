@@ -4,6 +4,7 @@ import { Bubble } from "./bubble";
 import { Cog } from "./cog";
 import { Computer } from "./computer";
 import { Flower } from "./flower";
+import { Gem } from "./gem";
 import { Gopher } from "./gopher";
 import { GopherHole } from "./gopherHole";
 import { Ground } from "./ground";
@@ -205,6 +206,14 @@ export class MasterControl {
             const state: ThingState = new ThingState([targetX, 0, targetZ]);
             state.data = { type: "lib" };
             return new Tablet(this.gl, state);
+          }, things);
+      }
+      if (action === "setGem") {
+        this.setItem((thing: Thing) => { return thing instanceof Gem; },
+          () => {
+            const state: ThingState = new ThingState([targetX, 0, targetZ]);
+            state.data = { position: 1.0 };
+            return new Gem(this.gl, state);
           }, things);
       }
       if (action === "setGopher") {
