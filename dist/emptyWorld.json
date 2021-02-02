@@ -1553,16 +1553,20 @@
       -18
     ],
     [
-      38,
-      -22
-    ],
-    [
       36,
       -22
     ],
     [
       38,
+      -22
+    ],
+    [
+      38,
       -18
+    ],
+    [
+      40,
+      -22
     ],
     [
       42,
@@ -1570,15 +1574,15 @@
     ],
     [
       40,
-      -22
-    ],
-    [
-      40,
       -18
     ],
     [
       42,
       -18
+    ],
+    [
+      44,
+      -22
     ],
     [
       46,
@@ -1586,10 +1590,6 @@
     ],
     [
       44,
-      -22
-    ],
-    [
-      44,
       -18
     ],
     [
@@ -1719,14 +1719,14 @@
     [
       48,
       -22
-    ],
-    [
-      48,
-      -18
     ],
     [
       48,
       -20
+    ],
+    [
+      48,
+      -18
     ],
     [
       60,
@@ -1762,15 +1762,11 @@
     ],
     [
       48,
-      -14
-    ],
-    [
-      48,
       -16
     ],
     [
       48,
-      -10
+      -14
     ],
     [
       48,
@@ -1778,7 +1774,7 @@
     ],
     [
       48,
-      -6
+      -10
     ],
     [
       48,
@@ -1786,11 +1782,15 @@
     ],
     [
       48,
-      -2
+      -6
     ],
     [
       48,
       -4
+    ],
+    [
+      48,
+      -2
     ],
     [
       54,
@@ -2029,15 +2029,15 @@
       4
     ],
     [
-      24,
-      14
-    ],
-    [
       26,
       14
     ],
     [
       30,
+      14
+    ],
+    [
+      24,
       14
     ],
     [
@@ -2210,11 +2210,11 @@
     ],
     [
       34,
-      6
+      4
     ],
     [
       34,
-      4
+      6
     ],
     [
       34,
@@ -2245,6 +2245,10 @@
       14
     ],
     [
+      32,
+      8
+    ],
+    [
       40,
       0
     ],
@@ -2266,17 +2270,17 @@
     ],
     [
       44,
-      6
-    ],
-    [
-      46,
-      6
-    ],
-    [
-      44,
       4
     ],
     [
+      44,
+      6
+    ],
+    [
+      46,
+      6
+    ],
+    [
       40,
       8
     ],
@@ -2383,6 +2387,10 @@
     [
       46,
       22
+    ],
+    [
+      48,
+      0
     ],
     [
       48,
@@ -2391,10 +2399,6 @@
     [
       50,
       2
-    ],
-    [
-      48,
-      0
     ],
     [
       48,
@@ -2793,13 +2797,33 @@
       "state": {
         "id": 143479,
         "xyz": {
-          "0": 1.6128748655319214,
+          "0": 4.979497909545898,
           "1": 0,
-          "2": -15.136025428771973
+          "2": -11.098755836486816
         },
-        "heading": -3.1870013319499018,
+        "heading": 1.6896433757238416,
         "code": "if (perspective.data.bumped) {\n  delta.turn = 0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = -0.05;\n  delta.drive = 0.5;\n}",
         "libraryList": "things",
+        "gemLevel": 0,
+        "imageSource": "img/Basic Bot.png",
+        "data": {
+          "action": 1,
+          "bumped": false
+        }
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 481,
+        "xyz": {
+          "0": 3.747703790664673,
+          "1": 0,
+          "2": -9.47290325164795
+        },
+        "heading": -4.614655579929645,
+        "code": "if (perspective.data.bumped) {\n  delta.turn = -0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = 0.05;\n  delta.drive = 0.5;\n}",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
@@ -2828,26 +2852,6 @@
       }
     },
     {
-      "typeName": "BasicBot",
-      "state": {
-        "id": 481,
-        "xyz": {
-          "0": 5.980090618133545,
-          "1": 0,
-          "2": -6.719170093536377
-        },
-        "heading": -8.947687408144956,
-        "code": "if (perspective.data.bumped) {\n  delta.turn = -0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = 0.05;\n  delta.drive = 0.5;\n}",
-        "libraryList": "turn things",
-        "gemLevel": 0,
-        "imageSource": "img/Basic Bot.png",
-        "data": {
-          "action": 1,
-          "bumped": false
-        }
-      }
-    },
-    {
       "typeName": "Gem",
       "state": {
         "id": 388327,
@@ -2871,9 +2875,9 @@
       "state": {
         "id": 339085,
         "xyz": {
-          "0": 43.60997009277344,
+          "0": 43.786094665527344,
           "1": 0,
-          "2": -7.961767673492432
+          "2": -7.891550064086914
         },
         "heading": 0,
         "code": null,
@@ -2884,19 +2888,19 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 95962,
+        "id": 339084,
         "xyz": {
-          "0": 59.93724060058594,
+          "0": 40.02614212036133,
           "1": 0,
-          "2": -20.524425506591797
+          "2": -0.8720713257789612
         },
-        "heading": -0.7725110288162829,
-        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
-        "libraryList": "",
+        "heading": 4.440892098500626e-16,
+        "code": "resetTurn();if (distanceToBeacon() < 7) {  goSouth();}setTurn();",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
-          "bumped": true
+          "bumped": false
         }
       }
     },
@@ -2905,9 +2909,9 @@
       "state": {
         "id": 80123,
         "xyz": {
-          "0": 25.687829971313477,
+          "0": 25.656984329223633,
           "1": 0,
-          "2": 14.600431442260742
+          "2": 13.535181045532227
         },
         "heading": 0,
         "code": null,
@@ -2920,18 +2924,18 @@
       "state": {
         "id": 159329,
         "xyz": {
-          "0": 30.096172332763672,
+          "0": 29.947229385375977,
           "1": 0,
           "2": 14.999999046325684
         },
-        "heading": -0.5426907195062771,
+        "heading": 1.570796326794893,
         "code": "resetTurn();\nif (isLifting()) {\n  if (distanceToBeacon() < 13) {\n    goEast();\n    setTurn();\n  } else {\n    drop();\n  }\n} else {\n  if (distanceToBeacon() > 7) {\n    goWest();\n    setTurn();\n  } else {\n    delta.turn = 1.0;\n    delta.drive = 0.2;\n    grab();\n  }\n}",
         "libraryList": "things turn util",
         "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "action": 1,
-          "bumped": false
+          "bumped": true
         }
       }
     },
@@ -2985,21 +2989,21 @@
       }
     },
     {
-      "typeName": "BasicBot",
+      "typeName": "Tablet",
       "state": {
-        "id": 339084,
+        "id": 437574,
         "xyz": {
-          "0": 40,
+          "0": 44.81161880493164,
           "1": 0,
-          "2": 1.2719906568527222
+          "2": 11.618163108825684
         },
-        "heading": 4.440892098500626e-16,
-        "code": "resetTurn();\nif (distanceToBeacon() < 9) {\n  goSouth();\n}\nsetTurn();",
-        "libraryList": "turn things",
+        "heading": 0,
+        "code": "// Do you want your robot to follow you?\n// Try this out.\nlet turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;\nif (distanceToPlayer() < 3) {\n  drive = 0;\n} else {\n  drive = 1.0;\n}\ndelta = {\n  turn: turn,\n  drive: drive\n}",
+        "libraryList": "",
         "gemLevel": 0,
-        "imageSource": "img/Basic Bot.png",
+        "imageSource": "img/tabletNote.png",
         "data": {
-          "bumped": true
+          "type": "note"
         }
       }
     },
@@ -3008,12 +3012,12 @@
       "state": {
         "id": 307535,
         "xyz": {
-          "0": 46.07809829711914,
+          "0": 45.1247444152832,
           "1": 0,
-          "2": 14.544629096984863
+          "2": 22.05991554260254
         },
-        "heading": -8.881784197001252e-16,
-        "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
+        "heading": -6.283185307179583,
+        "code": "let turn = 1.0;\nif (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {\n  turn = -1.0;\n}\nconst drive = Math.abs(subtractAngles(angleToPlayer(), perspective\n  .currentHeading)) / 4;\ndelta = {\n  turn: turn,\n  drive: drive\n}",
         "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABZ0lEQVRoQ+1ZMRaCMAwtDgxMLk4MDHIFBy4iZ9SLeBImFycGBvVVKa8W0iT0qUHrIpLf9uf3J+VJopS6qYDPOstYozd5PuDPTTNcX9r2cY3NN4WD5qQQS6QIoMliIkDxRQmA7QqUJCYONi8U/6gD7J0yhOwyMPfcZH3JU+dclAB2ORjiUG/4WQEoPUFjvi7AtijI5bdK0xH22nXk8VPA0DmDe8DfC4Cd2+6uYUfWnFMAm9NnsWAHcAXwkcGOOiw+p5bECEBNjoqjiiFCAG5SXPxbS2BXllSxReKCHRAFiA748xIQWdgMUsE9gLGWSGgUIPQfIZHbyiAVHWAccKjGstWn5z1fjCG2SOjgAJ3kvk9YMz1WStkCQDGRWTFIjQWo9ZYDAkzEGGuJhEYHxB7QvxnSPUDXvPttmiAUE+lrBqmXEjBNz07avZ76zVhPHBQUwMfUuERcNjMIxQeh+Cgc+Hp8hutEDbkDmBjEH5lYgnQAAAAASUVORK5CYII=",
@@ -3065,9 +3069,9 @@
       "state": {
         "id": 209106,
         "xyz": {
-          "0": 48.5982551574707,
+          "0": 49.072486877441406,
           "1": 0,
-          "2": 20.53135108947754
+          "2": 22.084348678588867
         },
         "heading": -6.283185307179583,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
@@ -3097,6 +3101,25 @@
           "bumped": false
         }
       }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 95962,
+        "xyz": {
+          "0": 58.1287841796875,
+          "1": 0,
+          "2": 33.87345504760742
+        },
+        "heading": 0.6583387491215489,
+        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
+        "libraryList": "",
+        "gemLevel": 0,
+        "imageSource": "img/Basic Bot.png",
+        "data": {
+          "bumped": true
+        }
+      }
     }
   ],
   "radius": 128,
@@ -3104,14 +3127,14 @@
     "profx": {
       "id": 1,
       "xyz": {
-        "0": 48.277896881103516,
+        "0": 32.74016189575195,
         "1": 0,
-        "2": -4.302267551422119
+        "2": 7.432903289794922
       },
-      "heading": -3.1437829015422336,
+      "heading": -4.823541672823868,
       "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 4;\n}\nif (keys.has('ArrowDown')) {\n  delta.drive = -1.0;\n  delta.turn /= 4;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}\nif (keys.has('KeyQ')) {\n  grab();\n}",
       "libraryList": "turn admin things",
-      "gemLevel": 1,
+      "gemLevel": 0,
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
         "adminAction": null,

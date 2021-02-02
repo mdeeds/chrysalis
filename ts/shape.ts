@@ -155,6 +155,9 @@ export class Shape extends Thing {
   }
 
   lift(other: Shape) {
+    if (other.state.gemLevel > this.state.gemLevel) {
+      return false;
+    }
     if (window.performance.now() < this.liftTime + 500) {
       return false;
     }
