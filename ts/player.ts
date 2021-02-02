@@ -5,7 +5,7 @@ import { ThingState } from "./thingState";
 
 export class Player extends Shape {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    let imageSource = "Empty Player.png";
+    let imageSource = "img/Empty Player.png";
     if (state.imageSource) {
       imageSource = state.imageSource;
     }
@@ -29,7 +29,7 @@ export class Player extends Shape {
     Geometry.addTubeData(positions, textureCoordinates, vertexNormals, 0.6);
 
     this.createBuffers(gl, positions, textureCoordinates, vertexNormals);
-   }
+  }
 
   getObjectTransform() {
     const objectTransform = super.getObjectTransform();

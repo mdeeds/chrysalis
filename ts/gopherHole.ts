@@ -6,7 +6,7 @@ import { ThingState } from "./thingState";
 
 export class GopherHole extends Shape {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "GopherHole.png", state);
+    super(gl, "img/GopherHole.png", state);
 
     const positions = [];
     const textureCoordinates = [];

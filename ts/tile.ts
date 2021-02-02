@@ -3,7 +3,7 @@ import { ThingState } from "./thingState";
 
 export class Tile extends Ground {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Basic Bot-5.png", state);
+    super(gl, "img/Basic Bot-5.png", state);
   }
 
   getObjectTransform() {

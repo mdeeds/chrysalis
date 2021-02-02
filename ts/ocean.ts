@@ -6,7 +6,7 @@ export class Ocean extends Ground {
   rate: number;
   x: number;
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Ocean-1.png", state);
+    super(gl, "img/Ocean-1.png", state);
     this.rate = (3 + Math.random() * 2) / 6;
   }
 

@@ -5,7 +5,7 @@ import { ThingState } from "./thingState";
 
 export class Flower extends Shape {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    let imageSource = "Flower.png";
+    let imageSource = "img/Flower.png";
     super(gl, imageSource, state);
     this.lightness = 0.0;
     this.radius = 0.2;

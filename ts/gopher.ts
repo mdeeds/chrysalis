@@ -5,7 +5,7 @@ import { ThingState } from "./thingState";
 
 export class Gopher extends Shape {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Gopher.png", state);
+    super(gl, "img/Gopher.png", state);
     this.radius = 0.5;
 
     const positions = []

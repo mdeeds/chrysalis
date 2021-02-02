@@ -7,7 +7,7 @@ export class Gem extends Shape {
   vertexCount: number;
 
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Gem-2.png", state);
+    super(gl, "img/Gem-2.png", state);
     let positions: number[] = [];
     let normals: number[] = [];
     let textureCoords: number[] = [];

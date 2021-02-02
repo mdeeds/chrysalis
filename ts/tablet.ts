@@ -5,12 +5,12 @@ import { ThingState } from "./thingState";
 
 export class Tablet extends Shape {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    let source = "tabletNote.png";
+    let source = "img/tabletNote.png";
     if (state.data && state.data.type) {
       switch (state.data.type) {
-        case "lib": source = "tabletLib.png"; break;
-        case "api": source = "tabletApi.png"; break;
-        case "note": source = "tabletNote.png"; break;
+        case "lib": source = "img/tabletLib.png"; break;
+        case "api": source = "img/tabletApi.png"; break;
+        case "note": source = "img/tabletNote.png"; break;
       }
     }
     super(gl, source, state);

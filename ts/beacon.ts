@@ -8,7 +8,7 @@ export class Beacon extends Shape {
   private isOn: boolean;
   private lastToggle: number;
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Beacon.png", state);
+    super(gl, "img/Beacon.png", state);
     this.radius = 0.4;
 
     const positions = [];
@@ -41,14 +41,14 @@ export class Beacon extends Shape {
   turnOn() {
     if (!this.isOn) {
       this.isOn = true;
-      super.setTextureImage("Beacon.png");
+      super.setTextureImage("img/Beacon.png");
     }
   }
 
   turnOff() {
     if (this.isOn) {
       this.isOn = false;
-      super.setTextureImage("BeaconOff.png");
+      super.setTextureImage("img/BeaconOff.png");
     }
   }
 

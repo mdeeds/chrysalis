@@ -4,7 +4,7 @@ import { ThingState } from "./thingState";
 
 export class BasicBot extends Cube {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Basic Bot.png", state);
+    super(gl, "img/Basic Bot.png", state);
     this.lightness = 0.5;
     this.radius = 1.0;
   }

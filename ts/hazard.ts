@@ -6,7 +6,7 @@ export class Hazard extends Ground {
   nextChangeTime: number;
   orientation: number;
   constructor(gl: WebGLRenderingContext, state: ThingState) {
-    super(gl, "Hazard.png", state)
+    super(gl, "img/Hazard.png", state)
     this.nextChangeTime = this.startTimeSeconds + Math.random() * 3;
     if (Math.random() < 0.5) {
       this.orientation = 0.0;

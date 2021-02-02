@@ -123,18 +123,18 @@ export class Terminal {
     toolbar.classList.add("toolbar");
 
     const cameraButton = document.createElement('img');
-    cameraButton.src = "Camera.png";
+    cameraButton.src = "img/Camera.png";
     toolbar.appendChild(cameraButton);
     this.imageCode = new CodeHolder("", body, cameraButton,
       null, /*autoFormat=*/false);
 
     const libraryButton = document.createElement('img');
-    libraryButton.src = "Library.gif";
+    libraryButton.src = "img/Library.gif";
     toolbar.appendChild(libraryButton);
     this.libraryList = new CodeHolder("", body, libraryButton, null);
 
     const playerButton = document.createElement('img');
-    playerButton.src = "PlayerCode.gif";
+    playerButton.src = "img/PlayerCode.gif";
     toolbar.appendChild(playerButton);
     this.programCode = new CodeHolder("", body, playerButton, null);
 
@@ -145,7 +145,7 @@ export class Terminal {
     }
 
     this.uploadButton = document.createElement('img');
-    this.uploadButton.src = "Upload.gif";
+    this.uploadButton.src = "img/Upload.gif";
     this.uploadButton.alt = "Upload";
     this.uploadButton.width = 64;
     this.uploadButton.addEventListener("click", (ev) => {
@@ -169,15 +169,15 @@ export class Terminal {
     this.programCode.setCode(thing.state.code);
 
     if (thing instanceof Player) {
-      this.programCode.setStyle("PlayerCode.gif", "player");
+      this.programCode.setStyle("img/PlayerCode.gif", "player");
     } else if (thing instanceof Tablet) {
-      this.programCode.setStyle("LibraryCode.png", "library");
+      this.programCode.setStyle("img/LibraryCode.png", "library");
     } else if (thing instanceof BasicBot) {
-      this.programCode.setStyle("RobotCode.gif", "robot");
+      this.programCode.setStyle("img/RobotCode.gif", "robot");
     } else {
       Log.error("unknown!");
       Log.info(thing.constructor.toString())
-      this.programCode.setStyle("PlayerCode.gif", "player");
+      this.programCode.setStyle("img/PlayerCode.gif", "player");
     }
 
     this.imageCode.setCode("");
