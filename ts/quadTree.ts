@@ -13,7 +13,7 @@ class QuadEntry<T> {
 }
 
 export class QuadTree<T> implements QuadTreeView<T> {
-  private static kMaxCapacity = 10;
+  private static kMaxCapacity = 30;
   private boundary: BoundingBox;
   private children: QuadTree<T>[];
   private entries: QuadEntry<T>[];
