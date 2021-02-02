@@ -10,6 +10,7 @@ export class ThingState {
   imageSource: string;
   data: any;
   id: number;
+  gemLevel: number;
 
   constructor(position: number[]) {
     ThingState.numberOfThings += 1;
@@ -22,6 +23,7 @@ export class ThingState {
     this.heading = 0.0;
     this.code = null;
     this.libraryList = null;
+    this.gemLevel = 0;
   }
 
   mergeFrom(other: ThingState) {

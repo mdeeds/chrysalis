@@ -46,7 +46,7 @@ canvas {
   z-index: 10;
   position: absolute;
   right: 70px;
-  top: 0;
+  top: 40px;
   height: 25vh;
   width: 30vw;
   border: 2px solid #ff7c00;
@@ -82,7 +82,7 @@ canvas {
 .toolbar {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 40px;
   width: 70px;
   padding: 5px;
 }
@@ -115,4 +115,15 @@ img.deactivated {
   right: 0px;
   bottom: 30px;
   color: palegoldenrod;
+}
+
+.gembox {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: calc(8 * 64 + 8);
+}
+
+.gem {
+  filter: hue-rotate(30deg);
 }

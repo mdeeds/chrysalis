@@ -5,6 +5,7 @@ import { Cog } from "./cog";
 import { Computer } from "./computer";
 import { Flower } from "./flower";
 import { Gem } from "./gem";
+import { GemBox } from "./gemBox";
 import { Gopher } from "./gopher";
 import { GopherHole } from "./gopherHole";
 import { Ground } from "./ground";
@@ -35,6 +36,7 @@ export class MasterControl {
   private username: string;
   private keyFocusElement: HTMLElement;
   private terminal: Terminal;
+  private gemBox: GemBox;
 
   constructor(gl: WebGLRenderingContext, state: State,
     keyFocusElement: HTMLElement, username: string) {
@@ -57,6 +59,7 @@ export class MasterControl {
       })
 
     this.terminal = new Terminal(keyFocusElement);
+    this.gemBox = new GemBox();
 
     for (const thing of this.state.getEverything().allEntries()) {
       if (thing.state.code && thing instanceof Shape
@@ -422,6 +425,13 @@ export class MasterControl {
       new BoundingBox(t.state.xyz[0], t.state.xyz[2], 2.1), otherThings);
     MasterControl.removeThing(otherThings, t);
     for (const other of otherThings) {
+      if (other instanceof Gem) {
+        if (t.state.id == this.state.userId) {
+          this.gemBox.collect(other);
+          t.state.gemLevel = this.gemBox.getGemLevel();
+        }
+        continue;
+      }
       if (other instanceof Tile) {
         continue;
       }

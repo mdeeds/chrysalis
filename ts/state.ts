@@ -23,7 +23,7 @@ export class State {
   private worldName: string;
   private saveButton: HTMLAnchorElement;
   private username: string;
-  private userId: number;
+  userId: number;
   private broadcast: Function;
   constructor(gl: WebGLRenderingContext, worldName: string,
     username: string, broadcast: Function = null) {
