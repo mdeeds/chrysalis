@@ -107,6 +107,10 @@ export class PeerConnection {
   }
 
   send(targetId: string, message: string) {
+    if (targetId === this.id()) {
+      Log.error(`Self message: ${message}`);
+      return;
+    }
     let messageSent = false;
     if (this.peers.has(targetId)) {
       const conn = this.peers.get(targetId);
@@ -127,7 +131,8 @@ export class PeerConnection {
     }
   }
 
-  async sendAndPromiseResponse(targetId: string, message: string) {
+  async sendAndPromiseResponse(targetId: string, message: string)
+    : Promise<string> {
     const timestamp = Math.trunc(window.performance.now());
     this.waitReady()
       .then(() => {

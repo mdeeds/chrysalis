@@ -37,6 +37,17 @@ canvas {
   height: 180px;
 }
 
+#startSpan {
+  font-size: 40px;
+  color: white;
+  background-color: royalblue;
+  border-radius: 10px;
+  border-style: outset;
+  border-width: 5px;
+  padding: 10px;
+  margin: 5px;
+}
+
 .error {
   color: red;
   font-weight: bold;
@@ -114,7 +125,7 @@ img.deactivated {
   position: absolute;
   right: 0px;
   bottom: 30px;
-  color: palegoldenrod;
+  color: red;
 }
 
 .gembox {
@@ -126,4 +137,14 @@ img.deactivated {
 
 .gem {
   filter: hue-rotate(30deg);
+}
+
+.pulse {
+  color: red;
+  animation: pulse 500ms linear;
+}
+
+@keyframes pulse {
+  0% { color: pink; }
+  100% {color: red; }
 }

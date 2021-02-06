@@ -6,6 +6,7 @@ import { Log } from "./log";
 import { BoundingBox } from "./quadTreeView";
 import { State } from "./state";
 import { WorldClient } from "./worldClient";
+import { HeartbeatGroup } from "./heartbeatGroup";
 
 export class Render {
   private canvas: HTMLCanvasElement;
@@ -31,7 +32,8 @@ export class Render {
     this.focusContainer.focus();
   }
 
-  main(username: string) {
+  main(heartbeatGroup: HeartbeatGroup) {
+    const username = heartbeatGroup.getUsername();
     this.gl = this.canvas.getContext("webgl");
     if (this.gl == null) {
       alert("Your browser doesn't support WebGL");
@@ -65,9 +67,8 @@ export class Render {
     Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
     const worldName = "vialis"
-    const worldServerId = `chrysalis-vialis-72361`
     this.worldClient =
-      new WorldClient(this.gl, worldServerId, worldName, username);
+      new WorldClient(this.gl, worldName, heartbeatGroup);
 
     this.worldClient.getWorldState().then((state: State) => {
       this.state = state;

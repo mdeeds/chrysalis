@@ -1,6 +1,5 @@
 import { Log } from "./log";
-import { Render } from "./render";
-import { TextComms } from "./textComms";
+import { Meet } from "./meet";
 
 const logs = document.createElement("div");
 document.getElementsByTagName("body")[0].appendChild(logs);
@@ -9,14 +8,8 @@ Log.info("Initiating start sequence.");
 
 const url = new URL(document.URL);
 const login = url.searchParams.get('login');
-const text = url.searchParams.get('text');
-if (login && text) {
-  Log.info("Entering text-only mode.");
-  new TextComms(login);
-} else if (login) {
-  const r = new Render();
-  r.main(login);
-  Log.info("Systems are active.");
+if (login) {
+  const m = new Meet(login, url.searchParams.get('join'));
 } else {
   Log.info("Unrecognized user.");
   Log.info("");
