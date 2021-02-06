@@ -541,48 +541,40 @@
       4
     ],
     [
-      -32,
-      6
-    ],
-    [
-      -32,
-      8
-    ],
-    [
-      -32,
-      10
-    ],
-    [
-      -32,
-      12
-    ],
-    [
-      -30,
-      12
+      -26,
+      4
     ],
     [
       -28,
-      12
+      4
     ],
     [
-      -26,
-      12
+      -30,
+      4
+    ],
+    [
+      -18,
+      4
+    ],
+    [
+      -20,
+      4
     ],
     [
       -22,
-      8
-    ],
-    [
-      -22,
-      10
+      4
     ],
     [
       -24,
-      12
+      4
     ],
     [
       -22,
-      12
+      8
+    ],
+    [
+      -22,
+      10
     ],
     [
       -22,
@@ -619,6 +611,10 @@
     [
       -18,
       14
+    ],
+    [
+      -22,
+      12
     ],
     [
       -22,
@@ -715,46 +711,54 @@
     [
       -18,
       30
-    ],
-    [
-      -16,
-      8
-    ],
-    [
-      -16,
-      10
-    ],
-    [
-      -14,
-      8
-    ],
-    [
-      -16,
-      12
-    ],
-    [
-      -16,
-      14
-    ],
-    [
-      -12,
-      8
     ],
     [
       -10,
-      8
+      4
     ],
     [
-      -8,
-      8
+      -12,
+      4
     ],
     [
-      -6,
+      -14,
+      4
+    ],
+    [
+      -16,
+      4
+    ],
+    [
+      -16,
+      10
+    ],
+    [
+      -16,
+      12
+    ],
+    [
+      -16,
+      14
+    ],
+    [
+      -16,
       8
     ],
     [
       -4,
-      8
+      6
+    ],
+    [
+      -4,
+      4
+    ],
+    [
+      -6,
+      4
+    ],
+    [
+      -8,
+      4
     ],
     [
       -2,
@@ -2717,6 +2721,26 @@
   ],
   "things": [
     {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 143479,
+        "xyz": {
+          "0": -0.03560461103916168,
+          "1": 0,
+          "2": -5.180763244628906
+        },
+        "heading": 2.757187232132102,
+        "code": "if (perspective.data.bumped) {\n  delta.turn = 0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = -0.05;\n  delta.drive = 0.5;\n}",
+        "libraryList": "things",
+        "gemLevel": 0,
+        "imageSource": "img/Basic Bot.png",
+        "data": {
+          "action": 1,
+          "bumped": true
+        }
+      }
+    },
+    {
       "typeName": "Tablet",
       "state": {
         "id": 64278,
@@ -2795,33 +2819,13 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 143479,
-        "xyz": {
-          "0": 4.979497909545898,
-          "1": 0,
-          "2": -11.098755836486816
-        },
-        "heading": 1.6896433757238416,
-        "code": "if (perspective.data.bumped) {\n  delta.turn = 0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = -0.05;\n  delta.drive = 0.5;\n}",
-        "libraryList": "things",
-        "gemLevel": 0,
-        "imageSource": "img/Basic Bot.png",
-        "data": {
-          "action": 1,
-          "bumped": false
-        }
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
         "id": 481,
         "xyz": {
-          "0": 3.747703790664673,
+          "0": 3.258765459060669,
           "1": 0,
-          "2": -9.47290325164795
+          "2": -15.529136657714844
         },
-        "heading": -4.614655579929645,
+        "heading": -5.077884743518574,
         "code": "if (perspective.data.bumped) {\n  delta.turn = -0.9;\n  delta.drive = -0.5;\n} else {\n  delta.turn = 0.05;\n  delta.drive = 0.5;\n}",
         "libraryList": "turn things",
         "gemLevel": 0,
@@ -2890,9 +2894,9 @@
       "state": {
         "id": 339084,
         "xyz": {
-          "0": 40.02614212036133,
+          "0": 40,
           "1": 0,
-          "2": -0.8720713257789612
+          "2": -1.2719906568527222
         },
         "heading": 4.440892098500626e-16,
         "code": "resetTurn();if (distanceToBeacon() < 7) {  goSouth();}setTurn();",
@@ -2900,7 +2904,7 @@
         "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
-          "bumped": false
+          "bumped": true
         }
       }
     },
@@ -2924,18 +2928,18 @@
       "state": {
         "id": 159329,
         "xyz": {
-          "0": 29.947229385375977,
+          "0": 31.251073837280273,
           "1": 0,
-          "2": 14.999999046325684
+          "2": 15.35867691040039
         },
-        "heading": 1.570796326794893,
+        "heading": -0.7061167289844041,
         "code": "resetTurn();\nif (isLifting()) {\n  if (distanceToBeacon() < 13) {\n    goEast();\n    setTurn();\n  } else {\n    drop();\n  }\n} else {\n  if (distanceToBeacon() > 7) {\n    goWest();\n    setTurn();\n  } else {\n    delta.turn = 1.0;\n    delta.drive = 0.2;\n    grab();\n  }\n}",
         "libraryList": "things turn util",
         "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "action": 1,
-          "bumped": true
+          "bumped": false
         }
       }
     },
@@ -3035,7 +3039,7 @@
           "1": 0,
           "2": 15.128183364868164
         },
-        "heading": 8.881784197001252e-16,
+        "heading": 5.2868820432649954e-12,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
         "libraryList": "turn things",
         "gemLevel": 0,
@@ -3107,11 +3111,11 @@
       "state": {
         "id": 95962,
         "xyz": {
-          "0": 58.1287841796875,
+          "0": 58.12419891357422,
           "1": 0,
-          "2": 33.87345504760742
+          "2": 33.86669158935547
         },
-        "heading": 0.6583387491215489,
+        "heading": 1.524468134761161,
         "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
         "libraryList": "",
         "gemLevel": 0,
@@ -3127,11 +3131,11 @@
     "profx": {
       "id": 1,
       "xyz": {
-        "0": 32.74016189575195,
+        "0": 39.27759552001953,
         "1": 0,
-        "2": 7.432903289794922
+        "2": 8.376419067382812
       },
-      "heading": -4.823541672823868,
+      "heading": -2.9403563656442575,
       "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 4;\n}\nif (keys.has('ArrowDown')) {\n  delta.drive = -1.0;\n  delta.turn /= 4;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}\nif (keys.has('KeyQ')) {\n  grab();\n}",
       "libraryList": "turn admin things",
       "gemLevel": 0,
