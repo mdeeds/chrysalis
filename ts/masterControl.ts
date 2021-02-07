@@ -383,17 +383,20 @@ export class MasterControl {
           cogLocation[2], 10.0), things);
       let closestPlayer: Float32Array = null;
       let closestBeacon: Float32Array = null;
+      let countBeacons = 0;
       for (const t of things) {
         if (t instanceof Player) {
           closestPlayer = this.closerOfTwo(
             cogLocation, closestPlayer, t.state.xyz);
         } else if (t instanceof Beacon) {
           if (t.getIsOn()) {
+            ++countBeacons;
             closestBeacon = this.closerOfTwo(
               cogLocation, closestBeacon, t.state.xyz);
           }
         }
       }
+      cogPerspective.countBeacons = countBeacons;
       if (closestBeacon) {
         cogPerspective.closestBeacon = [
           closestBeacon[0] - cogLocation[0],

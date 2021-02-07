@@ -7,8 +7,8 @@ export class Perspective {
   keysDown: Set<string>;
   data: any;
   closestPlayer: number[];
-  closestFlower: number[];
   closestBeacon: number[];
+  countBeacons: number;
   isLifting: boolean;
   isLifted: boolean;
   constructor() {
