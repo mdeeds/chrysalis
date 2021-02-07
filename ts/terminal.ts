@@ -175,8 +175,6 @@ export class Terminal {
     } else if (thing instanceof BasicBot) {
       this.programCode.setStyle("img/RobotCode.gif", "robot");
     } else {
-      Log.error("unknown!");
-      Log.info(thing.constructor.toString())
       this.programCode.setStyle("img/PlayerCode.gif", "player");
     }
 
