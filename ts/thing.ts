@@ -10,10 +10,8 @@ export class Thing {
   constructor() {
     this.lightness = 0.0;
 
-    // pi r^2 = 4.0
-    // r^2 = 4.0 / pi
-    // r = sqrt(4 / pi)
-    this.radius = Math.sqrt(4 / Math.PI);
+    // 1.128 which makes the circle's area equal to 4.
+    this.radius = 1.128;
   }
 
   render(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
