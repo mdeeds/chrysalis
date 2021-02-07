@@ -52,6 +52,9 @@ export class ThingState {
       this.id = other.id;
       ThingState.numberOfThings = Math.max(this.id, ThingState.numberOfThings);
     }
+    if (other.gemLevel != null) {
+      this.gemLevel = other.gemLevel;
+    }
   }
 
   inFrontXZ(distance: number): number[] {
