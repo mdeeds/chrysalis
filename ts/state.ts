@@ -123,6 +123,16 @@ export class State {
     return result;
   }
 
+  private static sortXYs(xyArray: number[]) {
+    xyArray.sort((a, b) => {
+      if (a[0] == b[0]) {
+        return a[1] - b[1];
+      } else {
+        return a[0] - b[0];
+      }
+    });
+  }
+
   serialize() {
     const dict: any = {};
 
@@ -145,6 +155,8 @@ export class State {
         }
       }
     }
+    State.sortXYs(dict.tiles);
+    State.sortXYs(dict.hazards);
 
     dict.players = {};
     for (const playerName of this.players.keys()) {
