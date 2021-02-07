@@ -25,8 +25,8 @@ export class Beacon extends Shape {
   }
 
   toggle() {
-    Log.info("toggle");
     if (window.performance.now() - this.lastToggle < 500) {
+      this.lastToggle = window.performance.now();
       return;
     } else {
       this.lastToggle = window.performance.now();
