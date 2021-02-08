@@ -1,36 +1,83 @@
+import { ContextReplacementPlugin } from "webpack";
 import { Log } from "./log";
 import { PeerConnection } from "./peerConnection";
+
+class PeerHealth {
+  readonly peerId: string;
+  readonly username: string;
+  readonly statusElement: HTMLDivElement;
+  private lastPingTime: number;
+  private deathTimer: NodeJS.Timeout;
+  constructor(peerId: string, username: string, container: HTMLDivElement) {
+    this.peerId = peerId;
+    this.username = username;
+    this.statusElement = document.createElement('div');
+    this.statusElement.innerText = `♡ ${username}`;
+    this.statusElement.classList.add('pulse');
+    container.appendChild(this.statusElement);
+    this.update();
+  }
+
+  update() {
+    this.lastPingTime = window.performance.now();
+    this.statusElement.classList.remove('pulse');
+    setTimeout(() => { this.statusElement.classList.add('pulse') }, 10);
+
+    if (this.deathTimer) {
+      clearTimeout(this.deathTimer);
+    }
+    this.deathTimer = setTimeout(() => this.die(), 10000);
+  }
+
+  die() {
+    this.statusElement.innerText = `🕱 ${this.username}`;
+  }
+}
 
 export class HeartbeatGroup {
   private username: string;
   private connection: PeerConnection;
-  // Maps peer Id to username.
-  private otherConnections: Map<string, string>;
+  // Connection IDs of this and others in the circle.
+  private healthMap: Map<string, PeerHealth>;
   private status: HTMLDivElement;
-  private heartStatus: Map<string, HTMLDivElement>;
   private leader: boolean;
   private leaderId: string;
 
   constructor(username: string, joinId: string = null) {
     this.username = username;
     this.connection = new PeerConnection(null);
-    this.otherConnections = new Map<string, string>();
-    this.heartStatus = new Map<string, HTMLDivElement>();
+    this.healthMap = new Map<string, PeerHealth>();
+
+    this.status = document.createElement('div');
+    this.status.innerText = "Status";
+    this.status.classList.add("status")
+
+    this.connection.waitReady().then(() => {
+      Log.info('Ready ready.');
+      this.healthMap.set(this.connection.id(), new PeerHealth(
+        this.connection.id(), username, this.status));
+      if (joinId) {
+        const thumpMessage = this.makeThump();
+        Log.info(`Sending initial (${thumpMessage}) to: ${joinId}`);
+        this.connection.send(joinId, thumpMessage);
+      }
+      Log.info('initiating beat sequence.');
+      this.beat();
+    });
+
     if (joinId) {
       this.leaderId = joinId;
-      this.otherConnections.set(joinId, null)
+      this.healthMap.set(joinId, null)
       this.leader = false;
     } else {
       this.leader = true;
     }
 
-    this.status = document.createElement('div');
-    this.status.innerText = "Status";
-    this.status.classList.add("status")
     document.getElementsByTagName('body')[0].appendChild(this.status);
 
     this.connection.addCallback("thump: ",
       (peers: string) => {
+        Log.info(`Incoming thump: ${peers}`);
         const peerKVs = peers.split(',');
         for (let i = 0; i < peerKVs.length; ++i) {
           const peerKV = peerKVs[i];
@@ -40,18 +87,16 @@ export class HeartbeatGroup {
           if (peerId === this.getConnection().id()) {
             continue;
           }
-          if (i === 0) {
-            this.updateId(peerId, peerUser);
-          }
-          if (!this.otherConnections.has(peerId) ||
-            this.otherConnections.get(peerId) === null) {
+          if (!this.healthMap.has(peerId) ||
+            this.healthMap.get(peerId) === null) {
             Log.info(`Meeting: ${peerId}`);
+            this.healthMap.set(peerId,
+              new PeerHealth(peerId, peerUser, this.status));
+          } else {
+            this.healthMap.get(peerId).update();
           }
-          this.otherConnections.set(peerId, peerUser);
         }
       })
-    this.connection.waitReady()
-      .then(() => { this.beat(); });
   }
 
   isLeader() {
@@ -67,8 +112,10 @@ export class HeartbeatGroup {
   }
 
   broadcast(message: string) {
-    for (const other of this.otherConnections.keys()) {
-      this.connection.send(other, message);
+    for (const other of this.healthMap.keys()) {
+      if (other !== this.connection.id()) {
+        this.connection.send(other, message);
+      }
     }
   }
 
@@ -79,27 +126,21 @@ export class HeartbeatGroup {
     return this.connection.sendAndPromiseResponse(this.leaderId, message);
   }
 
-  private updateId(id: string, username: string) {
-    if (!this.heartStatus.has(id)) {
-      const div = document.createElement('div');
-      div.innerText = `♡ ${username}`;
-      div.classList.add('pulse');
-      this.heartStatus.set(id, div);
-      this.status.appendChild(div);
+  private makeThump(): string {
+    const otherList: string[] = [`${this.connection.id()}=${this.username}`];
+    this.healthMap.get(this.connection.id()).update();
+    for (const [peerId, healthStatus] of this.healthMap) {
+      if (healthStatus === null) {
+        continue;
+      }
+      otherList.push(`${peerId}=${healthStatus.username}`);
     }
-    const div = this.heartStatus.get(id);
-    div.classList.remove('pulse');
-    setTimeout(() => { div.classList.add('pulse') }, 10);
+    return `thump: ${otherList.join(',')}`;
   }
 
   private beat() {
-    this.updateId(this.connection.id(), this.username);
-
-    const otherList: string[] = [`${this.connection.id()}=${this.username}`];
-    for (const [k, v] of this.otherConnections) {
-      otherList.push(`${k}=${v}`);
-    }
-    this.broadcast(`thump: ${otherList.join(',')}`);
-    setTimeout(() => this.beat(), 1000);
+    const thumpMessage = this.makeThump();
+    this.broadcast(thumpMessage);
+    setTimeout(() => this.beat(), 600);
   }
 }

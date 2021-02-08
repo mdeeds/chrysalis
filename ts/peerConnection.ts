@@ -33,6 +33,7 @@ export class PeerConnection {
     this.peer.on('open', (id: string) => {
       Log.info(`I am ${this.peer.id}`);
       this.ready = true;
+      Log.info(`Callback count: ${this.readyCallbacks.length}`);
       for (const readyCallback of this.readyCallbacks) {
         readyCallback(this);
       }
