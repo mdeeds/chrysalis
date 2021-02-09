@@ -25,6 +25,7 @@ export class State {
   private username: string;
   userId: number;
   private broadcast: Function;
+  private previousSnapshot: any;
   constructor(gl: WebGLRenderingContext, worldName: string,
     username: string, broadcast: Function = null) {
     this.gl = gl;
@@ -133,7 +134,7 @@ export class State {
     });
   }
 
-  serialize() {
+  snapshot() {
     const dict: any = {};
 
     dict.tiles = [];
@@ -162,8 +163,11 @@ export class State {
     for (const playerName of this.players.keys()) {
       dict.players[playerName] = this.players.get(playerName);
     }
+    return dict;
+  }
 
-    return JSON.stringify(dict);
+  serialize() {
+    return JSON.stringify(this.snapshot());
   }
 
   mergeThing(thing: Thing) {
@@ -267,8 +271,73 @@ export class State {
     return player.state.xyz;
   }
 
+  subtractThings(obj1: any, obj2: any) {
+    const result = {};
+    if (Object.is(obj1, obj2)) {
+      return undefined;
+    }
+    if (!obj2 || typeof obj2 !== 'object') {
+      return obj2;
+    }
+    Object.keys(obj1 || {}).concat(Object.keys(obj2 || {})).forEach(key => {
+      if (obj2[key] !== obj1[key] && !Object.is(obj1[key], obj2[key])) {
+        result[key] = obj2[key];
+      }
+      if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
+        const value = this.subtractThings(obj1[key], obj2[key]);
+        if (value !== undefined) {
+          result[key] = value;
+        }
+      }
+    });
+    return result;
+  }
+
+  private subtract(other: any, base: any): any {
+    const result: any = {};
+    if (!base.things) {
+      result.things = other.things;
+    } else {
+      result.things = [];
+      console.log(`Other array size: ${other.things.length}`);
+      const otherThingMap: Map<number, any> = new Map<number, any>();
+      for (const thing of other.things) {
+        otherThingMap.set(thing.state.id, thing);
+      }
+      console.log(`Base array size: ${base.things.length}`);
+      const baseThingMap: Map<number, any> = new Map<number, any>();
+      for (const thing of base.things) {
+        baseThingMap.set(thing.state.id, thing);
+      }
+      console.log(`Other size: ${otherThingMap.size}`);
+      console.log(`Base size: ${baseThingMap.size}`);
+      for (const [id, otherThing] of otherThingMap) {
+        if (!baseThingMap.has(id)) {
+          result.things.push(otherThing);
+        } else {
+          const baseThing = baseThingMap.get(id);
+          const thingDelta: any = this.subtractThings(otherThing, baseThing);
+          // if (thingDelta) {
+          result.things.push(thingDelta);
+          //}
+        }
+      }
+    }
+    return result;
+  }
+
   private saveLoop() {
-    const serializedState = this.serialize();
+    const latestSnapshot = this.snapshot();
+    // if (this.previousSnapshot) {
+    //   const start = window.performance.now();
+    //   const diff = this.subtract(latestSnapshot, this.previousSnapshot);
+    //   const elapsed = window.performance.now() - start;
+    //   console.log(JSON.stringify(diff));
+    //   Log.info(
+    //     `Diffence: ${JSON.stringify(diff).length} (${elapsed.toFixed(3)}ms)`);
+    // }
+    // this.previousSnapshot = latestSnapshot;
+    const serializedState = JSON.stringify(latestSnapshot);
     window.localStorage.setItem(`${this.worldName}-world`, serializedState);
     setTimeout(() => { this.saveLoop(); }, 2000);
     const dataUrl = "data:text/javascript;base64," + btoa(serializedState);
