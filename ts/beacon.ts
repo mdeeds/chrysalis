@@ -11,6 +11,7 @@ export class Beacon extends Shape {
   constructor(gl: WebGLRenderingContext, state: ThingState) {
     super(gl, "img/Beacon.png", state);
     this.radius = 0.4;
+    this.state.gemLevel = 12;
 
     const positions = [];
     const vertexNormals = [];
