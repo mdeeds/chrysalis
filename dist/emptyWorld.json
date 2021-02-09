@@ -2997,36 +2997,21 @@
       }
     },
     {
-      "typeName": "Beacon",
-      "state": {
-        "id": 500389,
-        "xyz": {
-          "0": 21.901212692260742,
-          "1": 0,
-          "2": -40.83818435668945
-        },
-        "heading": 0,
-        "code": null,
-        "libraryList": null,
-        "gemLevel": 0
-      }
-    },
-    {
       "typeName": "BasicBot",
       "state": {
         "id": 453307,
         "xyz": {
-          "0": 23.38943099975586,
+          "0": 22.367830276489258,
           "1": 0,
-          "2": -41.025814056396484
+          "2": -40.553524017333984
         },
-        "heading": -4.78649437936795,
+        "heading": -5.059504345100407,
         "code": "turn = subtractAngles(angleToBeacon(), perspective.currentHeading) / 4;let drive = 1.0;if (distanceToBeacon() > 20) {  drive = 0.0;}delta = {  turn: turn,  drive: drive}",
         "libraryList": "things turn",
         "gemLevel": 2,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABjklEQVRoQ+2YOw7CMAyG6bk4AAsjSNwAsXIQVsQNkGBk4QAcg417FLnClXFtJ62SVE3TjbSunS+/H6X6vOt6MeOrAgDL9X3xemx6YRhi08tBoocbAJKv7W71t3y7PhOFlNZNAVAUUFKg1IBSBLW6i50g1w4A+1a7ANwsAH6zQFFApkNQmwLny+mvDBz2x+Y3TwHtubSzW1hvnRqAmwQIFABdDxvCuG8TP4ZgsxIAVAaEnPXHEAKgZyOtjXt2YbyLbXB2AHhx82WLKTFl+0YBQ+RNbaZsHxwAdA5rcML7EkC8J72D37PsrdEeY0P7DgCo7nDxv8j4uqUADQJdjwEAZxfpAHhMKgBscRSCBMWVAtyhFgD4oW0Xgh+qADx5l2/qM3gKUPlZko6lAA5BU6OpAJ8u4FKAdhq4HhuAlQ5eCqCTnjT1+QCYtQJceRhTAS7fTgVg0eOpQDtDtl1A2zzCQAgagMnPAT4FkEpIamM+74iZApZ/PohFbYNWID5FNIV9C8Dn1Pgz2XwMDdl8LjZfcHT9H/szBjYAAAAASUVORK5CYII=",
         "data": {
-          "bumped": true
+          "bumped": false
         }
       }
     },
@@ -3042,7 +3027,22 @@
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 0
+        "gemLevel": 12
+      }
+    },
+    {
+      "typeName": "Beacon",
+      "state": {
+        "id": 500389,
+        "xyz": {
+          "0": 21.138870239257812,
+          "1": 0,
+          "2": -39.69348907470703
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "gemLevel": 12
       }
     },
     {
@@ -3057,7 +3057,7 @@
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 0
+        "gemLevel": 12
       }
     },
     {
@@ -3072,7 +3072,7 @@
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 0
+        "gemLevel": 12
       }
     },
     {
@@ -3087,7 +3087,7 @@
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 0
+        "gemLevel": 12
       }
     },
     {
@@ -3102,7 +3102,7 @@
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 9
+        "gemLevel": 12
       }
     },
     {
@@ -3110,38 +3110,18 @@
       "state": {
         "id": 481,
         "xyz": {
-          "0": 5.823507785797119,
+          "0": 4.7994561195373535,
           "1": 0,
-          "2": -11.523695945739746
+          "2": -15.865018844604492
         },
-        "heading": -8.393948215269456,
+        "heading": -4.385088518848355,
         "code": "if (perspective.data.bumped) {  delta.turn = -0.9;  delta.drive = -0.5;} else {  delta.turn = 0.05;  delta.drive = 0.5;}",
         "libraryList": "turn things",
-        "gemLevel": 9,
-        "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
-        "data": {
-          "action": 1,
-          "bumped": true
-        }
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
-        "id": 143479,
-        "xyz": {
-          "0": 5.854907989501953,
-          "1": 0,
-          "2": -8.602133750915527
-        },
-        "heading": -2.019578237688129,
-        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
-        "libraryList": "things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
         "data": {
           "action": 1,
-          "bumped": true
+          "bumped": false
         }
       }
     },
@@ -3165,6 +3145,26 @@
       }
     },
     {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 143479,
+        "xyz": {
+          "0": 0.060073867440223694,
+          "1": 0,
+          "2": -5.151424884796143
+        },
+        "heading": 2.769626758691661,
+        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
+        "libraryList": "things",
+        "gemLevel": 0,
+        "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
+        "data": {
+          "action": 1,
+          "bumped": true
+        }
+      }
+    },
+    {
       "typeName": "Beacon",
       "state": {
         "id": 500391,
@@ -3176,7 +3176,26 @@
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 0
+        "gemLevel": 12
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 95962,
+        "xyz": {
+          "0": 23.014196395874023,
+          "1": 0,
+          "2": -1.9377163648605347
+        },
+        "heading": -3.0936185047915736,
+        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
+        "libraryList": "",
+        "gemLevel": 0,
+        "imageSource": "img/Basic Bot.png",
+        "data": {
+          "bumped": true
+        }
       }
     },
     {
@@ -3202,7 +3221,7 @@
       "state": {
         "id": 453298,
         "xyz": {
-          "0": 36.00001907348633,
+          "0": 35.99998092651367,
           "1": 0,
           "2": -38.23625183105469
         },
@@ -3248,7 +3267,7 @@
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 0
+        "gemLevel": 12
       }
     },
     {
@@ -3275,14 +3294,14 @@
       "state": {
         "id": 80123,
         "xyz": {
-          "0": 25.656984329223633,
+          "0": 25.8603572845459,
           "1": 0,
-          "2": 13.535181045532227
+          "2": 13.29337215423584
         },
         "heading": 0,
         "code": null,
         "libraryList": null,
-        "gemLevel": 0
+        "gemLevel": 12
       }
     },
     {
@@ -3290,18 +3309,18 @@
       "state": {
         "id": 159329,
         "xyz": {
-          "0": 30.063098907470703,
+          "0": 30.017589569091797,
           "1": 0,
-          "2": 15.000000953674316
+          "2": 15.054845809936523
         },
-        "heading": 1.5707963267948983,
+        "heading": 2.8465528775437745,
         "code": "resetTurn();\nif (isLifting()) {\n  if (distanceToBeacon() < 13) {\n    goEast();\n    setTurn();\n  } else {\n    drop();\n  }\n} else {\n  if (distanceToBeacon() > 7) {\n    goWest();\n    setTurn();\n  } else {\n    delta.turn = 1.0;\n    delta.drive = 0.2;\n    grab();\n  }\n}",
         "libraryList": "things turn util",
-        "gemLevel": 0,
+        "gemLevel": 6,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "action": 1,
-          "bumped": true
+          "bumped": false
         }
       }
     },
@@ -3378,9 +3397,9 @@
       "state": {
         "id": 307535,
         "xyz": {
-          "0": 45.64640426635742,
+          "0": 45.6712532043457,
           "1": 0,
-          "2": 15.562844276428223
+          "2": 15.54559326171875
         },
         "heading": -6.283185307179583,
         "code": "let turn = 1.0;\nif (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {\n  turn = -1.0;\n}\nconst drive = Math.abs(subtractAngles(angleToPlayer(), perspective\n  .currentHeading)) / 4;\ndelta = {\n  turn: turn,\n  drive: drive\n}",
@@ -3389,25 +3408,6 @@
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABZ0lEQVRoQ+1ZMRaCMAwtDgxMLk4MDHIFBy4iZ9SLeBImFycGBvVVKa8W0iT0qUHrIpLf9uf3J+VJopS6qYDPOstYozd5PuDPTTNcX9r2cY3NN4WD5qQQS6QIoMliIkDxRQmA7QqUJCYONi8U/6gD7J0yhOwyMPfcZH3JU+dclAB2ORjiUG/4WQEoPUFjvi7AtijI5bdK0xH22nXk8VPA0DmDe8DfC4Cd2+6uYUfWnFMAm9NnsWAHcAXwkcGOOiw+p5bECEBNjoqjiiFCAG5SXPxbS2BXllSxReKCHRAFiA748xIQWdgMUsE9gLGWSGgUIPQfIZHbyiAVHWAccKjGstWn5z1fjCG2SOjgAJ3kvk9YMz1WStkCQDGRWTFIjQWo9ZYDAkzEGGuJhEYHxB7QvxnSPUDXvPttmiAUE+lrBqmXEjBNz07avZ76zVhPHBQUwMfUuERcNjMIxQeh+Cgc+Hp8hutEDbkDmBjEH5lYgnQAAAAASUVORK5CYII=",
         "data": {
           "bumped": false
-        }
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
-        "id": 95962,
-        "xyz": {
-          "0": 44.11298370361328,
-          "1": 0,
-          "2": 21.774866104125977
-        },
-        "heading": 0.6578672465127471,
-        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
-        "libraryList": "",
-        "gemLevel": 0,
-        "imageSource": "img/Basic Bot.png",
-        "data": {
-          "bumped": true
         }
       }
     },
@@ -3493,18 +3493,18 @@
     "profx": {
       "id": 1,
       "xyz": {
-        "0": -21.024826049804688,
+        "0": -22.297866821289062,
         "1": 0,
-        "2": 12.91828441619873
+        "2": 32.29786682128906
       },
-      "heading": -0.5303947446194988,
+      "heading": -8.529950666158227,
       "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 4;\n}\nif (keys.has('ArrowDown')) {\n  delta.drive = -1.0;\n  delta.turn /= 4;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}\nif (keys.has('KeyQ')) {\n  grab();\n}",
       "libraryList": "turn admin things",
-      "gemLevel": 1,
+      "gemLevel": 99,
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
         "adminAction": null,
-        "bumped": false
+        "bumped": true
       }
     },
     "_prototype": {
@@ -3526,11 +3526,11 @@
     "matt": {
       "id": 2,
       "xyz": {
-        "0": 41.561614990234375,
+        "0": 28.279987335205078,
         "1": 0,
-        "2": 9.297605514526367
+        "2": -38.09102249145508
       },
-      "heading": -3.9985309872273276,
+      "heading": -1.9142962621811626,
       "code": "resetTurn();if (perspective.keysDown.has('ArrowUp')) {  goNorth();}if (perspective.keysDown.has('ArrowDown')) {  goSouth();}if (perspective.keysDown.has('ArrowRight')) {  goEast();}if (perspective.keysDown.has('ArrowLeft')) {  goWest();}setTurn();if (perspective.keysDown.has('Space')) {  delta.state = {    action: 1  };}",
       "libraryList": "turn",
       "gemLevel": 0,
