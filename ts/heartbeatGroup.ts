@@ -77,7 +77,6 @@ export class HeartbeatGroup {
 
     this.connection.addCallback("thump: ",
       (peers: string) => {
-        Log.info(`Incoming thump: ${peers}`);
         const peerKVs = peers.split(',');
         for (let i = 0; i < peerKVs.length; ++i) {
           const peerKV = peerKVs[i];

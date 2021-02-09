@@ -9,7 +9,7 @@ Log.info("Initiating start sequence.");
 const url = new URL(document.URL);
 const login = url.searchParams.get('login');
 if (login) {
-  const m = new Meet(login, url.searchParams.get('join'));
+  const m = new Meet("vialis", login, url.searchParams.get('join'));
 } else {
   Log.info("Unrecognized user.");
   Log.info("");

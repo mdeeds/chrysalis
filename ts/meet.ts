@@ -1,12 +1,21 @@
 import { HeartbeatGroup } from "./heartbeatGroup";
 import { Log } from "./log";
 import { Render } from "./render";
+import { State } from "./state";
+import { WorldClient } from "./worldClient";
+import { WorldServer } from "./worldServer";
 
 export class Meet {
-  heartbeatGroup: HeartbeatGroup;
-  username: string;
-  constructor(username: string, joinId: string) {
+  private heartbeatGroup: HeartbeatGroup;
+  private username: string;
+  private worldClient: WorldClient;
+  private worldName: string;
+  private canvas: HTMLCanvasElement;
+  private gl: WebGLRenderingContext;
+  constructor(
+    worldName: string, username: string, joinId: string) {
     this.username = username;
+    this.worldName = worldName;
     this.heartbeatGroup = new HeartbeatGroup(username, joinId);
 
     const body = document.getElementsByTagName('body')[0];
@@ -26,7 +35,7 @@ export class Meet {
       startSpan.addEventListener("click", () => {
         startDiv.remove();
         meetDiv.remove();
-        this.start();
+        this.startAsServer();
       });
     }
 
@@ -34,6 +43,15 @@ export class Meet {
       const url = new URL(document.URL);
       url.searchParams.delete("login");
       meetDiv.innerText = url.toString();
+      this.heartbeatGroup.getConnection()
+        .waitReady()
+        .then((connection) => {
+          Log.info("Ready to play.");
+          this.heartbeatGroup.getConnection().addCallback("Start: ",
+            (serialized: string) => {
+              this.startAsClient(serialized);
+            });
+        });
     } else {
       meetDiv.innerText = "Loading...";
       this.heartbeatGroup.getConnection()
@@ -45,12 +63,40 @@ export class Meet {
           meetDiv.innerText = url.toString();
         });
     }
+    this.canvas = this.makeCanvas();
+    this.gl = this.canvas.getContext("webgl");
+    this.worldClient = new WorldClient(this.gl, worldName, this.heartbeatGroup)
     body.appendChild(meetDiv);
   }
 
-  start() {
-    const r = new Render();
+  makeCanvas(): HTMLCanvasElement {
+    const canvas = document.createElement("canvas");
+    canvas.id = "glCanvas";
+    canvas.width = 1024 * 2;
+    canvas.height = 768 * 2;
+    return canvas;
+  }
+
+  startAsClient(serialized: string) {
+    Log.info("Starting game as client.");
+    const state = new State(this.gl, this.worldName, this.username,
+      (message) => { this.heartbeatGroup.broadcast(message); });
+    this.worldClient.setState(state);
+    state.buildFromString(serialized);
+    const r = new Render(state, this.canvas);
     r.main(this.heartbeatGroup);
-    Log.info("Systems are active.");
+  }
+
+  startAsServer() {
+    WorldServer.getState(this.gl, this.worldName, this.username,
+      (message: string) => { this.heartbeatGroup.broadcast(message); })
+      .then((state: State) => {
+        this.worldClient.setState(state);
+        Log.info("Starting game as server.");
+        this.heartbeatGroup.broadcast(`Start: ${state.serialize()}`);
+        const r = new Render(state, this.canvas);
+        r.main(this.heartbeatGroup);
+        Log.info("Systems are active.");
+      });
   }
 }

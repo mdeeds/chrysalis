@@ -1,11 +1,9 @@
 import { ProgramInfo } from "./programInfo"
 import * as GLM from "gl-matrix"  // npm install -D gl-matrix
 import { MasterControl } from "./masterControl";
-import { Thing } from "./thing";
 import { Log } from "./log";
 import { BoundingBox } from "./quadTreeView";
 import { State } from "./state";
-import { WorldClient } from "./worldClient";
 import { HeartbeatGroup } from "./heartbeatGroup";
 
 export class Render {
@@ -14,16 +12,13 @@ export class Render {
   private gl: WebGLRenderingContext;
   private masterControl: MasterControl;
   private focusContainer: HTMLElement;
-  private worldClient: WorldClient;
   private state: State;
-  constructor() {
+  constructor(state: State, canvas: HTMLCanvasElement) {
+    this.state = state;
     for (let h of document.getElementsByTagName('h1')) {
       h.remove();
     }
-    this.canvas = document.createElement("canvas");
-    this.canvas.id = "glCanvas";
-    this.canvas.width = 1024 * 2;
-    this.canvas.height = 768 * 2;
+    this.canvas = canvas;
     let body = document.getElementsByTagName("body")[0];
     this.focusContainer = document.createElement('div');
     this.focusContainer.appendChild(this.canvas);
@@ -67,16 +62,11 @@ export class Render {
     Log.info(JSON.stringify(this.programInfo));
     // http://butterfly.ucdavis.edu/butterfly/latin
     const worldName = "vialis"
-    this.worldClient =
-      new WorldClient(this.gl, worldName, heartbeatGroup);
 
-    this.worldClient.getWorldState().then((state: State) => {
-      this.state = state;
-      this.masterControl = new MasterControl(this.gl,
-        state, this.focusContainer, username);
-      this.focusContainer.focus();
-      this.renderLoop();
-    });
+    this.masterControl = new MasterControl(this.gl,
+      this.state, this.focusContainer, username);
+    this.focusContainer.focus();
+    this.renderLoop();
   }
 
   private renderLoop() {

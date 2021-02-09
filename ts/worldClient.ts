@@ -14,6 +14,7 @@ export class WorldClient {
   private state: State;
   private heartbeatGroup: HeartbeatGroup;
   private connection: PeerConnection;
+  private loadedCallback: Function = null;
 
   constructor(gl: WebGLRenderingContext,
     worldName: string, heartbeatGroup: HeartbeatGroup) {
@@ -34,40 +35,18 @@ export class WorldClient {
       const dict: any = JSON.parse(serialized);
       const movedThing = ThingCodec.decode(this.gl, dict, this.state.library);
       this.state.mergeThing(movedThing);
-    })
+    });
   }
 
   addCallback(callback: Function) {
     this.updateCallbacks.push(callback);
   }
 
-
-  async getWorldState(): Promise<State> {
-    return new Promise((resolve, reject) => {
-      if (this.heartbeatGroup.isLeader()) {
-        if (this.state) {
-          resolve(this.state);
-        } else {
-          WorldServer.getState(this.gl, this.worldName, this.username,
-            (message) => { this.heartbeatGroup.broadcast(message); })
-            .then((state: State) => {
-              this.state = state;
-              resolve(state);
-            });
-        }
-      } else {
-        this.heartbeatGroup.sendToLeader("World, please.")
-          .then((serialized) => {
-            const state = new State(this.gl, this.worldName, this.username,
-              this.heartbeatGroup.broadcast.bind(this.heartbeatGroup));
-            state.buildFromString(serialized);
-            resolve(state);
-          });
-      }
-    });
-  }
-
   getConnection() {
     return this.connection;
+  }
+
+  setState(state: State) {
+    this.state = state;
   }
 }
