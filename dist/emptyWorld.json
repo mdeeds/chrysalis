@@ -3553,7 +3553,36 @@
       "gemLevel": 0,
       "imageSource": "img/Empty Player.png"
     },
+    "kitty": {
+      "id": 2,
+      "xyz": {
+        "0": 0,
+        "1": 0,
+        "2": 0
+      },
+      "heading": 0,
+      "code": "resetTurn();\n\nif (perspective.keysDown.has('ArrowUp')) {\n  goSouth();\n\n}\nif (perspective.keysDown.has('ArrowDown')) {\n  goSouth();\n}\nif (perspective.keysDown.has('ArrowRight')) {\n  goEast();\n}\nif (perspective.keysDown.has('ArrowLeft')) {\n  goWest();\n}\n\n\nsetTurn();",
+      "libraryList": "turn",
+      "gemLevel": 0,
+      "imageSource": "img/Empty Player.png"
+    },
     "manjaro": {
+      "id": 2,
+      "xyz": {
+        "0": 28.848180770874023,
+        "1": 0,
+        "2": 18.254676818847656
+      },
+      "heading": 1.114341463170419,
+      "code": "resetTurn();if (perspective.keysDown.has('ArrowUp')) {  goNorth();}if (perspective.keysDown.has('ArrowDown')) {  goSouth();}if (perspective.keysDown.has('ArrowRight')) {  goEast();}if (perspective.keysDown.has('ArrowLeft')) {  goWest();}if (perspective.keysDown.has('Space')) {  delta.state = {    action: 1  }}setTurn();",
+      "libraryList": "turn",
+      "gemLevel": 0,
+      "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAAC5UlEQVRoQ92YPWgVQRDH92HAwkKL14jPKjaKhY1FwEIwaCEpg+lSBAQbG/GjSBTBQgNpXiMIKdIZUkaLhAQsAhY2FsE0WvmCFgG1sBASInMwl929mZ3Z2z3f4VXJfszN/7f/2523nds3Tx0a4tn5um/Onx2hupy2ky8WxDH2gN2N7fLfM+MXo+Zyg1NidjgA8DINBB/A9NIlszT90cnVbgslS821A3H9QwVw98JmKRgSPDf/znx+cJVt45Kl5vri/djYnwI12QH9N3MVwZwDnnd7FRc/2huUbXUcEIqpgVoAGOwdmF73WCU5zSdgO0CyqwSgzoYgxZSgJjuA2gQ58lKyPgApeRifGrMAoFlpbnW4U4BKPiZZyb6YT2pMxwE+CAqM34YA/sVqgWj/PdIeEDqRIF4QgKY+AACh1QolbG+AlDjqk6BOAhsCxtQ6KMoBlCNCDtAmgeK5Y07aXLnPU+PK4CboBw4BSEkC52oSrnNShOY0cgrkTrLJeFEOoBJ53P9RNE9O3cia58rrtTJe7tgYGN6R7ID/GoBmSQFAb7Rjxi5f1wxXj3n/Yd0Mvhw2EhuTgHeQDggVN/1P1xwRr97+LP5vAgC+KHfsCgB7d0fxfoGxs9Atf+n5ENTL2sKBTinMice8AQJUVr8e3muNlJQyHkSUn4AkHhVjpdUWCFkAaMW3DUKq+MIB97cXiztB6kdFyOdtcEI2ALHibTB3Zm5F7QeQND6aS1cpeGq8zsH3tfJW+MrE0Q3v1qq70XF9sQAkQdAPN1T+Q91YaWJJYyoAoDyE0pMCQPXlBsBdz3HtkkCp3wHw7fdRNXf6xLozl+vLCcAXiU7A1c8N4eXisnEASLS4/lwQbIHU37kAgHB8sgDAYKkgmgZgCw8C+PNk1hx/+qyuIYp5dWA0+QlQ4os6wD4FUDEA8J8UIDEwcm+CnPBGPgHJMloQOY5BSfhQAKQUUBJc7NcKHzqAXBunDSZWPMz9C8oDRI/WID11AAAAAElFTkSuQmCC\n",
+      "data": {
+        "action": 1
+      }
+    },
+    "Shadow": {
       "id": 2,
       "xyz": {
         "0": 28.848180770874023,
