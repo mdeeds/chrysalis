@@ -7,6 +7,7 @@ import { ThingState } from "./thingState";
 export class Beacon extends Shape {
   private isOn: boolean;
   private lastToggle: number;
+  private lastSuccessfulToggle: number;
   constructor(gl: WebGLRenderingContext, state: ThingState) {
     super(gl, "img/Beacon.png", state);
     this.radius = 0.4;
@@ -22,14 +23,18 @@ export class Beacon extends Shape {
     this.createBuffers(gl, positions, textureCoordinates, vertexNormals);
     this.isOn = true;
     this.lastToggle = window.performance.now();
+    this.lastSuccessfulToggle = window.performance.now();
   }
 
   toggle() {
-    if (window.performance.now() - this.lastToggle < 500) {
-      this.lastToggle = window.performance.now();
+    const currentTime = window.performance.now();
+    if (currentTime - this.lastToggle < 500 &&
+      currentTime - this.lastSuccessfulToggle < 2000) {
+      this.lastToggle = currentTime;
       return;
     } else {
-      this.lastToggle = window.performance.now();
+      this.lastSuccessfulToggle = currentTime;
+      this.lastToggle = currentTime;
       if (this.isOn) {
         this.turnOff();
       } else {
