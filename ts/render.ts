@@ -69,7 +69,28 @@ export class Render {
     this.renderLoop();
   }
 
+  private previousTimestamps: number[] = [];
+  private frameRateDiv: HTMLDivElement = null;
+  private utilizationDiv: HTMLDivElement = null;
   private renderLoop() {
+    if (this.frameRateDiv === null) {
+      const perfDiv = document.createElement('div');
+      perfDiv.id = "perfDiv";
+      this.frameRateDiv = document.createElement('div');
+      this.utilizationDiv = document.createElement('div');
+      perfDiv.appendChild(this.frameRateDiv);
+      perfDiv.appendChild(this.utilizationDiv);
+      const body = document.getElementsByTagName('body')[0];
+      body.appendChild(perfDiv);
+    }
+    const newTimestamp = window.performance.now();
+    this.previousTimestamps.push(newTimestamp);
+    if (this.previousTimestamps.length > 10) {
+      this.previousTimestamps.pop();
+      const frameRate = 10000 / (newTimestamp - this.previousTimestamps[0]);
+      this.previousTimestamps.shift();
+      this.frameRateDiv.innerText = `${frameRate.toFixed(1)} fps`;
+    }
     const playerCoords = this.state.getPlayerCoords();
     this.setScene(this.gl, this.programInfo,
       playerCoords);

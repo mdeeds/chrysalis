@@ -48,6 +48,20 @@ canvas {
   margin: 5px;
 }
 
+#perfDiv {
+  position: absolute;
+  right: 0px;
+  bottom: 100px;
+  color: red;
+}
+
+#epsDiv {
+  position: absolute;
+  right: 0px;
+  bottom: 120px;
+  color: red;
+}
+
 .error {
   color: red;
   font-weight: bold;
