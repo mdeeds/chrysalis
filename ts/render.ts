@@ -84,6 +84,13 @@ export class Render {
       body.appendChild(perfDiv);
     }
     const newTimestamp = window.performance.now();
+    if (this.previousTimestamps.length > 0 &&
+      newTimestamp - this.previousTimestamps[
+      this.previousTimestamps.length - 1] < (1000 / 32)) {
+      requestAnimationFrame(() => { this.renderLoop(); });
+      return;
+    }
+
     this.previousTimestamps.push(newTimestamp);
     if (this.previousTimestamps.length > 10) {
       this.previousTimestamps.pop();

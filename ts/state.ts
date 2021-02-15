@@ -246,6 +246,7 @@ export class State {
         }
       }
     }
+    this.materializeUser(this.username);
   }
 
   materializeUser(username: string) {

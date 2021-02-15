@@ -104,7 +104,7 @@ export class MasterControl {
       this.keyFocusElement.focus();
     }
 
-    requestAnimationFrame((ts) => { this.eventLoop(ts); });
+    setTimeout(() => { this.eventLoop(); }, 0);
   }
 
   private setGround(
@@ -481,7 +481,7 @@ export class MasterControl {
   private frameRateDiv: HTMLDivElement = null;
   private utilizationDiv: HTMLDivElement = null;
 
-  eventLoop(ts: number) {
+  eventLoop() {
     if (this.frameRateDiv === null) {
       const perfDiv = document.createElement('div');
       perfDiv.id = "epsDiv";
@@ -555,6 +555,8 @@ export class MasterControl {
     }
 
     this.frameNumber++;
-    requestAnimationFrame((ts) => { this.eventLoop(ts); });
+    const wakeUpTime = newTimestamp + (1000 / 60);
+    setTimeout(() => { this.eventLoop() },
+      wakeUpTime - window.performance.now());
   }
 }
