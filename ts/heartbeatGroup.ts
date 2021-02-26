@@ -1,4 +1,3 @@
-import { ContextReplacementPlugin } from "webpack";
 import { Log } from "./log";
 import { PeerConnection } from "./peerConnection";
 
@@ -8,6 +7,7 @@ class PeerHealth {
   readonly statusElement: HTMLDivElement;
   private lastPingTime: number;
   private deathTimer: NodeJS.Timeout;
+  private healthy: boolean;
   constructor(peerId: string, username: string, container: HTMLDivElement) {
     this.peerId = peerId;
     this.username = username;
@@ -15,11 +15,14 @@ class PeerHealth {
     this.statusElement.innerText = `♡ ${username}`;
     this.statusElement.classList.add('pulse');
     container.appendChild(this.statusElement);
+    this.healthy = true;
     this.update();
   }
 
   update() {
     this.lastPingTime = window.performance.now();
+    this.statusElement.innerText = `♡ ${this.username}`;
+    this.healthy = true;
     this.statusElement.classList.remove('pulse');
     setTimeout(() => { this.statusElement.classList.add('pulse') }, 10);
 
@@ -29,8 +32,13 @@ class PeerHealth {
     this.deathTimer = setTimeout(() => this.die(), 10000);
   }
 
-  die() {
+  private die() {
     this.statusElement.innerText = `🕱 ${this.username}`;
+    this.healthy = false;
+  }
+
+  isHealthy() {
+    return this.healthy;
   }
 }
 
@@ -92,7 +100,9 @@ export class HeartbeatGroup {
             this.healthMap.set(peerId,
               new PeerHealth(peerId, peerUser, this.status));
           } else {
-            this.healthMap.get(peerId).update();
+            if (i === 0) {
+              this.healthMap.get(peerId).update();
+            }
           }
         }
       })
@@ -111,7 +121,10 @@ export class HeartbeatGroup {
   }
 
   broadcast(message: string) {
-    for (const other of this.healthMap.keys()) {
+    for (const [other, health] of this.healthMap.entries()) {
+      if (health != null && !health.isHealthy()) {
+        continue;
+      }
       if (other !== this.connection.id()) {
         this.connection.send(other, message);
       }
@@ -126,10 +139,13 @@ export class HeartbeatGroup {
   }
 
   private makeThump(): string {
+    if (this.connection.id() === null) {
+      return;
+    }
     const otherList: string[] = [`${this.connection.id()}=${this.username}`];
     this.healthMap.get(this.connection.id()).update();
     for (const [peerId, healthStatus] of this.healthMap) {
-      if (healthStatus === null) {
+      if (healthStatus === null || peerId == this.connection.id()) {
         continue;
       }
       otherList.push(`${peerId}=${healthStatus.username}`);
