@@ -380,7 +380,7 @@ export class MasterControl {
     if (cogLocation) {
       this.state.getEverything().appendFromRange(
         new BoundingBox(cogLocation[0],
-          cogLocation[2], 10.0), things);
+          cogLocation[2], 20.0), things);
       let closestPlayer: Float32Array = null;
       let closestBeacon: Float32Array = null;
       let countBeacons = 0;
