@@ -363,6 +363,13 @@ export class MasterControl {
     return (d2a < d2b) ? a : b;
   }
 
+  private angleTo(reference: Float32Array,
+    refernceHeading: number, other: Float32Array) {
+    const angle = Math.atan2(-(other[0] - reference[0]), other[2] - reference[2]);
+    const relativeAngle = angle - refernceHeading;
+    return (relativeAngle + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+  }
+
   getCogPerspective(cog: Cog): Perspective {
     const cogPerspective = new Perspective();
     cogPerspective.keysDown = this.keysDown;
@@ -383,6 +390,8 @@ export class MasterControl {
           cogLocation[2], 20.0), things);
       let closestPlayer: Float32Array = null;
       let closestBeacon: Float32Array = null;
+      let closestWallLeft: Float32Array = null;
+      let closestWallRight: Float32Array = null;
       let countBeacons = 0;
       for (const t of things) {
         if (t instanceof Player) {
@@ -393,6 +402,15 @@ export class MasterControl {
             ++countBeacons;
             closestBeacon = this.closerOfTwo(
               cogLocation, closestBeacon, t.state.xyz);
+          }
+        } else if (t instanceof Ocean) {
+          const relativeAngle = this.angleTo(
+            cog.thing.state.xyz, cog.thing.state.heading, t.state.xyz);
+          if (relativeAngle > -Math.PI / 12 && relativeAngle < Math.PI / 4) {
+            closestWallRight = this.closerOfTwo(cogLocation, closestWallRight, t.state.xyz);
+          }
+          if (relativeAngle > -Math.PI / 4 && relativeAngle < Math.PI / 12) {
+            closestWallLeft = this.closerOfTwo(cogLocation, closestWallLeft, t.state.xyz);
           }
         }
       }
@@ -406,6 +424,12 @@ export class MasterControl {
         cogPerspective.closestPlayer = [
           closestPlayer[0] - cogLocation[0],
           closestPlayer[2] - cogLocation[2]];
+      }
+      if (closestWallLeft) {
+        cogPerspective.closestWallLeft = this.distance(cogLocation, closestWallLeft);
+      }
+      if (closestWallRight) {
+        cogPerspective.closestWallRight = this.distance(cogLocation, closestWallRight);
       }
     }
     return cogPerspective;

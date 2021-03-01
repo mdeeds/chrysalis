@@ -11,6 +11,9 @@ export class Perspective {
   countBeacons: number;
   isLifting: boolean;
   isLifted: boolean;
+  // Distances to the closest wall (i.e. Ocean) to the left and right.
+  closestWallLeft: number;
+  closestWallRight: number;
   constructor() {
     this.data = {};
   }
