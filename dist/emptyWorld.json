@@ -310,6 +310,10 @@
     ],
     [
       -46,
+      -52
+    ],
+    [
+      -46,
       -50
     ],
     [
@@ -350,6 +354,10 @@
     ],
     [
       -44,
+      -52
+    ],
+    [
+      -44,
       -50
     ],
     [
@@ -390,11 +398,11 @@
     ],
     [
       -42,
-      -50
+      -52
     ],
     [
       -42,
-      -48
+      -50
     ],
     [
       -42,
@@ -414,11 +422,11 @@
     ],
     [
       -40,
-      -50
+      -52
     ],
     [
       -40,
-      -48
+      -50
     ],
     [
       -40,
@@ -438,11 +446,11 @@
     ],
     [
       -38,
-      -50
+      -52
     ],
     [
       -38,
-      -48
+      -50
     ],
     [
       -38,
@@ -459,6 +467,10 @@
     [
       -36,
       -62
+    ],
+    [
+      -36,
+      -52
     ],
     [
       -36,
@@ -478,10 +490,6 @@
     ],
     [
       -36,
-      -42
-    ],
-    [
-      -36,
       -38
     ],
     [
@@ -498,6 +506,10 @@
     ],
     [
       -34,
+      -52
+    ],
+    [
+      -34,
       -50
     ],
     [
@@ -511,10 +523,6 @@
     [
       -34,
       -44
-    ],
-    [
-      -34,
-      -42
     ],
     [
       -34,
@@ -630,6 +638,10 @@
     ],
     [
       -28,
+      -50
+    ],
+    [
+      -28,
       -36
     ],
     [
@@ -655,6 +667,10 @@
     [
       -26,
       -62
+    ],
+    [
+      -26,
+      -50
     ],
     [
       -26,
@@ -683,6 +699,10 @@
     [
       -24,
       -62
+    ],
+    [
+      -24,
+      -50
     ],
     [
       -24,
@@ -703,6 +723,10 @@
     [
       -22,
       -62
+    ],
+    [
+      -22,
+      -50
     ],
     [
       -22,
@@ -783,6 +807,14 @@
     [
       -20,
       -62
+    ],
+    [
+      -20,
+      -50
+    ],
+    [
+      -20,
+      -48
     ],
     [
       -20,
@@ -3724,19 +3756,19 @@
   "hazards": [
     [
       -40,
-      -44
+      -46
     ],
     [
       -40,
-      -42
-    ],
-    [
-      -38,
       -44
     ],
     [
       -38,
-      -42
+      -46
+    ],
+    [
+      -38,
+      -44
     ],
     [
       -34,
@@ -3749,10 +3781,6 @@
     [
       -32,
       -38
-    ],
-    [
-      -28,
-      -46
     ],
     [
       -28,
@@ -3893,9 +3921,9 @@
       "state": {
         "id": 562812,
         "xyz": {
-          "0": -39.75519943237305,
+          "0": -39.6968994140625,
           "1": 0,
-          "2": -41.696861267089844
+          "2": -46.34992980957031
         },
         "heading": 0,
         "code": "// Scret Admin code:\n// Add this to your LIB: admin\n// Add this code to your player:\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}",
@@ -3912,9 +3940,9 @@
       "state": {
         "id": 562813,
         "xyz": {
-          "0": -28.11960220336914,
+          "0": -27.872356414794922,
           "1": 0,
-          "2": -45.6684455871582
+          "2": -44.36836242675781
         },
         "heading": 0,
         "code": "// Can you add the grab and go code to the\n// wall follower to get that note to the West?",
@@ -4003,11 +4031,11 @@
       "state": {
         "id": 516071,
         "xyz": {
-          "0": -16.063098907470703,
+          "0": -18.236251831054688,
           "1": 0,
-          "2": -30.999998092651367
+          "2": -28.000009536743164
         },
-        "heading": -1.5707963267948963,
+        "heading": -7.853981633974484,
         "code": "resetTurn();if (distanceToBeacon() > 10) {  goWest();} else {  goEast();}setTurn();",
         "libraryList": "turn,things",
         "gemLevel": 3,
@@ -4113,11 +4141,11 @@
       "state": {
         "id": 578288,
         "xyz": {
-          "0": 3.7759788036346436,
+          "0": 0.23250339925289154,
           "1": 0,
-          "2": -55.86690902709961
+          "2": -54.230403900146484
         },
-        "heading": -1.8961236878805232,
+        "heading": -5.248101326242482,
         "code": "let turn = 0;if (perspective.isLifting) {  turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;} else {  turn = subtractAngles(angleToPlayer() + Math.PI, perspective.currentHeading) /    4;}delta = {  turn: turn,  drive: 1.0};if (distanceToPlayer() < 3) {  delta.drive = 0.0;  drop();} else {  grab();}log(`isLifting: ${perspective.isLifting}`);",
         "libraryList": "turn, things, util",
         "gemLevel": 0,
@@ -4134,11 +4162,11 @@
       "state": {
         "id": 547231,
         "xyz": {
-          "0": 24.68836212158203,
+          "0": 26.368724822998047,
           "1": 0,
-          "2": -48.118995666503906
+          "2": -57.01704406738281
         },
-        "heading": -9.009978016366908,
+        "heading": -5.147160029696944,
         "code": "turn = 0.3;\nif (perspective.closestWallLeft < 3) {\n  turn = 0.3;\n}\nif (perspective.closestWallRight < 3) {\n  turn = -1;\n}\nlog(`Left: ${perspective.closestWallLeft}`);\ndelta = {\n  turn: turn,\n  drive: 1.0\n}",
         "libraryList": "util",
         "gemLevel": 0,
@@ -4260,15 +4288,15 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 143479,
+        "id": 481,
         "xyz": {
-          "0": 0.4011744260787964,
+          "0": 0.1218133494257927,
           "1": 0,
-          "2": -12.40221881866455
+          "2": -14.497413635253906
         },
-        "heading": -2.902588377863655,
-        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
-        "libraryList": "things",
+        "heading": -5.98803789008679,
+        "code": "if (perspective.data.bumped) {  delta.turn = -0.9;  delta.drive = -0.5;} else {  delta.turn = 0.05;  delta.drive = 0.5;}",
+        "libraryList": "turn,things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
         "data": {
@@ -4299,15 +4327,15 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 481,
+        "id": 143479,
         "xyz": {
-          "0": 2.4399847984313965,
+          "0": 0.0251039806753397,
           "1": 0,
-          "2": -4.309762477874756
+          "2": -4.974921703338623
         },
-        "heading": -7.997144255729145,
-        "code": "if (perspective.data.bumped) {  delta.turn = -0.9;  delta.drive = -0.5;} else {  delta.turn = 0.05;  delta.drive = 0.5;}",
-        "libraryList": "turn,things",
+        "heading": 2.202740563671054,
+        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
+        "libraryList": "things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
         "data": {
@@ -4329,6 +4357,25 @@
         "code": null,
         "libraryList": null,
         "gemLevel": 12
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 95962,
+        "xyz": {
+          "0": 23.774951934814453,
+          "1": 0,
+          "2": -1.8853521347045898
+        },
+        "heading": -1.7916174315495828,
+        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
+        "libraryList": "",
+        "gemLevel": 0,
+        "imageSource": "img/Basic Bot.png",
+        "data": {
+          "bumped": true
+        }
       }
     },
     {
@@ -4446,7 +4493,7 @@
           "1": 0,
           "2": 15.871186256408691
         },
-        "heading": 0.46136350963169903,
+        "heading": 2.9078711706469242,
         "code": "resetTurn();\nif (isLifting()) {\n  if (distanceToBeacon() < 13) {\n    goEast();\n    setTurn();\n  } else {\n    drop();\n  }\n} else {\n  if (distanceToBeacon() > 7) {\n    goWest();\n    setTurn();\n  } else {\n    delta.turn = 1.0;\n    delta.drive = 0.2;\n    grab();\n  }\n}",
         "libraryList": "things turn util",
         "gemLevel": 6,
@@ -4547,25 +4594,6 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 95962,
-        "xyz": {
-          "0": 44.21525573730469,
-          "1": 0,
-          "2": 21.76203727722168
-        },
-        "heading": 1.541809104350854,
-        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
-        "libraryList": "",
-        "gemLevel": 0,
-        "imageSource": "img/Basic Bot.png",
-        "data": {
-          "bumped": true
-        }
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
         "id": 307534,
         "xyz": {
           "0": 49.17966842651367,
@@ -4645,18 +4673,18 @@
     "profx": {
       "id": 1,
       "xyz": {
-        "0": -14.3486328125,
+        "0": 13.859560012817383,
         "1": 0,
-        "2": -49.70426559448242
+        "2": -62.27771759033203
       },
-      "heading": -4.654506587696725,
+      "heading": -6.267006587696706,
       "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 4;\n}\nif (keys.has('ArrowDown')) {\n  delta.drive = -1.0;\n  delta.turn /= 4;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}\nif (keys.has('KeyQ')) {\n  grab();\n}",
       "libraryList": "turn admin things",
       "gemLevel": 99,
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
-        "action": 1,
-        "bumped": false
+        "adminAction": null,
+        "bumped": true
       }
     },
     "_prototype": {
