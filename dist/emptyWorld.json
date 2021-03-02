@@ -886,6 +886,10 @@
     ],
     [
       -18,
+      -60
+    ],
+    [
+      -18,
       -46
     ],
     [
@@ -971,6 +975,14 @@
     [
       -16,
       -62
+    ],
+    [
+      -16,
+      -58
+    ],
+    [
+      -16,
+      -56
     ],
     [
       -16,
@@ -1330,6 +1342,10 @@
     ],
     [
       -2,
+      -58
+    ],
+    [
+      -2,
       -50
     ],
     [
@@ -1395,6 +1411,14 @@
     [
       0,
       -62
+    ],
+    [
+      0,
+      -56
+    ],
+    [
+      0,
+      -54
     ],
     [
       0,
@@ -1502,6 +1526,14 @@
     ],
     [
       2,
+      -56
+    ],
+    [
+      2,
+      -54
+    ],
+    [
+      2,
       -50
     ],
     [
@@ -1602,6 +1634,14 @@
     ],
     [
       4,
+      -56
+    ],
+    [
+      4,
+      -54
+    ],
+    [
+      4,
       -50
     ],
     [
@@ -1699,6 +1739,10 @@
     [
       6,
       -62
+    ],
+    [
+      6,
+      -52
     ],
     [
       6,
@@ -3727,6 +3771,54 @@
       -38
     ],
     [
+      -14,
+      -58
+    ],
+    [
+      -14,
+      -56
+    ],
+    [
+      -12,
+      -58
+    ],
+    [
+      -12,
+      -56
+    ],
+    [
+      -10,
+      -58
+    ],
+    [
+      -10,
+      -56
+    ],
+    [
+      -8,
+      -58
+    ],
+    [
+      -8,
+      -56
+    ],
+    [
+      -6,
+      -58
+    ],
+    [
+      -6,
+      -56
+    ],
+    [
+      -4,
+      -58
+    ],
+    [
+      -4,
+      -56
+    ],
+    [
       8,
       -38
     ],
@@ -3801,18 +3893,18 @@
       "state": {
         "id": 562812,
         "xyz": {
-          "0": -39.901397705078125,
+          "0": -39.75519943237305,
           "1": 0,
-          "2": -42.65741729736328
+          "2": -41.696861267089844
         },
         "heading": 0,
-        "code": "// Scret Admin code:",
+        "code": "// Scret Admin code:\n// Add this to your LIB: admin\n// Add this code to your player:\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}",
         "libraryList": "",
         "gemLevel": 0,
+        "imageSource": "img/tabletNote.png",
         "data": {
           "type": "note"
-        },
-        "imageSource": "img/tabletNote.png"
+        }
       }
     },
     {
@@ -3828,10 +3920,10 @@
         "code": "// Can you add the grab and go code to the\n// wall follower to get that note to the West?",
         "libraryList": "",
         "gemLevel": 0,
+        "imageSource": "img/tabletNote.png",
         "data": {
           "type": "note"
-        },
-        "imageSource": "img/tabletNote.png"
+        }
       }
     },
     {
@@ -3839,18 +3931,18 @@
       "state": {
         "id": 562809,
         "xyz": {
-          "0": -25.489534378051758,
+          "0": -26.751522064208984,
           "1": 0,
-          "2": -35.59816360473633
+          "2": -36.66718292236328
         },
         "heading": 0,
-        "code": "// This code will make your robot go grab something\n// and bring it back.",
+        "code": "// Maybe that sign over there has some\n// information on it.",
         "libraryList": "",
         "gemLevel": 0,
+        "imageSource": "img/tabletNote.png",
         "data": {
           "type": "note"
-        },
-        "imageSource": "img/tabletNote.png"
+        }
       }
     },
     {
@@ -3864,12 +3956,31 @@
         },
         "heading": -1.570796326794897,
         "code": "resetTurn();if (distanceToBeacon() > 10) {  goWest();} else {  goEast();}setTurn();",
-        "libraryList": "turn\nthings",
-        "gemLevel": 0,
+        "libraryList": "turn,things",
+        "gemLevel": 3,
+        "imageSource": "img/Basic Bot.png",
         "data": {
           "bumped": true
+        }
+      }
+    },
+    {
+      "typeName": "Tablet",
+      "state": {
+        "id": 578289,
+        "xyz": {
+          "0": -9.439276695251465,
+          "1": 0,
+          "2": -56.89146423339844
         },
-        "imageSource": "img/Basic Bot.png"
+        "heading": 0,
+        "code": "//////////////////\n// Nicely done! //\n//////////////////",
+        "libraryList": "",
+        "gemLevel": 0,
+        "imageSource": "img/tabletNote.png",
+        "data": {
+          "type": "note"
+        }
       }
     },
     {
@@ -3892,14 +4003,14 @@
       "state": {
         "id": 516071,
         "xyz": {
-          "0": -18.236251831054688,
+          "0": -16.063098907470703,
           "1": 0,
-          "2": -27.999990463256836
+          "2": -30.999998092651367
         },
         "heading": -1.5707963267948963,
         "code": "resetTurn();if (distanceToBeacon() > 10) {  goWest();} else {  goEast();}setTurn();",
-        "libraryList": "turn\nthings",
-        "gemLevel": 0,
+        "libraryList": "turn,things",
+        "gemLevel": 3,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "bumped": true
@@ -4000,13 +4111,34 @@
     {
       "typeName": "BasicBot",
       "state": {
+        "id": 578288,
+        "xyz": {
+          "0": 3.7759788036346436,
+          "1": 0,
+          "2": -55.86690902709961
+        },
+        "heading": -1.8961236878805232,
+        "code": "let turn = 0;if (perspective.isLifting) {  turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;} else {  turn = subtractAngles(angleToPlayer() + Math.PI, perspective.currentHeading) /    4;}delta = {  turn: turn,  drive: 1.0};if (distanceToPlayer() < 3) {  delta.drive = 0.0;  drop();} else {  grab();}log(`isLifting: ${perspective.isLifting}`);",
+        "libraryList": "turn, things, util",
+        "gemLevel": 0,
+        "imageSource": "img/Basic Bot.png",
+        "data": {
+          "action": 1,
+          "log": null,
+          "bumped": true
+        }
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
         "id": 547231,
         "xyz": {
-          "0": 27.2591552734375,
+          "0": 24.68836212158203,
           "1": 0,
-          "2": -51.65534973144531
+          "2": -48.118995666503906
         },
-        "heading": -2.4330811251151765,
+        "heading": -9.009978016366908,
         "code": "turn = 0.3;\nif (perspective.closestWallLeft < 3) {\n  turn = 0.3;\n}\nif (perspective.closestWallRight < 3) {\n  turn = -1;\n}\nlog(`Left: ${perspective.closestWallLeft}`);\ndelta = {\n  turn: turn,\n  drive: 1.0\n}",
         "libraryList": "util",
         "gemLevel": 0,
@@ -4111,11 +4243,11 @@
       "state": {
         "id": 453307,
         "xyz": {
-          "0": 24.90576171875,
+          "0": 29.681182861328125,
           "1": 0,
-          "2": -32.06726837158203
+          "2": -37.161407470703125
         },
-        "heading": -7.225070901641629,
+        "heading": -0.49702533675448457,
         "code": "turn = subtractAngles(angleToBeacon(), perspective.currentHeading) / 4;let drive = 1.0;if (distanceToBeacon() > 20) {  drive = 0.0;}delta = {  turn: turn,  drive: drive}",
         "libraryList": "things turn",
         "gemLevel": 2,
@@ -4128,15 +4260,15 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 481,
+        "id": 143479,
         "xyz": {
-          "0": 0.44859370589256287,
+          "0": 0.4011744260787964,
           "1": 0,
-          "2": -11.175505638122559
+          "2": -12.40221881866455
         },
-        "heading": -6.26542830446069,
-        "code": "if (perspective.data.bumped) {  delta.turn = -0.9;  delta.drive = -0.5;} else {  delta.turn = 0.05;  delta.drive = 0.5;}",
-        "libraryList": "turn things",
+        "heading": -2.902588377863655,
+        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
+        "libraryList": "things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
         "data": {
@@ -4167,15 +4299,15 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 143479,
+        "id": 481,
         "xyz": {
-          "0": 0.2465038299560547,
+          "0": 2.4399847984313965,
           "1": 0,
-          "2": -5.846113681793213
+          "2": -4.309762477874756
         },
-        "heading": -2.959304329108929,
-        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
-        "libraryList": "things",
+        "heading": -7.997144255729145,
+        "code": "if (perspective.data.bumped) {  delta.turn = -0.9;  delta.drive = -0.5;} else {  delta.turn = 0.05;  delta.drive = 0.5;}",
+        "libraryList": "turn,things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
         "data": {
@@ -4222,7 +4354,7 @@
       "state": {
         "id": 453298,
         "xyz": {
-          "0": 35.99998092651367,
+          "0": 36.00001907348633,
           "1": 0,
           "2": -38.23625183105469
         },
@@ -4282,8 +4414,8 @@
         },
         "heading": -6.283181989091202,
         "code": "resetTurn();\nif (distanceToBeacon() < 7) {\n  goSouth();\n}\nif (distanceToBeacon() > 20) {\n  goNorth();\n}\nsetTurn();",
-        "libraryList": "turn things",
-        "gemLevel": 0,
+        "libraryList": "turn,things",
+        "gemLevel": 3,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "bumped": true
@@ -4314,7 +4446,7 @@
           "1": 0,
           "2": 15.871186256408691
         },
-        "heading": -0.862978459500841,
+        "heading": 0.46136350963169903,
         "code": "resetTurn();\nif (isLifting()) {\n  if (distanceToBeacon() < 13) {\n    goEast();\n    setTurn();\n  } else {\n    drop();\n  }\n} else {\n  if (distanceToBeacon() > 7) {\n    goWest();\n    setTurn();\n  } else {\n    delta.turn = 1.0;\n    delta.drive = 0.2;\n    grab();\n  }\n}",
         "libraryList": "things turn util",
         "gemLevel": 6,
@@ -4379,9 +4511,9 @@
       "state": {
         "id": 437574,
         "xyz": {
-          "0": 44.32808303833008,
+          "0": 44.51124572753906,
           "1": 0,
-          "2": 13.137899398803711
+          "2": 11.292998313903809
         },
         "heading": 0,
         "code": "// Do you want your robot to follow you?\n// Try this out.\nlet turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;\nif (distanceToPlayer() < 3) {\n  drive = 0;\n} else {\n  drive = 1.0;\n}\ndelta = {\n  turn: turn,\n  drive: drive\n}",
@@ -4402,9 +4534,9 @@
           "1": 0,
           "2": 15.208967208862305
         },
-        "heading": -8.881784197001252e-16,
+        "heading": 8.881784197001252e-16,
         "code": "let turn = 1.0;\nif (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {\n  turn = -1.0;\n}\nconst drive = Math.abs(subtractAngles(angleToPlayer(), perspective\n  .currentHeading)) / 4;\ndelta = {\n  turn: turn,\n  drive: drive\n}",
-        "libraryList": "turn things",
+        "libraryList": "turn,things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABZ0lEQVRoQ+1ZMRaCMAwtDgxMLk4MDHIFBy4iZ9SLeBImFycGBvVVKa8W0iT0qUHrIpLf9uf3J+VJopS6qYDPOstYozd5PuDPTTNcX9r2cY3NN4WD5qQQS6QIoMliIkDxRQmA7QqUJCYONi8U/6gD7J0yhOwyMPfcZH3JU+dclAB2ORjiUG/4WQEoPUFjvi7AtijI5bdK0xH22nXk8VPA0DmDe8DfC4Cd2+6uYUfWnFMAm9NnsWAHcAXwkcGOOiw+p5bECEBNjoqjiiFCAG5SXPxbS2BXllSxReKCHRAFiA748xIQWdgMUsE9gLGWSGgUIPQfIZHbyiAVHWAccKjGstWn5z1fjCG2SOjgAJ3kvk9YMz1WStkCQDGRWTFIjQWo9ZYDAkzEGGuJhEYHxB7QvxnSPUDXvPttmiAUE+lrBqmXEjBNz07avZ76zVhPHBQUwMfUuERcNjMIxQeh+Cgc+Hp8hutEDbkDmBjEH5lYgnQAAAAASUVORK5CYII=",
         "data": {
@@ -4417,11 +4549,11 @@
       "state": {
         "id": 95962,
         "xyz": {
-          "0": 44.22309112548828,
+          "0": 44.21525573730469,
           "1": 0,
-          "2": 21.852191925048828
+          "2": 21.76203727722168
         },
-        "heading": 1.4730920059161488,
+        "heading": 1.541809104350854,
         "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
         "libraryList": "",
         "gemLevel": 0,
@@ -4442,7 +4574,7 @@
         },
         "heading": 8.881784197001252e-16,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
-        "libraryList": "turn things",
+        "libraryList": "turn,things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACDElEQVRoQ+1ZPU/DMBB1WUAVWzbYKvUvsFXipyN14y9U6gZbNlTBAshWLjq/3vnsJlUqJ1lapXfxved3H3FXbdv+uQFX0zQDvKd3XXkCtg+P7vD9VRQN+VRBQBFyMF4IqCEFFgUQA5u1zcXxFNlUlQL753e3u38NAPc/b+J3N3sCPDuMhPkpYPYE1JwCbu5F0G4B5xZV1ABf/fm1+3gRuZDsqiCAoyWQSIJ2vwoC8GUozAOgArxX9ctQDgGkmioUgAlfQsAlhfOWfMJ5ABa33AApTXw6XHLRGcSU/oMPRDzwIQcqU/uPS4AfpGBS7JXBh6zjKSKtJxD9yYc/s7PhpEf+fFTXBju2/jkB2qKEpAtGDMDbSIvmAuD+3ofHAnGpBGgbADlK/jEBfAeM70kCBMABDIHSFIAE8KBLCEiN9LCB46YAAeAAlbRQCWSgqThKB7amAqR12T1ZAQWl3AKAhRHBWP5WKGYNEGpFr0JWuEdVgBQUB66BpvvYDrU26e/nEqh1qKsoAIFwAKmgJbWg7FM2SAaqJ1oblCF3gVQrs7oAri7kHfZ+bINSW1NtmJyzaoZJgNbK4CgsmYOdbcmuhR2H4MT0ScwBEQGJrsM3YNQaoLa61PDCJ0mpcHWKylEAAfOffQpt1m77eReecnj67Qe1q9QAq3Lz33OLmPbMsfyXl6Ghf4+X7Pot2v4Dzlnqj2KAi4cAAAAASUVORK5CYII=",
         "data": {
@@ -4461,7 +4593,7 @@
         },
         "heading": -6.283185307179583,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
-        "libraryList": "turn things",
+        "libraryList": "turn,things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACXElEQVRoQ+2ZsUoDQRCGNyhoaZEusRT0BbTxDQSbgLEXBN8hIEIewC6VvRFs7OxtrC0UUmpAJA+gYFDmvL3szc3e/ne3G2PMNQmbmbmZb/+d3bvUjvfWvpRwPT5/qq31Zemn1Nh5c8NpQwb794eJ3c3OpWr0Bym/YRuLY/ppHx4bSig2qtkA0O8IhLIAKD4VM7yKC792p22DFgyAOyWlqgAwITQOBipPBSYsbhsMgE8F2GDyWUWgo8sFiRUtgZfRWDXrS4h9xgZRwMpZN+P3cdqJxlLLAMzAVEBebCRcbg9AAvgEQIXpS/cG25hWgRcAiNRtMHwDoMKjGY6bo/5ujimjYXoBoIvjICQwfMwnAERxvAEGBYCcDxAAFMdMVK9/cSts/dw1M+OteEw4L9hiI0BTPcClAEkRKIC8ZHgjlNZ9AgU8MCHFk02hJhgKgFYCfSYHI6MCDcTn9qfDT+0kiM6IdC4IUTgEAEn64W0bMZtZm8oKmGsAyLQtAMzDErCdBHsX/ZQITo7a0CMyopxZsYl6AAfACzeTnUUIVY7ymSaYVzyBIAAhL6QY14GtSH4JgPfObhG/xHa1e1fKz+ZUFABin5dgBMA161KAUEpACjJtEPsgAMpOuwsc8gRatWgz99r49Tb1Vri+OVnjo6fJLmAbLwriTwCgwqlgDkAaLwpA29tA/LoCyhZUxk+C8K8ASNvqAoDwj5TPfZ8rNdMEyYBeWfHXTNK7tzKy5z58GSAK8HFfHcMKgN9kWgCk4nxue5ACfBJGYpXZGpG4iI2oAMTRp80CQOAHrLzJ+gYllMTIfPpGLwAAAABJRU5ErkJggg==",
         "data": {
@@ -4480,7 +4612,7 @@
         },
         "heading": -6.283185307179583,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
-        "libraryList": "turn things",
+        "libraryList": "turn,things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACAklEQVRoQ+2YvXHDMAyFqQyVKgukT5E17EHsNVKkzwKpPFSUg+VngRAAQrZ1cSCr0lGECHwEHn+6rrz15YqnL59XWP+9aUcA9v172XQfs7yBTQoAsyIXnR8AMpTAIwNOBKiuW4/UilQlsO93pZTDicGz+r56AESHQ1hdBqweQPISWLkItlYA7XsKDfj5eqlie3r9Vllo/VIA4NEiSAnBak8BQB6GKFgNAG9LfRiKAEDWpMgAWfBzAFwinPdkc7wPkOIWdRAl8Z/tzwAs5bdg8CzRMqYF8V7sbwrAu1niJ03aTWoApD1s+O4TfSx7vlW3Trd8/AmA6DJozaA2aDQAcp4Hbb1TvwhALwthXwGwgtLaPQBawJg5bwYlAB6AzAYPgHevAd9UAK26lRsmLoJ4HwPdlU23Pc6oduEa0YDhfoKO39uJa60M0MblbYsBgKfkPHdcBhMBEElhXg6yZAg892NxAPVgyIBxFvl3fQaHvngAEPB4exSgnAj8Y5EMwGBytnk7gvIC0JyWbbYG1RBRQqMPQ0maALw1PSKSMm21rGipOHcWy5oVQF0CtmaEAeCHWv3xzZK3DkunNV3wVdwuH38fMC03KcoLl8CQXtZK0NYA2NcCOiyP9arSKoFRP+iWi2646TmcV6RFNOAWy2j0H1ERtP43ARAdmPdLcxi6JPgsNr8mbtpvB9xXagAAAABJRU5ErkJggg==",
         "data": {
@@ -4499,7 +4631,7 @@
         },
         "heading": -8.881784197001252e-16,
         "code": "// Do you want your robot to follow you?\n// Try this out.\nlet turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;\nif (distanceToPlayer() < 5) {\n  drive = 0;\n} else {\n  drive = 1.0;\n}\ndelta = {\n  turn: turn,\n  drive: drive\n}",
-        "libraryList": "turn things",
+        "libraryList": "turn,things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACAklEQVRoQ+2ZMUvEMBTHU85NEIdDFPQD+AHkFle9QRxFd0VwdvcbuLgIorOKg8NxQ71RNzcXP4CCRQ4U9TaLxztISXMvyUsvaaVtx+b1Je+X/z9N2mB/Y/aPIdfzyy9bXprCmpJ7EHP/9KONsW2MoxB9pDHftk1Fig9UAOBpE4QaQJUVALMPl2sLQE7ZBjr5Y5axscvIAq/9mC02G2OeMVkAHjjrfpK8hhUG91SD5YWZinECQFVBkQCoVJ0AoBSqGpAvBeQKgHcmg8DAyPdKDYCyP7ABIK8DJn9nUYFtztQ+wKQATBG2AKhF5RWn3QjJg6gcAMriWCkFYLLsdPfyUquXfiY6C8CISg2AgrwGUAYLYIvd6cX1mAAOdreNR2SKalzFHJ18oKl6rYjcxWgNkAFgxfOM/wmCMwAiLl3xEAcAfF6YGuXTKo9xDsBUvKgCXxAoew/nAKiFi0X7UkINAPkYqzqjyBZYmL6zFmYQR2HyVXh18zhJ8NA5TCWT2/JUQK4Abq5CtrXTZhgArM01CMo3CIi5vP1OTVCW2YcEKQW8DdaTpHJCVVtRAOCfhWgBJwCsDeThtUhVAP9pk2UBF+tMKcAWgOvZh/4LA/DVa7KZtT6JAY8tCoDNxs1UEKqA9xX8jD/3eJ7k81G8arC6vUFhFqgBeD4TiGqovAJ0Pp7UAkM9wrIQ7QRoGgAAAABJRU5ErkJggg==",
         "data": {
@@ -4513,17 +4645,17 @@
     "profx": {
       "id": 1,
       "xyz": {
-        "0": 11.274393081665039,
+        "0": -14.3486328125,
         "1": 0,
-        "2": -50.15388488769531
+        "2": -49.70426559448242
       },
-      "heading": -4.704506587696782,
+      "heading": -4.654506587696725,
       "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 4;\n}\nif (keys.has('ArrowDown')) {\n  delta.drive = -1.0;\n  delta.turn /= 4;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}\nif (keys.has('KeyQ')) {\n  grab();\n}",
       "libraryList": "turn admin things",
       "gemLevel": 99,
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
-        "adminAction": null,
+        "action": 1,
         "bumped": false
       }
     },
