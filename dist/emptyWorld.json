@@ -310,10 +310,6 @@
     ],
     [
       -46,
-      -52
-    ],
-    [
-      -46,
       -50
     ],
     [
@@ -351,10 +347,6 @@
     [
       -44,
       -62
-    ],
-    [
-      -44,
-      -52
     ],
     [
       -44,
@@ -398,11 +390,11 @@
     ],
     [
       -42,
-      -52
+      -50
     ],
     [
       -42,
-      -50
+      -48
     ],
     [
       -42,
@@ -422,11 +414,11 @@
     ],
     [
       -40,
-      -52
+      -50
     ],
     [
       -40,
-      -50
+      -48
     ],
     [
       -40,
@@ -446,11 +438,11 @@
     ],
     [
       -38,
-      -52
+      -50
     ],
     [
       -38,
-      -50
+      -48
     ],
     [
       -38,
@@ -467,10 +459,6 @@
     [
       -36,
       -62
-    ],
-    [
-      -36,
-      -52
     ],
     [
       -36,
@@ -490,6 +478,10 @@
     ],
     [
       -36,
+      -42
+    ],
+    [
+      -36,
       -38
     ],
     [
@@ -506,10 +498,6 @@
     ],
     [
       -34,
-      -52
-    ],
-    [
-      -34,
       -50
     ],
     [
@@ -523,6 +511,10 @@
     [
       -34,
       -44
+    ],
+    [
+      -34,
+      -42
     ],
     [
       -34,
@@ -638,10 +630,6 @@
     ],
     [
       -28,
-      -50
-    ],
-    [
-      -28,
       -36
     ],
     [
@@ -667,10 +655,6 @@
     [
       -26,
       -62
-    ],
-    [
-      -26,
-      -50
     ],
     [
       -26,
@@ -702,10 +686,6 @@
     ],
     [
       -24,
-      -50
-    ],
-    [
-      -24,
       -32
     ],
     [
@@ -723,10 +703,6 @@
     [
       -22,
       -62
-    ],
-    [
-      -22,
-      -50
     ],
     [
       -22,
@@ -807,14 +783,6 @@
     [
       -20,
       -62
-    ],
-    [
-      -20,
-      -50
-    ],
-    [
-      -20,
-      -48
     ],
     [
       -20,
@@ -918,10 +886,6 @@
     ],
     [
       -18,
-      -60
-    ],
-    [
-      -18,
       -46
     ],
     [
@@ -1007,14 +971,6 @@
     [
       -16,
       -62
-    ],
-    [
-      -16,
-      -58
-    ],
-    [
-      -16,
-      -56
     ],
     [
       -16,
@@ -1374,10 +1330,6 @@
     ],
     [
       -2,
-      -58
-    ],
-    [
-      -2,
       -50
     ],
     [
@@ -1443,14 +1395,6 @@
     [
       0,
       -62
-    ],
-    [
-      0,
-      -56
-    ],
-    [
-      0,
-      -54
     ],
     [
       0,
@@ -1558,14 +1502,6 @@
     ],
     [
       2,
-      -56
-    ],
-    [
-      2,
-      -54
-    ],
-    [
-      2,
       -50
     ],
     [
@@ -1666,14 +1602,6 @@
     ],
     [
       4,
-      -56
-    ],
-    [
-      4,
-      -54
-    ],
-    [
-      4,
       -50
     ],
     [
@@ -1771,10 +1699,6 @@
     [
       6,
       -62
-    ],
-    [
-      6,
-      -52
     ],
     [
       6,
@@ -2943,6 +2867,10 @@
     [
       40,
       -62
+    ],
+    [
+      40,
+      -28
     ],
     [
       40,
@@ -3019,6 +2947,10 @@
     [
       42,
       -62
+    ],
+    [
+      42,
+      -28
     ],
     [
       42,
@@ -3067,6 +2999,26 @@
     [
       44,
       -62
+    ],
+    [
+      44,
+      -38
+    ],
+    [
+      44,
+      -34
+    ],
+    [
+      44,
+      -32
+    ],
+    [
+      44,
+      -30
+    ],
+    [
+      44,
+      -28
     ],
     [
       44,
@@ -3139,6 +3091,26 @@
     [
       46,
       -62
+    ],
+    [
+      46,
+      -38
+    ],
+    [
+      46,
+      -36
+    ],
+    [
+      46,
+      -32
+    ],
+    [
+      46,
+      -30
+    ],
+    [
+      46,
+      -28
     ],
     [
       46,
@@ -3175,6 +3147,30 @@
     [
       48,
       -62
+    ],
+    [
+      48,
+      -48
+    ],
+    [
+      48,
+      -46
+    ],
+    [
+      48,
+      -44
+    ],
+    [
+      48,
+      -42
+    ],
+    [
+      48,
+      -38
+    ],
+    [
+      48,
+      -36
     ],
     [
       48,
@@ -3263,6 +3259,42 @@
     [
       50,
       -62
+    ],
+    [
+      50,
+      -48
+    ],
+    [
+      50,
+      -46
+    ],
+    [
+      50,
+      -44
+    ],
+    [
+      50,
+      -42
+    ],
+    [
+      50,
+      -38
+    ],
+    [
+      50,
+      -34
+    ],
+    [
+      50,
+      -32
+    ],
+    [
+      50,
+      -30
+    ],
+    [
+      50,
+      -28
     ],
     [
       50,
@@ -3295,6 +3327,14 @@
     [
       52,
       -62
+    ],
+    [
+      52,
+      -48
+    ],
+    [
+      52,
+      -46
     ],
     [
       52,
@@ -3331,6 +3371,34 @@
     [
       54,
       -62
+    ],
+    [
+      54,
+      -48
+    ],
+    [
+      54,
+      -46
+    ],
+    [
+      54,
+      -44
+    ],
+    [
+      54,
+      -42
+    ],
+    [
+      54,
+      -40
+    ],
+    [
+      54,
+      -38
+    ],
+    [
+      54,
+      -36
     ],
     [
       54,
@@ -3347,6 +3415,34 @@
     [
       56,
       -62
+    ],
+    [
+      56,
+      -48
+    ],
+    [
+      56,
+      -46
+    ],
+    [
+      56,
+      -44
+    ],
+    [
+      56,
+      -42
+    ],
+    [
+      56,
+      -40
+    ],
+    [
+      56,
+      -38
+    ],
+    [
+      56,
+      -36
     ],
     [
       56,
@@ -3756,19 +3852,19 @@
   "hazards": [
     [
       -40,
-      -46
+      -44
     ],
     [
       -40,
-      -44
-    ],
-    [
-      -38,
-      -46
+      -42
     ],
     [
       -38,
       -44
+    ],
+    [
+      -38,
+      -42
     ],
     [
       -34,
@@ -3781,6 +3877,10 @@
     [
       -32,
       -38
+    ],
+    [
+      -28,
+      -46
     ],
     [
       -28,
@@ -3797,54 +3897,6 @@
     [
       -28,
       -38
-    ],
-    [
-      -14,
-      -58
-    ],
-    [
-      -14,
-      -56
-    ],
-    [
-      -12,
-      -58
-    ],
-    [
-      -12,
-      -56
-    ],
-    [
-      -10,
-      -58
-    ],
-    [
-      -10,
-      -56
-    ],
-    [
-      -8,
-      -58
-    ],
-    [
-      -8,
-      -56
-    ],
-    [
-      -6,
-      -58
-    ],
-    [
-      -6,
-      -56
-    ],
-    [
-      -4,
-      -58
-    ],
-    [
-      -4,
-      -56
     ],
     [
       8,
@@ -3913,6 +3965,14 @@
     [
       44,
       2
+    ],
+    [
+      48,
+      -40
+    ],
+    [
+      50,
+      -40
     ]
   ],
   "things": [
@@ -3921,12 +3981,12 @@
       "state": {
         "id": 562812,
         "xyz": {
-          "0": -39.6968994140625,
+          "0": -39.901397705078125,
           "1": 0,
-          "2": -46.34992980957031
+          "2": -42.65741729736328
         },
         "heading": 0,
-        "code": "// Scret Admin code:\n// Add this to your LIB: admin\n// Add this code to your player:\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}",
+        "code": "// Scret Admin code:",
         "libraryList": "",
         "gemLevel": 0,
         "imageSource": "img/tabletNote.png",
@@ -3940,9 +4000,9 @@
       "state": {
         "id": 562813,
         "xyz": {
-          "0": -27.872356414794922,
+          "0": -28.11960220336914,
           "1": 0,
-          "2": -44.36836242675781
+          "2": -45.6684455871582
         },
         "heading": 0,
         "code": "// Can you add the grab and go code to the\n// wall follower to get that note to the West?",
@@ -3959,12 +4019,12 @@
       "state": {
         "id": 562809,
         "xyz": {
-          "0": -26.751522064208984,
+          "0": -25.489534378051758,
           "1": 0,
-          "2": -36.66718292236328
+          "2": -35.59816360473633
         },
         "heading": 0,
-        "code": "// Maybe that sign over there has some\n// information on it.",
+        "code": "// This code will make your robot go grab something\n// and bring it back.",
         "libraryList": "",
         "gemLevel": 0,
         "imageSource": "img/tabletNote.png",
@@ -3980,34 +4040,15 @@
         "xyz": {
           "0": -18.236251831054688,
           "1": 0,
-          "2": -45.99998092651367
+          "2": -46.0000114440918
         },
         "heading": -1.570796326794897,
         "code": "resetTurn();if (distanceToBeacon() > 10) {  goWest();} else {  goEast();}setTurn();",
-        "libraryList": "turn,things",
-        "gemLevel": 3,
+        "libraryList": "turn\nthings",
+        "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "bumped": true
-        }
-      }
-    },
-    {
-      "typeName": "Tablet",
-      "state": {
-        "id": 578289,
-        "xyz": {
-          "0": -9.439276695251465,
-          "1": 0,
-          "2": -56.89146423339844
-        },
-        "heading": 0,
-        "code": "//////////////////\n// Nicely done! //\n//////////////////",
-        "libraryList": "",
-        "gemLevel": 0,
-        "imageSource": "img/tabletNote.png",
-        "data": {
-          "type": "note"
         }
       }
     },
@@ -4033,12 +4074,12 @@
         "xyz": {
           "0": -18.236251831054688,
           "1": 0,
-          "2": -28.000009536743164
+          "2": -28.0000057220459
         },
-        "heading": -7.853981633974484,
+        "heading": -1.5707963267948963,
         "code": "resetTurn();if (distanceToBeacon() > 10) {  goWest();} else {  goEast();}setTurn();",
-        "libraryList": "turn,things",
-        "gemLevel": 3,
+        "libraryList": "turn\nthings",
+        "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "bumped": true
@@ -4139,34 +4180,13 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 578288,
-        "xyz": {
-          "0": 0.23250339925289154,
-          "1": 0,
-          "2": -54.230403900146484
-        },
-        "heading": -5.248101326242482,
-        "code": "let turn = 0;if (perspective.isLifting) {  turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;} else {  turn = subtractAngles(angleToPlayer() + Math.PI, perspective.currentHeading) /    4;}delta = {  turn: turn,  drive: 1.0};if (distanceToPlayer() < 3) {  delta.drive = 0.0;  drop();} else {  grab();}log(`isLifting: ${perspective.isLifting}`);",
-        "libraryList": "turn, things, util",
-        "gemLevel": 0,
-        "imageSource": "img/Basic Bot.png",
-        "data": {
-          "action": 1,
-          "log": null,
-          "bumped": true
-        }
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
         "id": 547231,
         "xyz": {
-          "0": 26.368724822998047,
+          "0": 18.125675201416016,
           "1": 0,
-          "2": -57.01704406738281
+          "2": -57.33255386352539
         },
-        "heading": -5.147160029696944,
+        "heading": -4.9295887861294725,
         "code": "turn = 0.3;\nif (perspective.closestWallLeft < 3) {\n  turn = 0.3;\n}\nif (perspective.closestWallRight < 3) {\n  turn = -1;\n}\nlog(`Left: ${perspective.closestWallLeft}`);\ndelta = {\n  turn: turn,\n  drive: 1.0\n}",
         "libraryList": "util",
         "gemLevel": 0,
@@ -4271,11 +4291,11 @@
       "state": {
         "id": 453307,
         "xyz": {
-          "0": 29.681182861328125,
+          "0": 24.90576171875,
           "1": 0,
-          "2": -37.161407470703125
+          "2": -32.06726837158203
         },
-        "heading": -0.49702533675448457,
+        "heading": -7.225070901641629,
         "code": "turn = subtractAngles(angleToBeacon(), perspective.currentHeading) / 4;let drive = 1.0;if (distanceToBeacon() > 20) {  drive = 0.0;}delta = {  turn: turn,  drive: drive}",
         "libraryList": "things turn",
         "gemLevel": 2,
@@ -4288,15 +4308,15 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 481,
+        "id": 143479,
         "xyz": {
-          "0": 0.1218133494257927,
+          "0": 1.4715722799301147,
           "1": 0,
-          "2": -14.497413635253906
+          "2": -8.600172996520996
         },
-        "heading": -5.98803789008679,
-        "code": "if (perspective.data.bumped) {  delta.turn = -0.9;  delta.drive = -0.5;} else {  delta.turn = 0.05;  delta.drive = 0.5;}",
-        "libraryList": "turn,things",
+        "heading": 1.8005585872869965,
+        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
+        "libraryList": "things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
         "data": {
@@ -4327,15 +4347,15 @@
     {
       "typeName": "BasicBot",
       "state": {
-        "id": 143479,
+        "id": 481,
         "xyz": {
-          "0": 0.0251039806753397,
+          "0": 3.0774993896484375,
           "1": 0,
-          "2": -4.974921703338623
+          "2": -4.981106281280518
         },
-        "heading": 2.202740563671054,
-        "code": "if (perspective.data.bumped) {  delta.turn = 0.9;  delta.drive = -0.5;} else {  delta.turn = -0.05;  delta.drive = 0.5;}",
-        "libraryList": "things",
+        "heading": -5.195976528045106,
+        "code": "if (perspective.data.bumped) {  delta.turn = -0.9;  delta.drive = -0.5;} else {  delta.turn = 0.05;  delta.drive = 0.5;}",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABeUlEQVRoQ+2Yuw3CMBCGyRyMwgA0lCAhWgpEyyC0iIIWIUFJwwCMkQ7mCDpLhy4X23EsO/IrDY5j5/x/vodD9ambZpLxVQGA2eIxeT+XgzDYzBlkYKTBAsBItoI0IwUw3V7FYr+Xjfjl90EqsVxUBwCKVb0PoVjaC25aAcBzQPYeQGOe+2tq7g/6lFWAe0KK4rUAUs/+6N3lHFAOQnXTnM7HVr7b7w7Sem06Lrhir1lQJwRQJIeg6o9JrGyt0o8hECsDQPuS/hgyARD7zmurQHYAeHIz3V0MiZjnixwg2/E+CHROzPMLAO4BkN3h4n+R8X5fHrBaz//Od7+9RFvW58p+ywNoaetru1oACMR3UaG6EAQwruwHFQIFAHH/LD2Ax7sMAuaFJEMABatCAcXTvMHbfeUbnyPATg7QnfHpM1c7oBLAIVDxXgHAy7HkcZq0NPoGQMOBi/cOwMSNxgCgW4cr+0GVQRPwPIad5YAhxnFsMh9DNuJTmfMDVwAoHxUSNEwAAAAASUVORK5CYII=",
         "data": {
@@ -4357,25 +4377,6 @@
         "code": null,
         "libraryList": null,
         "gemLevel": 12
-      }
-    },
-    {
-      "typeName": "BasicBot",
-      "state": {
-        "id": 95962,
-        "xyz": {
-          "0": 23.774951934814453,
-          "1": 0,
-          "2": -1.8853521347045898
-        },
-        "heading": -1.7916174315495828,
-        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
-        "libraryList": "",
-        "gemLevel": 0,
-        "imageSource": "img/Basic Bot.png",
-        "data": {
-          "bumped": true
-        }
       }
     },
     {
@@ -4403,9 +4404,9 @@
         "xyz": {
           "0": 36.00001907348633,
           "1": 0,
-          "2": -38.23625183105469
+          "2": -47.76374816894531
         },
-        "heading": -6.283185307179587,
+        "heading": -3.141592653589793,
         "code": "resetTurn();\nif (perspective.countBeacons >= 2) {\n  goNorth();\n} else {\n  goSouth();\n}\nsetTurn();",
         "libraryList": "things turn util",
         "gemLevel": 2,
@@ -4414,6 +4415,60 @@
           "log": null,
           "bumped": true
         }
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 578291,
+        "xyz": {
+          "0": 44.23625183105469,
+          "1": 0,
+          "2": -37.99998092651367
+        },
+        "heading": 1.5707963267948983,
+        "code": "resetTurn();\nif (perspective.countBeacons == 0) {\n  goSouth();\n}\nif (perspective.countBeacons == 1) {\n  goNorth();\n}\nif (perspective.countBeacons == 2) {\n  goEast();\n}\nif (perspective.countBeacons == 3) {\n  goWest();\n}\nif (distanceToPlayer() < 3) {\n  drop();\n} else if (!perspective.isLifting) {\n  grab();\n}\nsetTurn();",
+        "libraryList": "turn, things",
+        "gemLevel": 0,
+        "data": {
+          "action": 1,
+          "bumped": true
+        },
+        "imageSource": "img/Basic Bot.png"
+      }
+    },
+    {
+      "typeName": "Beacon",
+      "state": {
+        "id": 578292,
+        "xyz": {
+          "0": 50.705928802490234,
+          "1": 0,
+          "2": -33.11412048339844
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "gemLevel": 12
+      }
+    },
+    {
+      "typeName": "Tablet",
+      "state": {
+        "id": 578293,
+        "xyz": {
+          "0": 55.11082077026367,
+          "1": 0,
+          "2": -34.92219543457031
+        },
+        "heading": 0,
+        "code": "// That was hard, wasn't it?",
+        "libraryList": "",
+        "gemLevel": 0,
+        "data": {
+          "type": "note"
+        },
+        "imageSource": "img/tabletNote.png"
       }
     },
     {
@@ -4461,12 +4516,42 @@
         },
         "heading": -6.283181989091202,
         "code": "resetTurn();\nif (distanceToBeacon() < 7) {\n  goSouth();\n}\nif (distanceToBeacon() > 20) {\n  goNorth();\n}\nsetTurn();",
-        "libraryList": "turn,things",
-        "gemLevel": 3,
+        "libraryList": "turn things",
+        "gemLevel": 0,
         "imageSource": "img/Basic Bot.png",
         "data": {
           "bumped": true
         }
+      }
+    },
+    {
+      "typeName": "Beacon",
+      "state": {
+        "id": 578289,
+        "xyz": {
+          "0": 50.92624282836914,
+          "1": 0,
+          "2": -29.261505126953125
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "gemLevel": 12
+      }
+    },
+    {
+      "typeName": "Beacon",
+      "state": {
+        "id": 578290,
+        "xyz": {
+          "0": 50.870418548583984,
+          "1": 0,
+          "2": -31.641921997070312
+        },
+        "heading": 0,
+        "code": null,
+        "libraryList": null,
+        "gemLevel": 12
       }
     },
     {
@@ -4493,7 +4578,7 @@
           "1": 0,
           "2": 15.871186256408691
         },
-        "heading": 2.9078711706469242,
+        "heading": 2.316835086103456,
         "code": "resetTurn();\nif (isLifting()) {\n  if (distanceToBeacon() < 13) {\n    goEast();\n    setTurn();\n  } else {\n    drop();\n  }\n} else {\n  if (distanceToBeacon() > 7) {\n    goWest();\n    setTurn();\n  } else {\n    delta.turn = 1.0;\n    delta.drive = 0.2;\n    grab();\n  }\n}",
         "libraryList": "things turn util",
         "gemLevel": 6,
@@ -4558,9 +4643,9 @@
       "state": {
         "id": 437574,
         "xyz": {
-          "0": 44.51124572753906,
+          "0": 44.32808303833008,
           "1": 0,
-          "2": 11.292998313903809
+          "2": 13.137899398803711
         },
         "heading": 0,
         "code": "// Do you want your robot to follow you?\n// Try this out.\nlet turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;\nif (distanceToPlayer() < 3) {\n  drive = 0;\n} else {\n  drive = 1.0;\n}\ndelta = {\n  turn: turn,\n  drive: drive\n}",
@@ -4581,13 +4666,32 @@
           "1": 0,
           "2": 15.208967208862305
         },
-        "heading": 8.881784197001252e-16,
+        "heading": -6.283185307179583,
         "code": "let turn = 1.0;\nif (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {\n  turn = -1.0;\n}\nconst drive = Math.abs(subtractAngles(angleToPlayer(), perspective\n  .currentHeading)) / 4;\ndelta = {\n  turn: turn,\n  drive: drive\n}",
-        "libraryList": "turn,things",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAABZ0lEQVRoQ+1ZMRaCMAwtDgxMLk4MDHIFBy4iZ9SLeBImFycGBvVVKa8W0iT0qUHrIpLf9uf3J+VJopS6qYDPOstYozd5PuDPTTNcX9r2cY3NN4WD5qQQS6QIoMliIkDxRQmA7QqUJCYONi8U/6gD7J0yhOwyMPfcZH3JU+dclAB2ORjiUG/4WQEoPUFjvi7AtijI5bdK0xH22nXk8VPA0DmDe8DfC4Cd2+6uYUfWnFMAm9NnsWAHcAXwkcGOOiw+p5bECEBNjoqjiiFCAG5SXPxbS2BXllSxReKCHRAFiA748xIQWdgMUsE9gLGWSGgUIPQfIZHbyiAVHWAccKjGstWn5z1fjCG2SOjgAJ3kvk9YMz1WStkCQDGRWTFIjQWo9ZYDAkzEGGuJhEYHxB7QvxnSPUDXvPttmiAUE+lrBqmXEjBNz07avZ76zVhPHBQUwMfUuERcNjMIxQeh+Cgc+Hp8hutEDbkDmBjEH5lYgnQAAAAASUVORK5CYII=",
         "data": {
           "bumped": false
+        }
+      }
+    },
+    {
+      "typeName": "BasicBot",
+      "state": {
+        "id": 95962,
+        "xyz": {
+          "0": 43.745384216308594,
+          "1": 0,
+          "2": 11.32945728302002
+        },
+        "heading": -0.2553729089657173,
+        "code": "delta = {\n  turn: 0.01,\n  drive: 1.0\n}",
+        "libraryList": "",
+        "gemLevel": 0,
+        "imageSource": "img/Basic Bot.png",
+        "data": {
+          "bumped": true
         }
       }
     },
@@ -4600,9 +4704,9 @@
           "1": 0,
           "2": 14.647730827331543
         },
-        "heading": 8.881784197001252e-16,
+        "heading": -6.283185307179583,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
-        "libraryList": "turn,things",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACDElEQVRoQ+1ZPU/DMBB1WUAVWzbYKvUvsFXipyN14y9U6gZbNlTBAshWLjq/3vnsJlUqJ1lapXfxved3H3FXbdv+uQFX0zQDvKd3XXkCtg+P7vD9VRQN+VRBQBFyMF4IqCEFFgUQA5u1zcXxFNlUlQL753e3u38NAPc/b+J3N3sCPDuMhPkpYPYE1JwCbu5F0G4B5xZV1ABf/fm1+3gRuZDsqiCAoyWQSIJ2vwoC8GUozAOgArxX9ctQDgGkmioUgAlfQsAlhfOWfMJ5ABa33AApTXw6XHLRGcSU/oMPRDzwIQcqU/uPS4AfpGBS7JXBh6zjKSKtJxD9yYc/s7PhpEf+fFTXBju2/jkB2qKEpAtGDMDbSIvmAuD+3ofHAnGpBGgbADlK/jEBfAeM70kCBMABDIHSFIAE8KBLCEiN9LCB46YAAeAAlbRQCWSgqThKB7amAqR12T1ZAQWl3AKAhRHBWP5WKGYNEGpFr0JWuEdVgBQUB66BpvvYDrU26e/nEqh1qKsoAIFwAKmgJbWg7FM2SAaqJ1oblCF3gVQrs7oAri7kHfZ+bINSW1NtmJyzaoZJgNbK4CgsmYOdbcmuhR2H4MT0ScwBEQGJrsM3YNQaoLa61PDCJ0mpcHWKylEAAfOffQpt1m77eReecnj67Qe1q9QAq3Lz33OLmPbMsfyXl6Ghf4+X7Pot2v4Dzlnqj2KAi4cAAAAASUVORK5CYII=",
         "data": {
@@ -4621,7 +4725,7 @@
         },
         "heading": -6.283185307179583,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
-        "libraryList": "turn,things",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACXElEQVRoQ+2ZsUoDQRCGNyhoaZEusRT0BbTxDQSbgLEXBN8hIEIewC6VvRFs7OxtrC0UUmpAJA+gYFDmvL3szc3e/ne3G2PMNQmbmbmZb/+d3bvUjvfWvpRwPT5/qq31Zemn1Nh5c8NpQwb794eJ3c3OpWr0Bym/YRuLY/ppHx4bSig2qtkA0O8IhLIAKD4VM7yKC792p22DFgyAOyWlqgAwITQOBipPBSYsbhsMgE8F2GDyWUWgo8sFiRUtgZfRWDXrS4h9xgZRwMpZN+P3cdqJxlLLAMzAVEBebCRcbg9AAvgEQIXpS/cG25hWgRcAiNRtMHwDoMKjGY6bo/5ujimjYXoBoIvjICQwfMwnAERxvAEGBYCcDxAAFMdMVK9/cSts/dw1M+OteEw4L9hiI0BTPcClAEkRKIC8ZHgjlNZ9AgU8MCHFk02hJhgKgFYCfSYHI6MCDcTn9qfDT+0kiM6IdC4IUTgEAEn64W0bMZtZm8oKmGsAyLQtAMzDErCdBHsX/ZQITo7a0CMyopxZsYl6AAfACzeTnUUIVY7ymSaYVzyBIAAhL6QY14GtSH4JgPfObhG/xHa1e1fKz+ZUFABin5dgBMA161KAUEpACjJtEPsgAMpOuwsc8gRatWgz99r49Tb1Vri+OVnjo6fJLmAbLwriTwCgwqlgDkAaLwpA29tA/LoCyhZUxk+C8K8ASNvqAoDwj5TPfZ8rNdMEyYBeWfHXTNK7tzKy5z58GSAK8HFfHcMKgN9kWgCk4nxue5ACfBJGYpXZGpG4iI2oAMTRp80CQOAHrLzJ+gYllMTIfPpGLwAAAABJRU5ErkJggg==",
         "data": {
@@ -4640,7 +4744,7 @@
         },
         "heading": -6.283185307179583,
         "code": "let turn = 1.0;if (subtractAngles(angleToPlayer(), perspective.currentHeading) < 0) {  turn = -1.0;}const drive = Math.abs(subtractAngles(angleToPlayer(), perspective  .currentHeading)) / 4;delta = {  turn: turn,  drive: drive}",
-        "libraryList": "turn,things",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACAklEQVRoQ+2YvXHDMAyFqQyVKgukT5E17EHsNVKkzwKpPFSUg+VngRAAQrZ1cSCr0lGECHwEHn+6rrz15YqnL59XWP+9aUcA9v172XQfs7yBTQoAsyIXnR8AMpTAIwNOBKiuW4/UilQlsO93pZTDicGz+r56AESHQ1hdBqweQPISWLkItlYA7XsKDfj5eqlie3r9Vllo/VIA4NEiSAnBak8BQB6GKFgNAG9LfRiKAEDWpMgAWfBzAFwinPdkc7wPkOIWdRAl8Z/tzwAs5bdg8CzRMqYF8V7sbwrAu1niJ03aTWoApD1s+O4TfSx7vlW3Trd8/AmA6DJozaA2aDQAcp4Hbb1TvwhALwthXwGwgtLaPQBawJg5bwYlAB6AzAYPgHevAd9UAK26lRsmLoJ4HwPdlU23Pc6oduEa0YDhfoKO39uJa60M0MblbYsBgKfkPHdcBhMBEElhXg6yZAg892NxAPVgyIBxFvl3fQaHvngAEPB4exSgnAj8Y5EMwGBytnk7gvIC0JyWbbYG1RBRQqMPQ0maALw1PSKSMm21rGipOHcWy5oVQF0CtmaEAeCHWv3xzZK3DkunNV3wVdwuH38fMC03KcoLl8CQXtZK0NYA2NcCOiyP9arSKoFRP+iWi2646TmcV6RFNOAWy2j0H1ERtP43ARAdmPdLcxi6JPgsNr8mbtpvB9xXagAAAABJRU5ErkJggg==",
         "data": {
@@ -4659,7 +4763,7 @@
         },
         "heading": -8.881784197001252e-16,
         "code": "// Do you want your robot to follow you?\n// Try this out.\nlet turn = subtractAngles(angleToPlayer(), perspective.currentHeading) / 4;\nif (distanceToPlayer() < 5) {\n  drive = 0;\n} else {\n  drive = 1.0;\n}\ndelta = {\n  turn: turn,\n  drive: drive\n}",
-        "libraryList": "turn,things",
+        "libraryList": "turn things",
         "gemLevel": 0,
         "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACAklEQVRoQ+2ZMUvEMBTHU85NEIdDFPQD+AHkFle9QRxFd0VwdvcbuLgIorOKg8NxQ71RNzcXP4CCRQ4U9TaLxztISXMvyUsvaaVtx+b1Je+X/z9N2mB/Y/aPIdfzyy9bXprCmpJ7EHP/9KONsW2MoxB9pDHftk1Fig9UAOBpE4QaQJUVALMPl2sLQE7ZBjr5Y5axscvIAq/9mC02G2OeMVkAHjjrfpK8hhUG91SD5YWZinECQFVBkQCoVJ0AoBSqGpAvBeQKgHcmg8DAyPdKDYCyP7ABIK8DJn9nUYFtztQ+wKQATBG2AKhF5RWn3QjJg6gcAMriWCkFYLLsdPfyUquXfiY6C8CISg2AgrwGUAYLYIvd6cX1mAAOdreNR2SKalzFHJ18oKl6rYjcxWgNkAFgxfOM/wmCMwAiLl3xEAcAfF6YGuXTKo9xDsBUvKgCXxAoew/nAKiFi0X7UkINAPkYqzqjyBZYmL6zFmYQR2HyVXh18zhJ8NA5TCWT2/JUQK4Abq5CtrXTZhgArM01CMo3CIi5vP1OTVCW2YcEKQW8DdaTpHJCVVtRAOCfhWgBJwCsDeThtUhVAP9pk2UBF+tMKcAWgOvZh/4LA/DVa7KZtT6JAY8tCoDNxs1UEKqA9xX8jD/3eJ7k81G8arC6vUFhFqgBeD4TiGqovAJ0Pp7UAkM9wrIQ7QRoGgAAAABJRU5ErkJggg==",
         "data": {
@@ -4673,18 +4777,18 @@
     "profx": {
       "id": 1,
       "xyz": {
-        "0": 13.859560012817383,
+        "0": 50.04313659667969,
         "1": 0,
-        "2": -62.27771759033203
+        "2": -37.72746276855469
       },
-      "heading": -6.267006587696706,
+      "heading": -2.60450658769677,
       "code": "let keys = perspective.keysDown;\nif (keys.has('ArrowRight')) {\n  delta.turn = 1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowLeft')) {\n  delta.turn = -1.0;\n  delta.drive = 0.3;\n}\nif (keys.has('ArrowUp')) {\n  delta.drive = 1.0;\n  delta.turn /= 4;\n}\nif (keys.has('ArrowDown')) {\n  delta.drive = -1.0;\n  delta.turn /= 4;\n}\nif (keys.has('KeyT')) {\n  admin(\"setTile\");\n}\nif (keys.has('KeyR')) {\n  admin(\"setRobot\");\n}\nif (keys.has('KeyX')) {\n  admin(\"clear\");\n}\nif (keys.has('KeyB')) {\n  admin(\"setBeacon\");\n}\nif (keys.has('KeyN')) {\n  admin(\"setNote\");\n}\nif (keys.has('KeyA')) {\n  admin(\"setApi\");\n}\nif (keys.has('KeyL')) {\n  admin(\"setLib\");\n}\nif (keys.has('KeyG')) {\n  admin(\"setGopher\");\n}\nif (keys.has('KeyO')) {\n  admin(\"setOcean\");\n}\nif (keys.has('KeyH')) {\n  admin(\"setHazard\");\n}\nif (keys.has('Digit8')) {\n  admin(\"setGem\");\n}\nif (keys.has('Space')) {\n  delta.state = {\n    action: 1\n  };\n}\nif (keys.has('KeyF')) {\n  admin(\"setFlower\");\n}\nif (keys.has('KeyQ')) {\n  grab();\n}",
       "libraryList": "turn admin things",
       "gemLevel": 99,
       "imageSource": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAYAAACinX6EAAACPUlEQVRoQ+2ZP0pDQRDGN2irKFjqAaxS2+gBrIOCWAkRD2Aj1oLkAKJgKSipPUBsrFN5AA+gBxAi+3Cek8nMZGc3+9hoXvXy/syb+c33zb4krcFwNHI/28PFOuy6t/cvt721XH+GnaOrj7Fje+3WxDXzdKAlAfBFcBAWAP6qArD8QcKSDfx5UILVAoNh7ThnvVeyVkrMygLX3VW3ubE0Ef/fAOC6L80AOgytXUzpVooC+v2+63Q6EyEqBVwer7ATX5vmTVtAKsDnGAJVBQAKoJLnLADHJABaov4c3biucOC5uLhwuEdSZBQALpGmAOCEARyFRQFodqTxIFZlgVAFYEXkVoCUMG4KAAiZQyKA7v7a77o05RXOAoDrmsUCVLKatUIsE6QAGihmGYQHSQljCFTSWtetQLTr8bn6VVhaCqetBCA/Wri1Y/45HAAJKBdfAqjBUAFoCgAwd8+f1a4GIBRGTgA+R1DczBTgg5YCgM4cswV8MTE2KAkAnilRAEDWMSDwrKBfmUv+fWDs9wCcKEDAxVjAzAsEEYDUNQsE/LW5VBWYAVhnRelKiAKQE8Lu6Y57uX1tTDDFAfCVNwkhGkCoCubKAoftc/c47Inyo+elgXhz/+TOTg6qOLEAvAr8ltsOogKgWA2KBwAFSjBiATRlhSQLUKlwEFIAAIScSigeQG4IIgCrB3NYACvMmk/oOsoCgIdBEG0QTXszTLUAhTDroZhsAa3zeEiGdqTp6xYA8L/DMfRzez8mJ8s93/iday8W3oKvAAAAAElFTkSuQmCC",
       "data": {
         "adminAction": null,
-        "bumped": true
+        "bumped": false
       }
     },
     "_prototype": {
